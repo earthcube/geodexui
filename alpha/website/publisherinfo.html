@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Samples dot Earth</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/simple-grid.css">
+  <link rel="stylesheet" href="css/zc-grid.css">
+
+  <script> function myFunction() {
+      var search = document.getElementById("searchtext").value;
+      var str = '/newsite/search.html?q=' + search;
+      alert(str);
+      window.location.assign(str);
+    } 
+  </script>
+
+  <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
+
+
+</head>
+
+<body>
+  <div class="jumbotron" style="background-image: linear-gradient(#7391ff, #625354);">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 center">
+          <img src="./img/earth.svg">
+          <h3 style="margin:5px;color:white">Samples <i style="margin:5px;color:white">dot</i> Earth</h3>
+          <h3 style="margin:5px;color:white" class="font-light">connecting data to the physical world</h3>
+          <!-- 
+          <div class="img img-logo center"></div>
+          <h1>Simple Grid is a CSS grid for your website.</h1>
+          <h2 class="font-light">Responsive, light, simple.</h2>
+          <a href="simple-grid.zip" download>
+            <button>Download</button>
+          </a>
+            -->
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="col-12 center">
+          <p>
+            <a style="margin:5px;color:white "href="/index.html">home</a>
+            <a style="margin:5px;color:white "href="/search.html">search</a>
+            <a style="margin:5px;color:white "href="/about.html">about</a>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-content">
+    <div style="padding-top:0px;top:0px" class="container">
+
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+        <div class="col-8">
+          <h3 class="center m-bottom">Publishing</h3>
+
+          <p>
+            This is an un-vetted overview of some of the actions a publisher may need to do to be part of the IGSN2040
+            sprint. Some of these items will be required, others will not be.
+          </p>
+          <p>
+            The sprint will be a test of the flow of information through a new proposed architecture. It will provide an
+            opportunity for providers and indexers to find issues and points that need clarification. For reference
+            providers
+            can reference the <a target="_blank" href="https://github.com/ESIPFed/science-on-schema.org//">
+              ESIP Science on Schema</a> recommendations for schema.org type Dataset as an idea of the type of
+            guidance that could be developed for the samples community.
+          </p>
+
+        </div>
+        <div class="col-2 hidden-sm"></div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-4 hidden-sm"></div>
+        <div class="col-4">
+          <div class="line"></div>
+        </div>
+        <div class="col-4 hidden-sm"></div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+        <div class="col-8">
+          <h3 class="center m-bottom">JSON schema</h3>
+          <p>
+            As JSON-LD is JSON it is possible to provide a JSON schema for this work. This may
+            be useful for group who leverage these in their publishing workflow. This aspect of the
+            sprint is still in development.
+          </p>
+
+        </div>
+        <div class="col-2 hidden-sm"></div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <pre>
+            <code>
+             In development
+          </code>
+          </pre>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-4 hidden-sm"></div>
+        <div class="col-4">
+          <div class="line"></div>
+        </div>
+        <div class="col-4 hidden-sm"></div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+        <div class="col-8">
+          <h3 class="center m-bottom">shape files</h3>
+          <p>
+            The sprint will use the <a target="_blank" href="https://www.w3.org/TR/shacl/">W3C SHACL</a> recommendation
+            to
+            explore validation of provider data graphs. This validation will help ensure data graph structure is
+            compatible
+            with down stream applications.
+          </p>
+          <p>
+            A humors SHACL shape was made to look for samples that are spatially located in the tropics and western
+            hemisphere. Though humours, it does demonstrate validating a sample data graph that has location constraints
+            expexted on it.
+            You can see this shape graph below or at: <a target="_blank"
+              href="https://gist.github.com/fils/77d40a917a7af8020693678be30e87dd">
+              https://gist.github.com/fils/77d40a917a7af8020693678be30e87dd</a>
+          </p>
+          <p>
+            The goal here is explore approaches to validation and also how to build reports based on validation output.
+          </p>
+
+        </div>
+        <div class="col-2 hidden-sm"></div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <pre>
+            <code>
+              @prefix dash: &lt;http://datashapes.org/dash#&gt; .
+              @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+              @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+              @prefix schema: &lt;http://schema.org/&gt; .
+              @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+              @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+              
+              schema:TropicalShape
+                  a sh:NodeShape ;
+                  sh:targetClass &lt;http://schema.org/GeoCoordinates&gt; ;
+                  sh:property [
+                      sh:path schema:latitude ;
+                      sh:or ( [ sh:datatype xsd:string ] [ sh:datatype xsd:integer ] ) ;
+                      sh:minInclusive -23.5 ;
+                      sh:maxInclusive 23.5 ;
+                  ] ;
+              
+                  sh:property [
+                      sh:path schema:longitude ;
+                      sh:or ( [ sh:datatype xsd:string ] [ sh:datatype xsd:integer ] ) ;
+                      sh:minInclusive 0 ;
+                      sh:maxInclusive 180 ;
+                  ] .
+              
+
+  </code>
+          </pre>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+        <div class="col-8">
+          <h3 class="center m-bottom">Example indexing</h3>
+          <p>
+            This test site has been used to test indexing by Gleaner already. A simple screencast of
+            this will be posted here for reference. This will review the use of the index and also
+            discuss SHACL validation pipeline.
+          </p>
+
+        </div>
+        <div class="col-2 hidden-sm"></div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p></p>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+  <footer style="padding-bottom:5px;background-image: linear-gradient(#7391ff, #625354);">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h6 style="color:white">IGSN e.V. work on this site is supported by the Alfred P. Sloan Foundation </h6>
+          <h6 style="color:grey">Simple Grid by <a style="color:grey" href="http://zcole.me" target="_blank">Zach
+              Cole</a>
+            Open source under the <a style="color:grey" href="https://opensource.org/licenses/MIT" target="_blank">MIT
+              License</a>
+          </h6>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
