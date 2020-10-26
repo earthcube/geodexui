@@ -28,9 +28,12 @@ import './jsonld.min.js';
 
                 const detailsTemplate = [];
 
-                // caution..  no null traps here.   
-                // need something like if (jp[X] == undefined)
-                for (const item of jp.data) {
+                const data = jp.data;
+                detailsTemplate.push(html`<h4>There are ${data.length} ThroughPut annotations.  View them at X.. </h4>`);
+
+                // caution!!  no null traps here.   
+                // need something like if (item[X] == undefined)
+                for (const item of data) {
                     detailsTemplate.push(html`<div style="margin-top:5px;text-align:left;margin: 0 auto;">`);
                     detailsTemplate.push(html`<p style="text-align:left"><b>${item.author}:</b>${item.annotation}</p>`);
                     detailsTemplate.push(html`</div>`);
