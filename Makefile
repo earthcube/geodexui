@@ -8,4 +8,7 @@ sync-alpha:
 		 rclone sync -P ./alpha/website geodex:sites/alpha/website
 		 rclone sync -P ./alpha/assets geodex:sites/alpha/assets
 
+sync-gleaner:
+		 rclone copy -P ./gleaner/website geodex:/gleaner/website
+		 rclone copy -P ./gleaner/assets geodex:/gleaner/assets
 

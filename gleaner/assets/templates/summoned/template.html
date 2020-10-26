@@ -1,0 +1,45 @@
+{{define "T"}}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Open Core Data</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/simple-grid.css">
+  <link rel="stylesheet" href="/css/zc-grid.css">
+
+  <script type="module" src="/js/components/csdco-do.js"></script>
+  <!-- <script type="module" src="/js/components/fcore-sdo.js"></script> -->
+
+
+  <script type="application/ld+json">
+      {{.JSONLD}}
+  </script>
+
+	  
+
+</head>
+<body>
+    
+  <div class="body-content">
+    <div style="padding:0px;top:0px" class="container">
+      <div class="row">
+        <div class="col-12">
+
+            <!-- <div id="map"></div> -->
+            <!-- <div id="container1"></div> -->
+			      <div id="container2">
+              <csdco-do></csdco-do>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
+{{ end }}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>GeoDex</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/simple-grid.css">
+  <link rel="stylesheet" href="css/zc-grid.css">
+
+
+  <script type="module" src="/js/components/obj-exchange.js"></script>
+
+</head>
+
+<body>
+  <div class="jumbotron" style="background-image: linear-gradient(#7391ff, #625354);">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 center">
+          <img src="./img/location2.svg">
+          <h3 style="margin:5px;color:white">geodex</h3>
+          <h3 style="margin:5px;color:white" class="font-light">a schema.org/Dataset search</h3>
+          <!-- 
+          <div class="img img-logo center"></div>
+          <h1>Simple Grid is a CSS grid for your website.</h1>
+          <h2 class="font-light">Responsive, light, simple.</h2>
+          <a href="simple-grid.zip" download>
+            <button>Download</button>
+          </a>
+            -->
+        </div>
+        <div class="col-12 center">
+          <form action="https://geodex.org/search.html" method="GET">
+            <img src="./img/search.svg" style="height:25px">
+            <input style="font-size:120%" type="search" id="q" name="q" aria-label="Search for samples">
+            <button id="update">Search</button>
+          </form>
+          <!--   <div class="img img-website-mock"></div>  -->
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+  <div class="body-content">
+    <div style="padding-top:0px;top:0px" class="container">
+
+      <div class="row">
+        <div class="col-2 hidden-sm"></div>
+        <div class="col-8">
+          <h3 class="center m-bottom">Index Object</h3>
+          <p>
+
+            <obj-exchange></obj-exchange>
+
+          </p>
+
+
+        </div>
+        <div class="col-2 hidden-sm"></div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6 center">
+          <!-- <div class="img img-responsive center"></div> -->
+          <img src="./img/throughput.svg" style="height:75px">
+          <h3>Throughput</h3>
+          <p>
+            
+            Load the ThroughPut component here...
+
+          </p>
+        </div>
+        
+        <div class="col-6 center">
+          <img src="./img/aggregate.svg" style="height:75px">
+          <!-- <div class="img img-simple center"></div> -->
+          <h3>Compatible tools</h3>
+          <p>
+            Web component to query graph for associated tools for this dataset and data type. 
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 center">
+          <!-- <div class="img img-responsive center"></div> -->
+          <img src="./img/network.svg" style="height:75px">
+          <h3>Prov</h3>
+          <p>
+            
+            Load the index recording prov web component here...
+
+          </p>
+        </div>
+   
+      </div>
+
+
+
+
+    </div>
+  </div>
+  <footer style="padding-bottom:5px;background-image: linear-gradient(#7391ff, #625354);">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h6 style="color:white">Work on this site is supported by NSF EarthCube</h6>
+          <h6 style="color:grey">Simple Grid by <a style="color:grey" href="http://zcole.me" target="_blank">Zach
+              Cole</a>
+            Open source under the <a style="color:grey" href="https://opensource.org/licenses/MIT" target="_blank">MIT
+              License</a>
+          </h6>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
