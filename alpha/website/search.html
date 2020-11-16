@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
+
+        <title>EarthCube Search</title>
+
+        <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+        <link rel="stylesheet" href="./css/main.css"/>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+                crossorigin="anonymous"></script>
+        <script type="module" src="js/geocodesui.js"></script>
+    </head>
+
+</head>
+<body>
+<div class="container-fluid ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="https://www.earthcube.org/">
+            <img src="https://www.earthcube.org/sites/default/files/earthcubeicon.png" width="30" height="30"
+                 class="d-inline-block align-top" alt="" loading="lazy">
+            EarthCube
+        </a>
+        <!-- -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="input-group form-inline  w-50 ">
+            <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <a href="#" class="btn btn-default" id="searchBtn">
+                    <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
+                </a>
+            </div>
+            <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
+        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Help</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="row col-12"> <!-- filters -->
+        <div class="row col-4 align-items-start" >
+            <div id="filters" class="row">
+                <span class="row col-12"> Filters</span>
+                <div class="row col-12">
+                    <div class="accordion  col-12" id="accordionST">
+                        <div class="card">
+                            <div class="card-header" id="headingST">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseST" aria-expanded="true" aria-controls="collapseST">
+                                        Search Type
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseST" class="collapse show" aria-labelledby="headingOne"
+                                 data-parent="#accordionST">
+                                <div class="card-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion  col-12" id="accordionSD">
+                        <div class="card">
+                            <div class="card-header" id="headingSD">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseSD" aria-expanded="true" aria-controls="collapseSD">
+                                        Science Domain
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseSD" class="collapse show" aria-labelledby="headingSD"
+                                 data-parent="#accordionSD">
+                                <div class="card-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion  col-12" id="accordionPub">
+                        <div class="card">
+                            <div class="card-header" id="headingPub">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapsePub" aria-expanded="true" aria-controls="collapsePub">
+                                        Publisher
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapsePub" class="collapse show" aria-labelledby="headingPub"
+                                 data-parent="#accordionPub">
+                                <div class="card-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion  col-12" id="accordionPlace">
+                        <div class="card">
+                            <div class="card-header" id="headingPlace">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapsePlace" aria-expanded="true"
+                                            aria-controls="collapsePlace">
+                                        Place
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapsePlace" class="collapse show" aria-labelledby="headingPlace"
+                                 data-parent="#accordionPlace">
+                                <div class="card-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion  col-12" id="accordionTime">
+                        <div class="card">
+                            <div class="card-header" id="headingTime">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseTime" aria-expanded="true"
+                                            aria-controls="collapseTime">
+                                        Time
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseTime" class="collapse show" aria-labelledby="headingTime"
+                                 data-parent="#accordionTime">
+                                <div class="card-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+            <div class="row col-7 " id="resultsContainer"> <!-- results -->
+                <div id="resultsHeader" class="row">
+                    <nav aria-label="Page navigation ">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                    <span>buttons</span>
+
+                </div>
+                <div id="resultsRecords" class="row">
+                    <!-- <div class="card">
+                         <div class="card-body">
+                             <a class="card-title ">Transect data of coral species and other substrate types
+                                 collected in the field using line transects in Palau and Yap in 2017 and in the
+                                 Federated States of Micronesia in 2018</a>
+                             <div class="card-text">As part of the reef-composition survey of Palau (7°30' N, 134°30'
+                                 E) and Yap (9°32' N, 138°7' E), 10-meter long, 2 to 5-meter depth transects were
+                                 conducted. Coral species along the transect were recorded along with substrate types
+                                 and other organisms present. Surveys in Palau were conducted from June 2nd to June
+                                 24th, 2017, and from June 25th to July 6th, 2017 in Yap. In Pohnpei (6.2°N, 158.2°E)
+                                 and Kosrae (5.3°N, 162.9°E) FSM, six 10-meter transects were used to measure the
+                                 benthic composition for every centimeter, at each site of 48 sites. Corals were
+                                 recorded to species level, except massive Porites and encrusting Montipora, which
+                                 were recorded in the field as growth forms. All other organisms along each transect
+                                 were identified to the highest possible taxonomic resolution.
+                             </div>
+                             <a class="card-link btn btn-primary">Data</a>
+                             <a class="card-link btn btn-secondary dropdown-toggle" href="#" role="button"
+                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                 File
+                             </a>
+                             <div class="dropdown" aria-labelledby="dropdownMenuLink">
+                                 <div class="dropdown-menu">
+                                     <a class="dropdown-item btn btn-primary"><img src="./images/icons/download.svg"
+                                                                                   alt="" title="Download"/>File</a>
+                                 </div>
+                             </div>
+                         </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

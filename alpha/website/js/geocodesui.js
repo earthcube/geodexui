@@ -2,7 +2,7 @@
 import {
 	html,
 	render
-} from '/js/lit-html.js';
+} from './lit-html.js';
 
 // event listeners
 document.querySelector('#q').addEventListener('keyup', function (e) {
@@ -12,7 +12,7 @@ document.querySelector('#q').addEventListener('keyup', function (e) {
 	}
 });
 
-document.querySelector('#update').addEventListener('click', searchActions);
+document.querySelector('#searchBtn').addEventListener('click', searchActions);
 
 document.addEventListener('readystatechange', () => {
 	console.log("Document Add event listener");
@@ -24,6 +24,13 @@ window.onpopstate = event => {
 	console.log("Window On pop state event");
 	stateChangeSearch();
 };
+// $('.dropdown').on('show.bs.dropdown', function() {
+// 	$('body').append($('.dropdown').css({
+// 		position: 'absolute',
+// 		left: $('.dropdown').offset().left,
+// 		top: $('.dropdown').offset().top
+// 	}).detach());
+// });
 
 function stateChangeSearch() {
 	console.log("State Change Search Called");
@@ -61,7 +68,7 @@ function stateChangeSearch() {
 	}
 	updateURL(q, n, o, false);
 
-	const navel = document.querySelector('#container1');
+	const navel = document.querySelector('#resultsHeader');
 	render(navstatus(q, n, o), navel);
 }
 
@@ -84,7 +91,7 @@ function searchActions() {
 	}
 	updateURL(q, n, o, true);
 
-	const navel = document.querySelector('#container1');
+	const navel = document.querySelector('#resultsHeader');
 	render(navstatus(q, n, o), navel);
 }
 
@@ -106,7 +113,7 @@ function updateURL(q, n, o, push) {
 		o: o
 	}
 	if (push) {
-		window.history.pushState(state, 'GeoDex Search', location.pathname + '?' + params);
+		window.history.pushState(state, 'Geocdes Search', location.pathname + '?' + params);
 	}
 
 }
@@ -130,20 +137,30 @@ function navstatus(q, n, o) {
 	console.log(oprev);
 
 	// step up and step down o
-	itemTemplates.push(html`<a href="/search.html?q=${q}&n=${n}&o=0"><img style="height:35px" src="/img/rewind.svg">   </a>`);
+	itemTemplates.push(html`<li class="page-item"><a class="page-link" href="./search.html?q=${q}&n=${n}&o=0"><img style="height:35px" src="./images/icons/skip-start.svg">   </a></li>`);
 
 	if (oprev >= ni) {
-		itemTemplates.push(html`<a href="/search.html?q=${q}&n=${n}&o=${oprev}"> <img style="height:35px" src="/img/back.svg"> </a>`);
+		itemTemplates.push(html`<li class="page-item"><a  class="page-link" href="./search.html?q=${q}&n=${n}&o=${oprev}"> <img style="height:35px" src="./images/icons/skip-backward.svg"> </a></li>`);
 	}
 
-	itemTemplates.push(html`<a href="/search.html?q=${q}&n=${n}&o=${onext}"> <img style="height:35px" src="/img/forward.svg"> </a>`);
+	itemTemplates.push(html`<li class="page-item"><a class="page-link" href="./search.html?q=${q}&n=${n}&o=${onext}"> <img style="height:35px" src="./images/icons/skip-forward.svg"> </a></li>`);
 
 	return html`
-	<div style="margin-top:5px">
+	<nav style="margin-top:5px">
+	   <ul class="pagination">
 	   ${itemTemplates}
-    </div>
+	   </ul>
+    </nav>
 	`;
-
+//<nav aria-label="Page navigation ">
+//                     <ul class="pagination">
+//                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+//                         <li class="page-item"><a class="page-link" href="#">1</a></li>
+//                         <li class="page-item"><a class="page-link" href="#">2</a></li>
+//                         <li class="page-item"><a class="page-link" href="#">3</a></li>
+//                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
+//                     </ul>
+//                 </nav>
 }
 
 // Conduct the SPARQL call and call the lithtml functions to render results
@@ -160,8 +177,9 @@ function blazefulltext(q, n, o) {
 
 			params = {
 				query: ` prefix schema: <http://schema.org/> \
-SELECT ?subj ?disurl ?score  ?name ?description \
- WHERE { \
+SELECT ?total ?subj ?disurl ?score  ?name ?description \
+ WHERE {\
+  { \
    ?lit bds:search \"${q}\" . \
    ?lit bds:matchAllTerms "false" . \
    ?lit bds:relevance ?score . \
@@ -177,6 +195,19 @@ SELECT ?subj ?disurl ?score  ?name ?description \
    ?s schema:name ?name . \
    ?s schema:description ?description .  \
  } \
+ { SELECT  (COUNT(?s) AS ?total) \
+      WHERE { \
+         SERVICE <http://www.bigdata.com/rdf/search#search> { \
+              ?matchedValue \
+                        bds:search        \"${q}\" ; \
+                        bds:relevance     ?score ; \
+                        bds:rank          ?rank . \
+          } \
+          ?s        ?matchedProperty  ?matchedValue \
+          FILTER ( ! isBlank(?s) ) \
+        } \
+} \
+ }\
 ORDER BY DESC(?score)
 LIMIT ${n}
 OFFSET ${o}
@@ -201,8 +232,8 @@ OFFSET ${o}
 		const content = await rawResponse.json();
 		//console.log(content);
 
-		const el = document.querySelector('#container2');
-		const s1 = document.querySelector('#side1');
+		const el = document.querySelector('#resultsRecords');
+		const s1 = document.querySelector('#filters');
 		render(showresults(content), el);
 		// render(projresults(content), s1);
 
@@ -309,13 +340,24 @@ const showresults = (content) => {
 	for (var i = 0; i < count; i++) {
 		const headTemplate = [];  // write to this and then save to the itemTemplate
 		const containerTemplate = [];  // write to this and then save to the itemTemplate
+		var title = "";
+		var distUrl = "#";
+		var fileType = null;
+		var description = "";
+		var seeProject = "";
+		var searchType = "Dataset";
+		var distUrl = {};
+		var itemType="Data"; // default Data
+
 
 		// console.log("-in  data files loop ---")
 		// itemTemplates.push(html`<div class="row" style="margin-top:30px"> <div class="col-12"> <pre> <code>`);
 
 
 		if (getSafe(() => barval[i].name.value)) {
+			//	headTemplate.push(html`<a href="${barval[i].disurl.value}">${barval[i].name.value}</a> `);
 			headTemplate.push(html`<a href="${barval[i].disurl.value}">${barval[i].name.value}</a> `);
+			title = barval[i].name.value;
 		}
 
 
@@ -323,41 +365,77 @@ const showresults = (content) => {
 
 
 		if (getSafe(() => barval[i].disurl.value)) {
-			containerTemplate.push(html`<span>URL: <a target="_blank" href="${barval[i].disurl.value}">${barval[i].disurl.value}</a> </span>`);
+			//containerTemplate.push(html`<span>URL: <a target="_blank" href="${barval[i].disurl.value}">${barval[i].disurl.value}</a> </span>`);
+			distUrl = barval[i].disurl.value;
 		}
 
-		if (getSafe(() => barval[i].score.value)) {
-			containerTemplate.push(html`<span> (score: ${barval[i].score.value}) </span> `);
-		}
+		// if (getSafe(() => barval[i].score.value)) {
+		// 	containerTemplate.push(html`<span> (score: ${barval[i].score.value}) </span> `);
+		// }
 
 		if (getSafe(() => barval[i].description.value)) {
 			var s = barval[i].description.value
 			containerTemplate.push(html`<p>${truncate.apply(s, [900, true])} </p>`);
+			description = s; // for now
 		}
 
 		if (getSafe(() => barval[i].addtype.value)) {
-			containerTemplate.push(html`<p>File type: ${barval[i].addtype.value} </p>`);
+			//containerTemplate.push(html`<p>File type: ${barval[i].addtype.value} </p>`);
+			fileType = barval[i].addtype.value;
 		}
 
 		if (getSafe(() => barval[i].relto.value)) {
 			containerTemplate.push(html`<p>See project:
 			<a target="_blank" href="/id/do/${barval[i].relto.value}">${barval[i].relto.value}</a> </p>`);
+			seeProject = barval[i].relto.value;
 		}
-
-	
 
 
 		// itemTemplates.push(html`</code></pre></div></div>`);
-		itemTemplates.push(html`<div class="rescard"><div class="resheader">${headTemplate}</div><div class="rescontainer">${containerTemplate} </div> </div>`);
+// 		itemTemplates.push(html`
+// <div class="card"><div class="card-body">${headTemplate}</div>
+// <div class="rescontainer">${containerTemplate} </div> </div>
+// `);
 
-	}
+		// itemTemplates.push(html`    <div class="card-body">
+		//   <div class="card-title">${headTemplate}
+		//   </div>
+		// <div class="card-text">${containerTemplate}
+		// 	</div>
+		// 	</div>`)
+		// }
+		itemTemplates.push(html`
+<div class="card" id="card_${i}">
+        <a class="card-title " href="${distUrl}">${title}</a>
+		<div class="card-body">
+            <div class="card-text">${description}</div>
+        </div>
+        <div class="card-footer " >
+            <span class="badge badge-info badge-pill ">${itemType}</span>
+            <div class="btn-group  " >
+                <span class="btn btn-secondary dropdown " data-boundardy="window" aria-labelledby="dropdownMenuLink"> File</span>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                    </button>
+                    <div  class="dropdown-menu" data-boundardy="window">
+                        <a class="dropdown-item " href="${distUrl}"><img src="./images/icons/download.svg" alt="" title="Download"> Download</a>
+
+                        <a class="dropdown-item " href="${distUrl}"><img src="./images/icons/download.svg" alt="" title="Download"> file Format x</a>
+                     </div>
+
+            </div>
+        </div>
+</div>
+`);
+	};
+		return html`
+			<div style="margin:30px">
+			   ${itemTemplates}
+			</div>
+			`;
 
 
-	return html`
-	<div style="margin:30px">
-	   ${itemTemplates}
-    </div>
-	`;
 };
 
 // lithtml render function
@@ -411,7 +489,7 @@ const projresults = (content) => {
 	}
 
 	return html`
-	<div style="margin-top:30px">
+	<div style="class="row col-7 ">
 	   ${itemTemplates}
     </div>
 	`;
