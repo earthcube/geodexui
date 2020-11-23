@@ -405,8 +405,10 @@ const showresults = (content) => {
 		// 	</div>`)
 		// }
 		itemTemplates.push(html`
-<div class="card" id="card_${i}">
+<div class="card  my-1" id="card_${i}">
+<div class="card-header">
         <a class="card-title " href="${distUrl}">${title}</a>
+        </div>
 		<div class="card-body">
             <div class="card-text">${description}</div>
         </div>

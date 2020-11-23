@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Component</title>
-    <script type="module" src="/js/geocodesui.js"></script>
+
+
 
     <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
-    <link rel="stylesheet" href="./example/css/main.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -14,6 +15,10 @@
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 
+    <script type="module" src="js/lit-html.js"></script>
+    <script type="module" src="js/components/lit-element.js"></script>
+
+    <script type="module" src="js/components/geocodes_filters.js"></script>
 </head>
 <body>
 <div class="accordion col-12" id="accordionExample">
@@ -22,8 +27,9 @@
             <h2 class="ml-6">
                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                         data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    ${title}
+                    ${title} <i class="fa fa-plus  float-right"></i>
                 </button>
+
             </h2>
         </div>
 
@@ -33,30 +39,40 @@
                     <div class="list-group-item">
                         <div class="input-group">
 
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Search in XXXX">
+                            <input type="text" class="form-control" aria-label="Text input with checkbox"
+                                   placeholder="Search in XXXX">
                             </input>
                         </div>
                     </div>
-                        <div class="list-group-item">
+                    <div class="list-group-item  ">
 
-                                <input type="radio" id="itemOne_one" name="customRadioInline1" aria-label="Checkbox for following text input"/>
+                        <input type="radio" id="itemOne_one" name="customRadioInline1"
+                               aria-label="Checkbox for following text input"/>
 
-                            <label for="itemOne_one">Item One </label><div class="badge badge-secondary">200</div>
-                        </div>
-                    <div class="list-group-item">
+                        <label class="p-2" for="itemOne_one">Item One </label> <span
+                            class="badge badge-secondary float-right">200</span>
+                    </div>
+                    <div class="list-group-item ">
 
-                        <input type="radio" id="itemOne_two" name="customRadioInline1" aria-label="Checkbox for following text input"/>
+                        <input type="radio" id="itemOne_two" name="customRadioInline1"
+                               aria-label="Checkbox for following text input"/>
 
-                        <label for="itemOne_two">Item two </label><div class="badge badge-secondary ">200</div>
+                        <label class="p-2" for="itemOne_two">Item two </label><span
+                            class="badge badge-secondary   float-right">100</span>
                     </div>
 
-                    </div>
                 </div>
+            </div>
 
         </div>
 
     </div>
 
 </div>
+
+<search-component shown="true" title="example" field="fulltext">
+
+</search-component>
 </body>
+'
 </html>
