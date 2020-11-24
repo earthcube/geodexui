@@ -3,7 +3,6 @@ import {
     html,
     render
 } from './lit-html.js';
-import './jsonld.min.js';
 
 //curl https://dx.geodex.org/id/summoned/iris/107b0c662fa9051d3714b0e93fef981713d2ca48
 (function () {
