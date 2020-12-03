@@ -1,0 +1,23 @@
+If the term or metadata field contains spaces or colons, use double quotes to enclose the phrase.
+You can use * as a wildcard character.
+Case does not matter unless noted.
+operator	
+==	equals
+!=	does not equal
+:	contains
+
+field	example	
+(basic)	agriculture	searches name, description, creator name, and tag fields
+(regular expression)	*tre*s	get anything with "trees" or "streetcars" in basic fields
+name	name:VIS_SV_180_z1_1207272.png	searches file, dataset or collection names
+creator	creator:Smith	creator name
+email	email:janesmith@email.com	creator email address
+resource_type	resource_type:collection	can be file, dataset or collection
+tag	tag:animal	filter search results by specific tags
+in	in:5ccafdf97ceaec481ae86812	a dataset or collection ID can be specified
+contains	contains:5ccafe167ceaec481ae86816	a file, dataset or collection ID can be specified
+exists	exists:"PixelMetadata.MeanNDVI"	searches anything that has a specific metadata field (case sensitive)
+missing	missing:"SatelliteAnalyzer:QualityScore"	searches anything that does not have a specific metadata field (case sensitive)
+metadata	"Funding Institution":"University of Illinois"	if the field is not any of the above, it is assumed to be a metadata field
+(multiple)	test resource_type:file tag:tr*s	get any files tagged "trees" or "trains", and with "test" in basic fields
+ 
