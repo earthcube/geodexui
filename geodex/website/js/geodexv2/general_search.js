@@ -39,30 +39,22 @@ OFFSET ${o}
 ` }
 
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
 		console.log(params["query"]);
 
 		const rawResponse = await fetch(url, {
 			method: 'GET',
-			//mode: 'no-cors', // no-cors, *cors, same-origin
-			// cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-			//credentials: 'omit', // include, *same-origin, omit
 			headers: {
 				'Accept': 'application/sparql-results+json',
 				'Content-Type': 'application/json'
-			} // ,
-			// body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
+			} 
 		});
 
 		const content = await rawResponse.json();
 		//console.log(content);
 
-		// TODO  try to return content here back to main
-		// TODO render showresults from main then
-
 		const el = document.querySelector('#container2');
-		// const s1 = document.querySelector('#side1');
 		render(showresults(content), el);
+		// const s1 = document.querySelector('#side1');
 		// render(projresults(content), s1);
 	})();
 }
