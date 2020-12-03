@@ -1,22 +1,18 @@
 // Conduct the SPARQL call and call the lithtml functions to render results
+/* jshint esversion: 6 */
 import {
 	html,
 	render
 } from '/js/lit-html.js';
+import { showresults } from '/js/geodexv2/general_render.js';
 
-import {showresults} from '/js/geodexv2/showresults.js';
-
-
-export function blazefulltext(q, n, o) {
+export function generalText(q, n, o) {
 	console.log("Get Blaze full text");
 	console.log(n);
 
 	(async () => {
 
 		var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
-
-			// var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
-			// params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
 
 			params = {
 				query: ` prefix schema: <http://schema.org/> \
@@ -59,16 +55,14 @@ OFFSET ${o}
 		});
 
 		const content = await rawResponse.json();
-        //console.log(content);
+		//console.log(content);
 
-        // TODO  try to return content here back to main
-
-        // TODO render showresults from main then
+		// TODO  try to return content here back to main
+		// TODO render showresults from main then
 
 		const el = document.querySelector('#container2');
-		const s1 = document.querySelector('#side1');
+		// const s1 = document.querySelector('#side1');
 		render(showresults(content), el);
 		// render(projresults(content), s1);
-
 	})();
 }

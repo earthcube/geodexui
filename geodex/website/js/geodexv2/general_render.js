@@ -2,10 +2,8 @@ import {
 	html,
 	render
 } from '/js/lit-html.js';
-
-import {getSafe} from '/js/geodexv2/getSafe.js';
-
-import {truncate} from '/js/geodexv2/truncate.js';
+import { getSafe } from '/js/geodexv2/getSafe.js';
+import { truncate } from '/js/geodexv2/truncate.js';
 
 
 // lithtml render function

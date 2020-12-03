@@ -1,4 +1,3 @@
-
 // Helper function: See if an object is undefine
 export function getSafe(fn) {
 	try {

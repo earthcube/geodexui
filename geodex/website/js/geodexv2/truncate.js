@@ -1,4 +1,3 @@
-
 // Helper function: truncate a block of text to a length n
 export function truncate(n, useWordBoundary) {
 	if (this.length <= n) { return this; }

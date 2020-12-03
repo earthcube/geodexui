@@ -1,18 +1,10 @@
 /* jshint esversion: 6 */
-// define(function (require, exports, module) {
-//Put traditional CommonJS module content here
 import {
 	html,
 	render
 } from '/js/lit-html.js';
-
-import {blazefulltext} from '/js/geodexv2/blazefulltext.js';
-import {calltest} from '/js/geodexv2/calltest.js';
-
-// import {html, render} from 'lit-html';
-
-// require("/js/lit-html.js");
-// var bft = require("/js/geodexv2/blazefulltext.js");
+import { generalText } from '/js/geodexv2/general_search.js';
+import { calltest } from '/js/geodexv2/dev_calltest.js';
 
 // event listeners
 document.querySelector('#q').addEventListener('keyup', function (e) {
@@ -45,9 +37,7 @@ function stateChangeSearch() {
 	// Hack to replace any string like "word+word2" with "word word2"
 	// happens on the form feed
 	var qupv2 = qup.replace(/(?<=[A-Za-z_0-9])[+](?=[A-Za-z_0-9])/g, ' ');
-
 	console.log(qupv2);
-
 
 	var q = decodeURIComponent(qupv2);
 
@@ -67,16 +57,14 @@ function stateChangeSearch() {
 	console.log(o);
 
 	if (q != null && q != "") {
-		blazefulltext(q, n, o);
-
+		generalText(q, n, o);
 		var ct = calltest(q, n, o);
-		
+
 		// TODO  how to wait (sigh)
 		// OR maybe not..  let each query do their render when they finish..
 		// or deal with the "redner" promis ourselves..
 		console.log("-- CALL TEST --");
 		console.log(ct);
-	
 	}
 
 	updateURL(q, n, o, false);
@@ -99,8 +87,10 @@ function searchActions() {
 	}
 	console.log(o);
 
+	// Add other search actions here..  
+	// like to Resource Registry or to filter builders/guides
 	if (q != null && q != "") {
-		blazefulltext(q, n, o);
+		generalText(q, n, o);
 	}
 	updateURL(q, n, o, true);
 
@@ -165,7 +155,6 @@ function navstatus(q, n, o) {
 	`;
 
 }
-
 
 // Helper function return all the parameters from a URL
 function getAllUrlParams(url) {
