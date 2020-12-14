@@ -252,7 +252,7 @@ function getAllUrlParams(url) {
 
 			// set parameter name and value (use 'true' if empty)
 			var paramName = a[0];
-			var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+			var paramValue = typeof (a[1]) === 'undefined' ? true : decodeURIComponent(a[1].replace(/\+/g, ' '));
 
 			// (optional) keep case consistent
 			paramName = paramName.toLowerCase();
