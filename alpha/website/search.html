@@ -14,7 +14,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
                 crossorigin="anonymous"></script>
+        <script type="module" src="js/lit-html.js"></script>
+        <script type="module" src="js/components/lit-element.js"></script>
         <script type="module" src="js/geocodesui.js"></script>
+        <script type="module" src="js/components/geocodes_filters.js"></script>
     </head>
 
 </head>
@@ -56,149 +59,136 @@
             <div id="filters" class="row">
                 <span class="row col-12"> Filters</span>
                 <div class="row col-12">
-                    <div class="accordion  col-12" id="accordionST">
-                        <div class="card">
-                            <div class="card-header" id="headingST">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button"
-                                            data-toggle="collapse"
-                                            data-target="#collapseST" aria-expanded="true" aria-controls="collapseST">
-                                        Search Type
-                                    </button>
-                                </h2>
-                            </div>
+                    <search-component shown="true" title="Search Type" field="fulltext">
 
-                            <div id="collapseST" class="collapse show" aria-labelledby="headingOne"
-                                 data-parent="#accordionST">
-                                <div class="card-body">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </search-component>
+                    <search-component shown="true" title="Science Domain" field="fulltext">
 
-                    </div>
-                    <div class="accordion  col-12" id="accordionSD">
-                        <div class="card">
-                            <div class="card-header" id="headingSD">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button"
-                                            data-toggle="collapse"
-                                            data-target="#collapseSD" aria-expanded="true" aria-controls="collapseSD">
-                                        Science Domain
-                                    </button>
-                                </h2>
-                            </div>
+                    </search-component>
+                    <search-component shown="true" title="Publisher" field="fulltext">
 
-                            <div id="collapseSD" class="collapse show" aria-labelledby="headingSD"
-                                 data-parent="#accordionSD">
-                                <div class="card-body">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </search-component>
+                    <search-component shown="true" title="Place" field="fulltext">
 
-                    </div>
-                    <div class="accordion  col-12" id="accordionPub">
-                        <div class="card">
-                            <div class="card-header" id="headingPub">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button"
-                                            data-toggle="collapse"
-                                            data-target="#collapsePub" aria-expanded="true" aria-controls="collapsePub">
-                                        Publisher
-                                    </button>
-                                </h2>
-                            </div>
+                    </search-component>
+                    <search-component shown="true" title="Time" field="fulltext">
 
-                            <div id="collapsePub" class="collapse show" aria-labelledby="headingPub"
-                                 data-parent="#accordionPub">
-                                <div class="card-body">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </search-component>
+<!--                    <div class="accordion  col-12" id="accordionSD">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header" id="headingSD">-->
+<!--                                <h2 class="mb-0">-->
+<!--                                    <button class="btn btn-link btn-block text-left" type="button"-->
+<!--                                            data-toggle="collapse"-->
+<!--                                            data-target="#collapseSD" aria-expanded="true" aria-controls="collapseSD">-->
+<!--                                        Science Domain-->
+<!--                                    </button>-->
+<!--                                </h2>-->
+<!--                            </div>-->
 
-                    </div>
-                    <div class="accordion  col-12" id="accordionPlace">
-                        <div class="card">
-                            <div class="card-header" id="headingPlace">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button"
-                                            data-toggle="collapse"
-                                            data-target="#collapsePlace" aria-expanded="true"
-                                            aria-controls="collapsePlace">
-                                        Place
-                                    </button>
-                                </h2>
-                            </div>
+<!--                            <div id="collapseSD" class="collapse show" aria-labelledby="headingSD"-->
+<!--                                 data-parent="#accordionSD">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <div class="input-group-prepend">-->
+<!--                                            <div class="input-group-text">-->
+<!--                                                <input type="checkbox" aria-label="Checkbox for following text input"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text" class="form-control" aria-label="Text input with checkbox">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                            <div id="collapsePlace" class="collapse show" aria-labelledby="headingPlace"
-                                 data-parent="#accordionPlace">
-                                <div class="card-body">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                    </div>-->
+<!--                    <div class="accordion  col-12" id="accordionPub">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header" id="headingPub">-->
+<!--                                <h2 class="mb-0">-->
+<!--                                    <button class="btn btn-link btn-block text-left" type="button"-->
+<!--                                            data-toggle="collapse"-->
+<!--                                            data-target="#collapsePub" aria-expanded="true" aria-controls="collapsePub">-->
+<!--                                        Publisher-->
+<!--                                    </button>-->
+<!--                                </h2>-->
+<!--                            </div>-->
 
-                    </div>
-                    <div class="accordion  col-12" id="accordionTime">
-                        <div class="card">
-                            <div class="card-header" id="headingTime">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button"
-                                            data-toggle="collapse"
-                                            data-target="#collapseTime" aria-expanded="true"
-                                            aria-controls="collapseTime">
-                                        Time
-                                    </button>
-                                </h2>
-                            </div>
+<!--                            <div id="collapsePub" class="collapse show" aria-labelledby="headingPub"-->
+<!--                                 data-parent="#accordionPub">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <div class="input-group-prepend">-->
+<!--                                            <div class="input-group-text">-->
+<!--                                                <input type="checkbox" aria-label="Checkbox for following text input"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text" class="form-control" aria-label="Text input with checkbox">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                            <div id="collapseTime" class="collapse show" aria-labelledby="headingTime"
-                                 data-parent="#accordionTime">
-                                <div class="card-body">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                    </div>-->
+<!--                    <div class="accordion  col-12" id="accordionPlace">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header" id="headingPlace">-->
+<!--                                <h2 class="mb-0">-->
+<!--                                    <button class="btn btn-link btn-block text-left" type="button"-->
+<!--                                            data-toggle="collapse"-->
+<!--                                            data-target="#collapsePlace" aria-expanded="true"-->
+<!--                                            aria-controls="collapsePlace">-->
+<!--                                        Place-->
+<!--                                    </button>-->
+<!--                                </h2>-->
+<!--                            </div>-->
 
-                    </div>
-                </div>
+<!--                            <div id="collapsePlace" class="collapse show" aria-labelledby="headingPlace"-->
+<!--                                 data-parent="#accordionPlace">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <div class="input-group-prepend">-->
+<!--                                            <div class="input-group-text">-->
+<!--                                                <input type="checkbox" aria-label="Checkbox for following text input"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text" class="form-control" aria-label="Text input with checkbox">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                    <div class="accordion  col-12" id="accordionTime">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header" id="headingTime">-->
+<!--                                <h2 class="mb-0">-->
+<!--                                    <button class="btn btn-link btn-block text-left" type="button"-->
+<!--                                            data-toggle="collapse"-->
+<!--                                            data-target="#collapseTime" aria-expanded="true"-->
+<!--                                            aria-controls="collapseTime">-->
+<!--                                        Time-->
+<!--                                    </button>-->
+<!--                                </h2>-->
+<!--                            </div>-->
+
+<!--                            <div id="collapseTime" class="collapse show" aria-labelledby="headingTime"-->
+<!--                                 data-parent="#accordionTime">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <div class="input-group-prepend">-->
+<!--                                            <div class="input-group-text">-->
+<!--                                                <input type="checkbox" aria-label="Checkbox for following text input"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text" class="form-control" aria-label="Text input with checkbox">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+               </div>
 
 
             </div>

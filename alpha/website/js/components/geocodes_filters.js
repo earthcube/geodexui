@@ -1,12 +1,13 @@
 /* jshint esversion: 6 */
 import {LitElement, html} from './lit-element.js';
+import {render} from "../lit-html.js";
 //import * as Jassa from '../jassa_es.js'
 
 (function () {
 
 
     var sparql = null;
-    var sparqlService = null;
+    var sparqlService = "https://graph.geodex.org/blazegraph/namespace/cdf/sparql";
     // $(document).ready(function () {
     //     // Add minus icon for collapse element which is open by default
     //     $(".collapse.show").each(function () {
@@ -74,7 +75,8 @@ import {LitElement, html} from './lit-element.js';
             return html`
 <div class="accordion col-12" id="accordion${this.id}">
     <div class="card">
-        <div class="card-header" id="heading${this.id}">
+        <div class="card-h.0,>
+        eader" id="heading${this.id}">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" 
                 data-target="#collapse${this.id}" aria-expanded="true" aria-controls="collapse${this.id}">
@@ -123,6 +125,95 @@ import {LitElement, html} from './lit-element.js';
             // this.attachShadow({mode: 'open'});
             // render(TemplateResult, this.shadowRoot);
         }
+        _appendResults(results) {
+            if (results ===null) {
+                this.items = []
+                array.forEach(results, function(result){
+                        this.items.put(result)
+                }
+                )
+                render();
+            }
+
+        }
+        getAggregates(params){
+            if (params === null){
+                params.query.constraints(
+
+                )
+            }
+        }
+        /* SearchComponent API ============================================= */
+
+        appendQClauses(params) {
+            array.forEach(this.activeQClauses,function(qClause){
+                if (typeof qClause.query === "object" && typeof qClause.query !== null) {
+                    if (!params.queries) params.queries = [];
+                    params.queries.push(qClause.query);
+                    if (qClause.scorable) params.hasScorable = true;
+                }
+            });
+        }
+
+        appendQueryParams(params) {}
+
+        applyUIOptions(searchOptions) {}
+
+
+// Conduct the SPARQL call and call the lithtml functions to render results
+         blazesparql(q) {
+            // initial just a full text query
+            console.log("facet");
+            console.log(n);
+
+            (async () => {
+
+                var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
+
+                    // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
+                    // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
+
+                    params = {
+                        query: ` prefix schema: <https://schema.org/> 
+SELECT  ?pubname (count(distinct ?s) as ?scount)
+WHERE {   
+  {
+       ?lit bds:search \"${q}\" .
+       ?s ?p ?lit .
+       ?s schema:publisher ?pub .
+       ?pub schema:name ?pubname .
+       }
+}
+GROUP By ?pubname 
+ORDER By DESC(?scount)
+` }
+
+                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+                console.log(params["query"]);
+
+                const rawResponse = await fetch(url, {
+                    method: 'GET',
+                    //mode: 'no-cors', // no-cors, *cors, same-origin
+                    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    //credentials: 'omit', // include, *same-origin, omit
+                    headers: {
+                        'Accept': 'application/sparql-results+json',
+                        'Content-Type': 'application/json'
+                    } // ,
+                    // body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
+                });
+
+                const content = await rawResponse.json();
+                //console.log(content);
+
+                const el = document.querySelector('#resultsRecords');
+                const s1 = document.querySelector('#filters');
+                render(showresults(content), el);
+                // render(projresults(content), s1);
+
+            })();
+        }
 
 
         _handleCollapse(e) {
@@ -145,6 +236,7 @@ import {LitElement, html} from './lit-element.js';
         createRenderRoot() {
             return this;
         }
+
     }
 
     window.customElements.define('search-component', SearchFilterComponent);

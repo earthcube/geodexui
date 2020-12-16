@@ -175,44 +175,72 @@ function blazefulltext(q, n, o) {
 			// var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
 			// params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
 
-			params = {
-				query: ` prefix schema: <http://schema.org/> \
-SELECT ?total ?subj ?disurl ?score  ?name ?description \
- WHERE {\
-  { \
-   ?lit bds:search \"${q}\" . \
-   ?lit bds:matchAllTerms "false" . \
-   ?lit bds:relevance ?score . \
-   ?subj ?p ?lit . \
-   BIND (?subj as ?s) \
-      {  \
-   		SELECT  ?s (MIN(?url) as ?disurl) { \
-             ?s a schema:Dataset . \
-             ?s schema:distribution ?dis . \
-   			?dis schema:url ?url . \
-   	  	} GROUP BY ?s \
-   } \
-   ?s schema:name ?name . \
-   ?s schema:description ?description .  \
- } \
- { SELECT  (COUNT(?s) AS ?total) \
-      WHERE { \
-         SERVICE <http://www.bigdata.com/rdf/search#search> { \
-              ?matchedValue \
-                        bds:search        \"${q}\" ; \
-                        bds:relevance     ?score ; \
-                        bds:rank          ?rank . \
-          } \
-          ?s        ?matchedProperty  ?matchedValue \
-          FILTER ( ! isBlank(?s) ) \
-        } \
-} \
- }\
-ORDER BY DESC(?score)
-LIMIT ${n}
-OFFSET ${o}
-` }
-
+// 			params = {
+// 				query: ` prefix schema: <http://schema.org/> \
+// SELECT ?total ?subj ?disurl ?score  ?name ?description \
+//  WHERE {\
+//   { \
+//    ?lit bds:search \"${q}\" . \
+//    ?lit bds:matchAllTerms "false" . \
+//    ?lit bds:relevance ?score . \
+//    ?subj ?p ?lit . \
+//    BIND (?subj as ?s) \
+//       {  \
+//    		SELECT  ?s (MIN(?url) as ?disurl) { \
+//              ?s a schema:Dataset . \
+//              ?s schema:distribution ?dis . \
+//    			?dis schema:url ?url . \
+//    	  	} GROUP BY ?s \
+//    } \
+//    ?s schema:name ?name . \
+//    ?s schema:description ?description .  \
+//  } \
+//  { SELECT  (COUNT(?s) AS ?total) \
+//       WHERE { \
+//          SERVICE <http://www.bigdata.com/rdf/search#search> { \
+//               ?matchedValue \
+//                         bds:search        \"${q}\" ; \
+//                         bds:relevance     ?score ; \
+//                         bds:rank          ?rank . \
+//           } \
+//           ?s        ?matchedProperty  ?matchedValue \
+//           FILTER ( ! isBlank(?s) ) \
+//         } \
+// } \
+//  }\
+// ORDER BY DESC(?score)
+// LIMIT ${n}
+// OFFSET ${o}
+// ` }
+	params = {
+		query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+			prefix schema: <http://schema.org/>
+			SELECT distinct ?subj ?pubname ?datep  ?disurl ?score  ?name ?description
+	WHERE {
+			?lit bds:search \"${q}\" .
+		?lit bds:matchAllTerms "false" .
+		?lit bds:relevance ?score .
+		?subj ?p ?lit .
+		BIND (?subj as ?s)
+	{
+		SELECT  ?s (MIN(?url) as ?disurl) {
+		?s a schema:Dataset .
+		?s schema:distribution ?dis .
+		?dis schema:url ?url .
+	} GROUP BY ?s
+	}
+		?s schema:name ?name .
+		?s schema:description ?description .
+		filter( ?score > 0.04).
+		OPTIONAL {?s schema:datePublished ?datep .}
+		OPTIONAL {?s schema:publisher ?pub .
+		?pub schema:name ?pubname .}
+	}
+	ORDER BY DESC(?score)
+	 LIMIT ${n}
+     OFFSET ${o}
+	`}
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
 		console.log(params["query"]);
