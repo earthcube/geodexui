@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+
+      /* First come the styles which are used in the demo */
+
+      .facetsearch {
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+      }
+      .activeorderby,
+      .activefacet {
+        color: red;
+      }
+      .bottomline {
+        padding: 10px 0 10px 0;
+        font-weight: bold;
+      }
+      .bottomline .orderby,
+      .bottomline .facettotalcount {
+        display: inline-block;
+      }
+      .bottomline .orderby ul,
+      .bottomline .orderby li {
+        display: inline;
+        padding: 0;
+      }
+      .bottomline .orderby-title {
+        margin: 0 0 0 10px;
+      }
+      .bottomline .deselectstartover {
+        float: right;
+      }
+      #language {
+        width: 400px;
+      }
+      #language .facetlist{
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        -o-column-count: 2;
+      }
+      .item {
+        width: 150px;
+        height: 250px;
+        margin: 0 10px 10px 0;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .item h4 {
+        font-size: 1.2em;
+      }
+      .item .tags {
+        font-weight: bold;
+        color: gray;
+      }
+      #showmorebutton {
+        border: 1px solid #AAA;
+        border-radius: 15px;
+        background-color: #DDD;
+        margin: 0 0 10px 0;
+        padding: 10px;
+        width: 100%;
+        display: block;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      /* These styles are just general purpose styles to make the page look a little less aweful */
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 20px;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+      #wrapper, #documentation {
+        margin: 0 auto;
+        width: 800px;
+      }
+      p {
+        padding-bottom: 1em;
+        line-height: 1.3em;
+      }
+      h1, h2, h3{
+        margin: 0 0 1em 0;
+      }
+      tt {
+        background-color: #EEE;
+        border: 1px solid #CCC;
+      }
+    </style>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
+
+    <title>Earthcube</title>
+
+    <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+    <script src="js/facetedsearch.js"></script>
+
+</head>
+
+<body>
+<div class="container-fluid" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="https://www.earthcube.org/">
+            <img src="https://www.earthcube.org/sites/default/files/earthcubeicon.png" width="30" height="30"
+                 class="d-inline-block align-top" alt="" loading="lazy">
+            EarthCube
+        </a>
+        <!-- -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="input-group form-inline  w-50 ">
+            <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <a href="#" class="btn btn-default" id="searchBtn">
+                    <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
+                </a>
+            </div>
+            <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
+        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Help</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+
+
+    <div id="wrapper row">
+      <div id="description">
+        <h3>Faceted Search of EarthCube resources</h3>
+
+      </div>
+    </div>
+      <!-- Here comes the demo, if you want to copy and paste, start here -->
+        <div class="row col-12"> <!-- filters -->
+            <div class="row col-3 align-items-start">
+                <div id="filters" class="row col-12">
+                 <div id="facets"></div>
+                </div>
+
+
+            </div>
+            <div class="row col-8 ">
+                <!-- future page  header here -->
+                 <div id="results" class="row row-cols-1"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        async function getItemsFromSparql(q, n=1000, o=0) {
+            console.log("Get Blaze full text");
+            console.log(n);
+
+
+
+                var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
+
+                    // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
+                    // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
+
+// 			params = {
+// 				query: ` prefix schema: <http://schema.org/> \
+// SELECT ?total ?subj ?disurl ?score  ?name ?description \
+//  WHERE {\
+//   { \
+//    ?lit bds:search \"${q}\" . \
+//    ?lit bds:matchAllTerms "false" . \
+//    ?lit bds:relevance ?score . \
+//    ?subj ?p ?lit . \
+//    BIND (?subj as ?s) \
+//       {  \
+//    		SELECT  ?s (MIN(?url) as ?disurl) { \
+//              ?s a schema:Dataset . \
+//              ?s schema:distribution ?dis . \
+//    			?dis schema:url ?url . \
+//    	  	} GROUP BY ?s \
+//    } \
+//    ?s schema:name ?name . \
+//    ?s schema:description ?description .  \
+//  } \
+//  { SELECT  (COUNT(?s) AS ?total) \
+//       WHERE { \
+//          SERVICE <http://www.bigdata.com/rdf/search#search> { \
+//               ?matchedValue \
+//                         bds:search        \"${q}\" ; \
+//                         bds:relevance     ?score ; \
+//                         bds:rank          ?rank . \
+//           } \
+//           ?s        ?matchedProperty  ?matchedValue \
+//           FILTER ( ! isBlank(?s) ) \
+//         } \
+// } \
+//  }\
+// ORDER BY DESC(?score)
+// LIMIT ${n}
+// OFFSET ${o}
+// ` }
+                    params = {
+                        query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+			prefix schema: <http://schema.org/>
+			SELECT distinct ?subj ?pubname ?datep  ?disurl ?score  ?name ?description
+	WHERE {
+			?lit bds:search \"${q}\" .
+		?lit bds:matchAllTerms "false" .
+		?lit bds:relevance ?score .
+		?subj ?p ?lit .
+		BIND (?subj as ?s)
+	{
+		SELECT  ?s (MIN(?url) as ?disurl) {
+		?s a schema:Dataset .
+		?s schema:distribution ?dis .
+		?dis schema:url ?url .
+	} GROUP BY ?s
+	}
+		?s schema:name ?name .
+		?s schema:description ?description .
+		filter( ?score > 0.04).
+		OPTIONAL {?s schema:datePublished ?datep .}
+		OPTIONAL {?s schema:publisher ?pub .
+		?pub schema:name ?pubname .}
+	}
+	ORDER BY DESC(?score)
+	 LIMIT ${n}
+     OFFSET ${o}
+	`}
+                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+                console.log(params["query"]);
+
+                const rawResponse = await fetch(url, {
+                    method: 'GET',
+                    //mode: 'no-cors', // no-cors, *cors, same-origin
+                    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    //credentials: 'omit', // include, *same-origin, omit
+                    headers: {
+                        'Accept': 'application/sparql-results+json',
+                        'Content-Type': 'application/json'
+                    } // ,
+                    // body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
+                });
+
+                const content = await rawResponse.json();
+                //console.log(content);
+                var items = _.map(content.results.bindings, function(item ){
+
+                    var flattened= _.mapObject(item, function(value,key){
+                        return value.value;
+                    })
+                    return flattened;
+               })
+                return items; //content.results.bindings;
+                // const el = document.querySelector('#resultsRecords');
+                // const s1 = document.querySelector('#filters');
+                // render(showresults(content), el);
+                // // render(projresults(content), s1);
+
+
+        };
+
+      $( function() {
+          const item_template =
+              `<div class="item card">
+                <div class="card-header">
+                  <div class="card-title"><%= obj.name %></div>
+                  <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
+                </div>
+                <div class="tags card-body overflow-auto">
+                    <div class="card-text">
+                     <% if (obj.description) {  %><%= obj.description %><% } %>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                        <div class="card-link"><%= obj.disurl %></div>
+                 </div>
+
+            </div>`;
+
+          // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
+            const facetContainer = `<div class="accordion col-12 facetsearch" id="<%= id %>accordian">
+                <div class="card" id="<%= id %>">
+                    <!-- title -->
+
+                <!-- list -->
+                </div>
+            </div>`;
+          const facetTitleTemplate =`<div class="card-header" id="heading<%= id %>">
+            <h2 class="ml-6">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                        data-target="#collapse<%= id %>" aria-expanded="true" aria-controls="collapse<%= id %>">
+                    <%= title %><i class="fa fa-plus  float-right"></i>
+                </button>
+
+            </h2>
+            </div>`;
+
+          const facetListContainer = `<div id="collapse<%= id %>" class="collapse show" aria-labelledby="heading<%= id %>" data-parent="#<%= id %>accordian">
+            <div class="card-body">
+                <div class="list-group pl-3 facetlist">
+
+
+            </div>
+
+            </div>
+       </div>`;
+            const listItemTemplate= `<div class="list-group-item  facetitem">
+
+                        <input type="radio" id="item<%= id %>" name="customRadioInline1"
+                               aria-label="Checkbox for following text input" />
+
+                        <label class="p-2" for="item<%= id %>"> <%= name %>  </label>
+                        <span  class="badge badge-secondary float-right"><%= count %></span>
+                    </div>`;
+
+
+          getItemsFromSparql('carbon')
+              .then(function (results) {
+                  settings = {
+                      items: results,
+                      facets: {
+                         // 'subj': 'Science Domain',
+                         // 'name': 'Place',
+                          'pubname': 'Publisher/Repo',
+                          'datep': 'Date'
+                      },
+                      resultSelector: '#results',
+                      facetSelector: '#facets',
+                      facetContainer     : facetContainer,
+                      facetTitleTemplate : facetTitleTemplate,
+                      facetListContainer : facetListContainer,
+                      //listItemTemplate   : listItemTemplate,
+                      resultTemplate: item_template,
+                      paginationCount: 50,
+                      orderByOptions: {
+                          'name': 'Name',
+                          'pubname': 'Publisher',
+                          'date': 'Date',
+                         // 'subj': 'Subject',
+                          'RANDOM': 'Random'
+                      },
+                      facetSortOption: {'continent': ["North America", "South America"]}
+                  };
+              $.facetelize(settings);
+              }
+      )
+      });
+    </script>
+
+<script>
+    document.querySelector('#searchBtn').addEventListener('click', search);
+    function search(e){
+        (async () => {
+            let q = document.querySelector('#q').value;
+            var example_items = await getItemsFromSparql(q);
+            $.facetUpdate();
+        });
+    }
+
+</script>
+</div>
+    <a href="http://github.com/eikes/facetedsearch"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+  </body>
+</html>

@@ -13,7 +13,7 @@
  */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 :root {
-  --blue: #446e9b;
+  --blue: #0c3c60;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -66,7 +66,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #777;
+  color:#70a5c9;
   text-align: left;
   background-color: #fff;
 }

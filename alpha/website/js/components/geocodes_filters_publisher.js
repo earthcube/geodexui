@@ -47,10 +47,8 @@ import {render} from "../lit-html.js";
             const TemplateResult = [];
 
             let items = new Map();
-            items.set("One", 0);
-            items.set("Two", 0);
-            items.set("Three", 0);
-            items.set("Four", 0);
+            items.set("No Authors", 0);
+
             this.items = items;
 
             //var jassa = new Jassa(Promise, $.ajax);
@@ -72,87 +70,44 @@ import {render} from "../lit-html.js";
         render() {
             var items = this.items;
 
-//             return html`
-// <div class="accordion col-12" id="accordion${this.id}">
-//     <div class="card">
-//         <div class="card-h.0,>
-//         eader" id="heading${this.id}">
-//             <h2 class="mb-0">
-//                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-//                 data-target="#collapse${this.id}" aria-expanded="true" aria-controls="collapse${this.id}">
-//                     ${this.title} <i class="fa fa-plus  float-right"></i>
-//                 </button>
-//             </h2>
-//         </div>
-//
-//         <div id="collapse${this.id}" class="collapse show" aria-labelledby="heading${this.id}" data-parent="#accordion${this.id}">
-//             <div class="card-body">
-//                    <div class="list-group pl-3">
-//                         <div class="list-group-item">
-//                             <div class="input-group">
-//
-//                                 <input type="text" class="form-control" aria-label="Text input with checkbox"
-//                                        placeholder="Search in XXXX">
-//                                 </input>
-//                             </div>
-//                         </div>
-//                        ${Array.from(this.items.keys()).map(  i => html`<div class="list-group-item  ">
-//
-//                         <input type="radio" id="itemOne_one" name="customRadioInline1"
-//                                aria-label="Checkbox for following text input"/>
-//
-//                         <label class="p-2" for="itemOne_one">${i} </label> <span
-//                             class="badge badge-secondary float-right">${this.items[i]}</span>
-//                     </div>`
-//                     ) }
-//
-//
-//
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-//
-// </div>
-
-return html`
+            return html`
 <div class="accordion col-12" id="accordion${this.id}">
     <div class="card">
         <div class="card-header" id="heading${this.id}">
-            <h2 class="ml-6">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                        data-target="#collapse${this.id}" aria-expanded="true" aria-controls="collapse${this.id}">
-                     ${this.title} <i class="fa fa-plus  float-right"></i>
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" 
+                data-target="#collapse${this.id}" aria-expanded="true" aria-controls="collapse${this.id}">
+                    ${this.title} <i class="fa fa-plus  float-right"></i>
                 </button>
-
             </h2>
         </div>
 
         <div id="collapse${this.id}" class="collapse show" aria-labelledby="heading${this.id}" data-parent="#accordion${this.id}">
             <div class="card-body">
-                <div class="list-group pl-3">
-                    <div class="list-group-item">
-                        <div class="input-group">
-
-                            <input type="text" class="form-control" aria-label="Text input with checkbox"
-                                   placeholder="Search in XXXX">
-                            </input>
+                   <div class="list-group pl-3">
+                        <div class="list-group-item">
+                            <div class="input-group">
+    
+                                <input type="text" class="form-control" aria-label="Text input with checkbox"
+                                       placeholder="Search in XXXX">
+                                </input>
+                            </div>
                         </div>
-                    </div>
-                     ${Array.from(this.items.keys()).map(  i => html`<div class="list-group-item  ">
-                    
-<input type="radio" id="itemOne_one" name="customRadioInline1"
+                       ${Array.from(this.items.keys()).map(  i => html`<div class="list-group-item  ">
+
+                        <input type="radio" id="itemOne_one" name="customRadioInline1"
                                aria-label="Checkbox for following text input"/>
 
                         <label class="p-2" for="itemOne_one">${i} </label> <span
                             class="badge badge-secondary float-right">${this.items[i]}</span>
                     </div>` 
                     ) }
-                </div>
+                  
+
+
+                </div>      
             </div>
-
         </div>
-
     </div>
 
 </div>
@@ -281,5 +236,5 @@ ORDER By DESC(?scount)
 
     }
 
-    window.customElements.define('search-component', SearchFilterComponent);
+    window.customElements.define('search-component-publisher', SearchFilterComponent);
 })();

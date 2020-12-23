@@ -19,6 +19,8 @@
     <script type="module" src="js/components/lit-element.js"></script>
 
     <script type="module" src="js/components/geocodes_filters.js"></script>
+    <script type="module" src="js/components/geocodes_filters_publisher.js"></script>
+    <script type="module" src="js/components/geocodes_filters_searchtypes.js"></script>
 </head>
 <body>
 <div class="accordion col-12" id="accordionExample">
@@ -70,9 +72,15 @@
 
 </div>
 
-<search-component shown="true" title="example" field="fulltext">
+<search-component shown="true" title="example" field="fulltext" id="all">
 
 </search-component>
+<search-component-publisher shown="true" title="Publisher" field="fulltext" id="publisher">
+
+</search-component-publisher>
+<search-component-searchtype shown="true" title="Search Type" field="fulltext" id="searchtype">
+
+</search-component-searchtype>
 </body>
 '
 </html>

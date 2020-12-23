@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+
+      /* First come the styles which are used in the demo */
+
+      .facetsearch {
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+      }
+      .activeorderby,
+      .activefacet {
+        color: red;
+      }
+      .bottomline {
+        padding: 10px 0 10px 0;
+        font-weight: bold;
+      }
+      .bottomline .orderby,
+      .bottomline .facettotalcount {
+        display: inline-block;
+      }
+      .bottomline .orderby ul,
+      .bottomline .orderby li {
+        display: inline;
+        padding: 0;
+      }
+      .bottomline .orderby-title {
+        margin: 0 0 0 10px;
+      }
+      .bottomline .deselectstartover {
+        float: right;
+      }
+      #language {
+        width: 400px;
+      }
+      #language .facetlist{
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        -o-column-count: 2;
+      }
+      .item {
+        width: 150px;
+        height: 250px;
+        margin: 0 10px 10px 0;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .item h4 {
+        font-size: 1.2em;
+      }
+      .item .tags {
+        font-weight: bold;
+        color: gray;
+      }
+      #showmorebutton {
+        border: 1px solid #AAA;
+        border-radius: 15px;
+        background-color: #DDD;
+        margin: 0 0 10px 0;
+        padding: 10px;
+        width: 100%;
+        display: block;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      /* These styles are just general purpose styles to make the page look a little less aweful */
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 20px;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+      #wrapper, #documentation {
+        margin: 0 auto;
+        width: 800px;
+      }
+      p {
+        padding-bottom: 1em;
+        line-height: 1.3em;
+      }
+      h1, h2, h3{
+        margin: 0 0 1em 0;
+      }
+      tt {
+        background-color: #EEE;
+        border: 1px solid #CCC;
+      }
+    </style>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
+
+    <title>Earthcube</title>
+
+    <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+    <script src="js/facetedsearch.js"></script>
+
+</head>
+
+<body>
+<div class="container-fluid" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="https://www.earthcube.org/">
+			<img src="images/oldEClag.png" width="160" height="48">
+        </a>
+        <!-- -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <!--                <li class="nav-item active">-->
+                <!--                    <a class="nav-link" href="#">EarthCube <span class="sr-only">(current)</span></a>-->
+                <!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query">SPARQL Endpoint</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.htm">Help</a>
+                </li>
+            </ul>
+                        <form class="form-inline my-2 my-lg-0"
+															action="http://mbobak-ofc.ncsa.illinois.edu:5000/search" method="GET">
+                            <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+        </div>
+    </nav>
+
+
+    </div>
+
+
+    <div id="wrapper">
+      <div id="description">
+        <h3>Faceted Search of EarthCube resources</h3>
+        <h5>This JS lib lets you filter, sort and display large datasets in the browser.</h5>
+
+
+
+				<p><center><b>This Could easily be our <i>domain place publisher and time</i>
+								<br>I could also have the icons come from the repo's again
+								<br><u>TRY CLICKING ON several FACET/FILTERS BELOW!!!</u></b></center></p>
+      </div>
+
+      <!-- Here comes the demo, if you want to copy and paste, start here -->
+
+      <div id="facets"></div>
+      <div id="results"></div>
+    </div>
+
+
+    <script>
+      $(function(){
+          var item_template =
+           '<div class="item">' +
+             '<img src="<%= obj.imageURL %>">' +
+             '<h4><%= obj.lastname %>, <%= obj.firstname %></h4>' +
+             '<p class="tags">' +
+             '<% if (obj.category) {  %><%= obj.category %><% } %>' +
+             '<% if (obj.continent) {  %>, <%= obj.continent %><% } %>' +
+             '<% if (obj.language) {  %>, <%= obj.language %><% } %>' +
+             '</p>' +
+             '<p class="desc"><%= obj.description %></p>' +
+           '</div>';
+        settings = {
+          items            : example_items,
+          facets           : {
+                              'category'     : 'Science Domain',
+                              'continent'    : 'Place',
+                              'language'     : 'Publisher/Repo'
+          },
+          resultSelector   : '#results',
+          facetSelector    : '#facets',
+          resultTemplate   : item_template,
+          paginationCount  : 50,
+          orderByOptions   : {'firstname': 'First name', 'lastname': 'Last name', 'category': 'Category', 'RANDOM': 'Random'},
+          facetSortOption  : {'continent': ["North America", "South America"]}
+        }
+
+        // use them!
+        $.facetelize(settings);
+
+      });
+    </script>
+
+<script>
+    function getItemsFromSparql(q, n=1000, o=0) {
+        console.log("Get Blaze full text");
+        console.log(n);
+
+        (async () => {
+
+            var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
+
+                // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
+                // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
+
+// 			params = {
+// 				query: ` prefix schema: <http://schema.org/> \
+// SELECT ?total ?subj ?disurl ?score  ?name ?description \
+//  WHERE {\
+//   { \
+//    ?lit bds:search \"${q}\" . \
+//    ?lit bds:matchAllTerms "false" . \
+//    ?lit bds:relevance ?score . \
+//    ?subj ?p ?lit . \
+//    BIND (?subj as ?s) \
+//       {  \
+//    		SELECT  ?s (MIN(?url) as ?disurl) { \
+//              ?s a schema:Dataset . \
+//              ?s schema:distribution ?dis . \
+//    			?dis schema:url ?url . \
+//    	  	} GROUP BY ?s \
+//    } \
+//    ?s schema:name ?name . \
+//    ?s schema:description ?description .  \
+//  } \
+//  { SELECT  (COUNT(?s) AS ?total) \
+//       WHERE { \
+//          SERVICE <http://www.bigdata.com/rdf/search#search> { \
+//               ?matchedValue \
+//                         bds:search        \"${q}\" ; \
+//                         bds:relevance     ?score ; \
+//                         bds:rank          ?rank . \
+//           } \
+//           ?s        ?matchedProperty  ?matchedValue \
+//           FILTER ( ! isBlank(?s) ) \
+//         } \
+// } \
+//  }\
+// ORDER BY DESC(?score)
+// LIMIT ${n}
+// OFFSET ${o}
+// ` }
+                params = {
+                    query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+			prefix schema: <http://schema.org/>
+			SELECT distinct ?subj ?pubname ?datep  ?disurl ?score  ?name ?description
+	WHERE {
+			?lit bds:search \"${q}\" .
+		?lit bds:matchAllTerms "false" .
+		?lit bds:relevance ?score .
+		?subj ?p ?lit .
+		BIND (?subj as ?s)
+	{
+		SELECT  ?s (MIN(?url) as ?disurl) {
+		?s a schema:Dataset .
+		?s schema:distribution ?dis .
+		?dis schema:url ?url .
+	} GROUP BY ?s
+	}
+		?s schema:name ?name .
+		?s schema:description ?description .
+		filter( ?score > 0.04).
+		OPTIONAL {?s schema:datePublished ?datep .}
+		OPTIONAL {?s schema:publisher ?pub .
+		?pub schema:name ?pubname .}
+	}
+	ORDER BY DESC(?score)
+	 LIMIT ${n}
+     OFFSET ${o}
+	`}
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+            console.log(params["query"]);
+
+            const rawResponse = await fetch(url, {
+                method: 'GET',
+                //mode: 'no-cors', // no-cors, *cors, same-origin
+                // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                //credentials: 'omit', // include, *same-origin, omit
+                headers: {
+                    'Accept': 'application/sparql-results+json',
+                    'Content-Type': 'application/json'
+                } // ,
+                // body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
+            });
+
+            const content = await rawResponse.json();
+            //console.log(content);
+            return content;
+            // const el = document.querySelector('#resultsRecords');
+            // const s1 = document.querySelector('#filters');
+            // render(showresults(content), el);
+            // // render(projresults(content), s1);
+
+        })();
+    }
+</script>
+    <script>
+      // Most of the time I suppose you would use jQuery to get your data;
+      /*
+        $.getJSON( "http:/example.com", function(data){
+          $.facetelize....
+        });
+      */
+      var example_items = [
+        {
+          "firstname": "Mary",
+          "lastname": "Smith",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, periodic",
+          "category": "Physics",
+          "language": ["iedadata", "earthchem"],
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Patricia",
+          "lastname": "Johnson",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, periodic",
+          "category": "Computer_Science",
+          "language": ["Resource-Registry"],
+          "continent": "North America"
+        },
+        {
+          "firstname": "Linda",
+          "lastname": "Williams",
+          "imageURL": "cdf_.png",
+          "description": "Soil chemical properties, periodic",
+          "category": "Medicine",
+          "language": ["ssdb", "Resource-Registry"],
+          "continent": "South America"
+        },
+        {
+          "firstname": "Barbara",
+          "lastname": "Brown",
+          "imageURL": "cdf_.png",
+          "description": "Dissolved gases in surface water",
+          "category": "Agriculture",
+          "language": "iedadata",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Elizabeth",
+          "lastname": "Jones",
+          "imageURL": "cdf_.png",
+          "description": "Dissolved gases in surface water",
+          "category": "Biology",
+          "language": "earthref",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Jennifer",
+          "lastname": "Miller",
+          "imageURL": "cdf_.png",
+          "description": "Dissolved gases in surface water",
+          "category": "Earth_Science",
+          "language": "magic",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Maria",
+          "lastname": "Davis",
+          "imageURL": "cdf_.png",
+          "description": "Dissolved gases in surface water",
+          "category": "Computer_Science",
+          "language": "opencoredata",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Susan",
+          "lastname": "Garcia",
+          "imageURL": "cdf_.png",
+          "description": "Soil chemical properties, periodic",
+          "category": "Climate_Science",
+          "language": "opentopography",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Margaret",
+          "lastname": "Rodriguez",
+          "imageURL": "cdf_.png",
+          "description": "Carbon dioxide flux",
+          "category": "Physics",
+          "language": "earthref",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Dorothy",
+          "lastname": "Wilson",
+          "imageURL": "cdf_.png",
+          "description": "Carbon dioxide flux",
+          "category": "Biology",
+          "language": "neotomadb",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Lisa",
+          "lastname": "Martinez",
+          "imageURL": "cdf_.png",
+          "description": "Carbon dioxide flux",
+          "category": "Biology",
+          "language": "earthchem",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Nancy",
+          "lastname": "Anderson",
+          "imageURL": "cdf_.png",
+          "description": "Carbon dioxide flux",
+          "category": "Biology",
+          "language": "ssdb",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Karen",
+          "lastname": "Taylor",
+          "imageURL": "cdf_.png",
+          "description": "Soil chemical properties, periodic",
+          "category": "Medicine",
+          "language": "bco-dmo",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Betty",
+          "lastname": "Thomas",
+          "imageURL": "cdf_.png",
+          "description": "Carbon dioxide flux",
+          "category": "Climate_Science",
+          "language": "EDI",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Helen",
+          "lastname": "Hernandez",
+          "imageURL": "cdf_.png",
+          "description": "Root chemical properties",
+          "category": "Ecology",
+          "language": "earthchem",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Sandra",
+          "lastname": "Moore",
+          "imageURL": "cdf_.png",
+          "description": "Litter chemical properties",
+          "category": "Climate_Science",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Donna",
+          "lastname": "Martin",
+          "imageURL": "cdf_.png",
+          "description": "Litter chemical properties",
+          "category": "Chemistry",
+          "language": "linkedearth",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Carol",
+          "lastname": "Jackson",
+          "imageURL": "cdf_.png",
+          "description": "Root chemical properties",
+          "category": "Chemistry",
+          "language": "iedadata",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Ruth",
+          "lastname": "Thompson",
+          "imageURL": "cdf_.png",
+          "description": "Litter chemical properties",
+          "category": "Chemistry",
+          "language": "ssdb",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Sharon",
+          "lastname": "White",
+          "imageURL": "cdf_.png",
+          "description": "Litter chemical properties",
+          "category": "Earth_Science",
+          "language": "earthchem",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Michelle",
+          "lastname": "Lopez",
+          "imageURL": "cdf_.png",
+          "description": "Root chemical properties",
+          "category": "Climate_Science",
+          "language": "linkedearth",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Laura",
+          "lastname": "Lee",
+          "imageURL": "cdf_.png",
+          "description": "Elitr, Labore Diam Sit Sadipscing Consetetur Ut Justo Diam Tempor Accusam Stet Sed ",
+          "category": "Chemistry",
+          "language": "datadiscoverystudio",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Sarah",
+          "lastname": "Gonzalez",
+          "imageURL": "cdf_.png",
+          "description": "Sediment chemical properties",
+          "category": "Chemistry",
+          "language": "earthref",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Kimberly",
+          "lastname": "Harris",
+          "imageURL": "cdf_.png",
+          "description": "Diam Et Accusam Elitr, Diam Erat, Gubergren, Sit Sea ",
+          "category": "Medicine",
+          "language": "hydroshare",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Deborah",
+          "lastname": "Clark",
+          "imageURL": "cdf_.png",
+          "description": "Ipsum Duo Rebum. Labore Et Amet, Sit No Lorem No Duo Aliquyam ",
+          "category": "Earth_Science",
+          "language": "bco-dmo",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Jessica",
+          "lastname": "Lewis",
+          "imageURL": "cdf_.png",
+          "description": "Et Sadipscing Kasd Et Ipsum Sit Sed Diam Eirmod Sanctus ",
+          "category": "Ecology",
+          "language": "Resource-Registry",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Shirley",
+          "lastname": "Robinson",
+          "imageURL": "cdf_.png",
+          "description": "Sit Vero Sanctus Tempor No ",
+          "category": "Ecology",
+          "language": "opentopography",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Cynthia",
+          "lastname": "Walker",
+          "imageURL": "cdf_.png",
+          "description": "Sediment chemical properties",
+          "category": "Agriculture",
+          "language": "iedadata",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Angela",
+          "lastname": "Perez",
+          "imageURL": "cdf_.png",
+          "description": "Sediment chemical properties",
+          "category": "Climate_Science",
+          "language": "EDI",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Melissa",
+          "lastname": "Hall",
+          "imageURL": "cdf_.png",
+          "description": "Litter stable isotopes",
+          "category": "Agriculture",
+          "language": "hydroshare",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Brenda",
+          "lastname": "Young",
+          "imageURL": "cdf_.png",
+          "description": "Litter stable isotopes",
+          "category": "Agriculture",
+          "language": "bco-dmo",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Amy",
+          "lastname": "Allen",
+          "imageURL": "cdf_.png",
+          "description": "Diam Kasd Labore Ipsum Rebum. Dolore Takimata Duo Elitr, Rebum. ",
+          "category": "Agriculture",
+          "language": "NEON",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Anna",
+          "lastname": "Sanchez",
+          "imageURL": "cdf_.png",
+          "description": "Litter stable isotopes",
+          "category": "Biology",
+          "language": "EDI",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Rebecca",
+          "lastname": "Wright",
+          "imageURL": "cdf_.png",
+          "description": "Tempor At Sit Dolore Aliquyam ",
+          "category": "Chemistry",
+          "language": "bco-dmo",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Virginia",
+          "lastname": "King",
+          "imageURL": "cdf_.png",
+          "description": "Soil stable isotopes, periodic",
+          "category": "Earth_Science",
+          "language": "iedadata",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Kathleen",
+          "lastname": "Scott",
+          "imageURL": "cdf_.png",
+          "description": "Dolor Sea Gubergren, Kasd Amet, ",
+          "category": "Agriculture",
+          "language": "hydroshare",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Pamela",
+          "lastname": "Green",
+          "imageURL": "cdf_.png",
+          "description": "Soil stable isotopes, periodic",
+          "category": "Chemistry",
+          "language": "EDI",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Martha",
+          "lastname": "Baker",
+          "imageURL": "cdf_.png",
+          "description": "Rebum. Takimata Et Eos Erat, Sed Nonumy Elitr, No Sed Est Ea ",
+          "category": "Earth_Science",
+          "language": "bco-dmo",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Debra",
+          "lastname": "Adams",
+          "imageURL": "cdf_.png",
+          "description": "Soil stable isotopes, periodic",
+          "category": "Chemistry",
+          "language": "datadiscoverystudio",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Amanda",
+          "lastname": "Nelson",
+          "imageURL": "cdf_.png",
+          "description": "Aquatic plant bryophyte chemical properties",
+          "category": "Earth_Science",
+          "language": "hydroshare",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Stephanie",
+          "lastname": "Hill",
+          "imageURL": "cdf_.png",
+          "description": "Aquatic plant bryophyte chemical properties",
+          "category": "Earth_Science",
+          "language": "Resource-Registry",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Carolyn",
+          "lastname": "Ramirez",
+          "imageURL": "cdf_.png",
+          "description": "Erat, Takimata Clita Sed Voluptua. Rebum. Ea Sanctus Aliquyam Vero Diam ",
+          "category": "Physics",
+          "language": "iedadata",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Christine",
+          "lastname": "Campbell",
+          "imageURL": "cdf_.png",
+          "description": "Aquatic plant bryophyte chemical properties",
+          "category": "Physics",
+          "language": "csdco",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Marie",
+          "lastname": "Mitchell",
+          "imageURL": "cdf_.png",
+          "description": "Est Elitr, Ipsum Diam Eirmod Diam Clita ",
+          "category": "Ecology",
+          "language": "csdco",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Janet",
+          "lastname": "Roberts",
+          "imageURL": "cdf_.png",
+          "description": "Aquatic plant bryophyte chemical properties",
+          "category": "Climate_Science",
+          "language": "hydroshare",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Catherine",
+          "lastname": "Carter",
+          "imageURL": "cdf_.png",
+          "description": "Eos Lorem No Sea At Lorem Ea Sea ",
+          "category": "Chemistry",
+          "language": "bco-dmo",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Frances",
+          "lastname": "Phillips",
+          "imageURL": "cdf_.png",
+          "description": "Plant foliar stable isotopes",
+          "category": "Climate_Science",
+          "language": "magic",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Ann",
+          "lastname": "Evans",
+          "imageURL": "cdf_.png",
+          "description": "Accusam Dolor Sit Kasd Rebum. Sit Ipsum Elitr, Lorem Dolores Diam No ",
+          "category": "Physics",
+          "language": "hydroshare",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Joyce",
+          "lastname": "Turner",
+          "imageURL": "cdf_.png",
+          "description": "Plant foliar stable isotopes",
+          "category": "Climate_Science",
+          "language": "neotomadb",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Diane",
+          "lastname": "Torres",
+          "imageURL": "cdf_.png",
+          "description": "Et Eos Gubergren, Magna Et Accusam ",
+          "category": "Computer_Science",
+          "language": "hydroshare",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Alice",
+          "lastname": "Parker",
+          "imageURL": "cdf_.png",
+          "description": "Plant foliar stable isotopes",
+          "category": "Medicine",
+          "language": "Resource-Registry",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Julie",
+          "lastname": "Collins",
+          "imageURL": "cdf_.png",
+          "description": "Magna Ut Takimata Takimata Labore Dolor Dolor Justo Dolor Et Aliquyam Consetetur Vero ",
+          "category": "Climate_Science",
+          "language": "neotomadb",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Heather",
+          "lastname": "Edwards",
+          "imageURL": "cdf_.png",
+          "description": "Plant foliar stable isotopes",
+          "category": "Physics",
+          "language": "earthchem",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Teresa",
+          "lastname": "Stewart",
+          "imageURL": "cdf_.png",
+          "description": "Stet Eirmod Justo Amet, Amet. Voluptua. Tempor Elitr, Labore ",
+          "category": "Earth_Science",
+          "language": "Resource-Registry",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Doris",
+          "lastname": "Flores",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, Megapit",
+          "category": "Earth_Science",
+          "language": "ssdb",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Gloria",
+          "lastname": "Morris",
+          "imageURL": "cdf_.png",
+          "description": "Dolor At Eirmod Magna Sadipscing Clita Sit Voluptua. ",
+          "category": "Ecology",
+          "language": "csdco",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Evelyn",
+          "lastname": "Nguyen",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, Megapit",
+          "category": "Physics",
+          "language": "earthref",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Jean",
+          "lastname": "Murphy",
+          "imageURL": "cdf_.png",
+          "description": "Lorem Rebum. Dolor Est Et Diam Ea Sadipscing Rebum. ",
+          "category": "Biology",
+          "language": "earthref",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Cheryl",
+          "lastname": "Rivera",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, Megapit",
+          "category": "Ecology",
+          "language": "datadiscoverystudio",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Mildred",
+          "lastname": "Cook",
+          "imageURL": "cdf_.png",
+          "description": "Magna Ut Aliquyam Kasd No Aliquyam Accusam Labore ",
+          "category": "Computer_Science",
+          "language": "EDI",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Katherine",
+          "lastname": "Rogers",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, Megapit",
+          "category": "Biology",
+          "language": "datadiscoverystudio",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Joan",
+          "lastname": "Morgan",
+          "imageURL": "cdf_.png",
+          "description": "Aliquyam Vero Aliquyam Kasd Magna Eos Sit Magna Eos Nonumy Voluptua. Eirmod ",
+          "category": "Climate_Science",
+          "language": "earthref",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Ashley",
+          "lastname": "Peterson",
+          "imageURL": "cdf_.png",
+          "description": "Soil CO2 flux - MDP sensor",
+          "category": "Physics",
+          "language": "datadiscoverystudio",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Judith",
+          "lastname": "Cooper",
+          "imageURL": "cdf_.png",
+          "description": "Clita Duo Eirmod Magna Eirmod Dolore Et Voluptua. Dolor Gubergren, ",
+          "category": "Earth_Science",
+          "language": "bco-dmo",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Rose",
+          "lastname": "Reed",
+          "imageURL": "cdf_.png",
+          "description": "Soil CO2 flux - MDP sensor",
+          "category": "Biology",
+          "language": "opencoredata",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Janice",
+          "lastname": "Bailey",
+          "imageURL": "cdf_.png",
+          "description": "Sed Ipsum Duo Stet At Eirmod Et Et Consetetur Aliquyam ",
+          "category": "Medicine",
+          "language": "opencoredata",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Kelly",
+          "lastname": "Bell",
+          "imageURL": "cdf_.png",
+          "description": "Soil CO2 flux - MDP sensor",
+          "category": "Chemistry",
+          "language": "Resource-Registry",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Nicole",
+          "lastname": "Gomez",
+          "imageURL": "cdf_.png",
+          "description": "Justo Ipsum Ea Amet. Dolor Aliquyam Accusam Sed Diam Et Sea Eirmod Lorem Invidunt ",
+          "category": "Agriculture",
+          "language": "linkedearth",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Judy",
+          "lastname": "Kelly",
+          "imageURL": "cdf_.png",
+          "description": "Soil CO2 flux - MDP sensor",
+          "category": "Biology",
+          "language": "earthref",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Christina",
+          "lastname": "Howard",
+          "imageURL": "cdf_.png",
+          "description": "Ipsum Ipsum Kasd Tempor Et Magna Dolore Et ",
+          "category": "Biology",
+          "language": "neotomadb",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Kathy",
+          "lastname": "Ward",
+          "imageURL": "cdf_.png",
+          "description": "Soil CO2 flux - MDP sensor",
+          "category": "Computer_Science",
+          "language": "ssdb",
+          "continent": "Antarctica"
+        },
+        {
+          "firstname": "Theresa",
+          "lastname": "Cox",
+          "imageURL": "cdf_.png",
+          "description": "Ea Amet. At Erat, Ipsum Et Lorem Amet, Sed Et Sanctus Sit Clita ",
+          "category": "Biology",
+          "language": "earthref",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Beverly",
+          "lastname": "Diaz",
+          "imageURL": "cdf_.png",
+          "description": "fPAR - spectrometer - flightline",
+          "category": "Computer_Science",
+          "language": "csdco",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Denise",
+          "lastname": "Richardson",
+          "imageURL": "cdf_.png",
+          "description": "At Eirmod Rebum. Sed Dolor Gubergren, Sadipscing Dolore Est Sanctus Sed No Eirmod Erat, ",
+          "category": "Agriculture",
+          "language": "linkedearth",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Tammy",
+          "lastname": "Wood",
+          "imageURL": "cdf_.png",
+          "description": "fPAR - spectrometer - flightline",
+          "category": "Agriculture",
+          "language": "opentopography",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Irene",
+          "lastname": "Watson",
+          "imageURL": "cdf_.png",
+          "description": "Et Et Invidunt Justo Vero Ut Gubergren, Dolore ",
+          "category": "Physics",
+          "language": "csdco",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Jane",
+          "lastname": "Brooks",
+          "imageURL": "cdf_.png",
+          "description": "fPAR - spectrometer - flightline",
+          "category": "Agriculture",
+          "language": "earthchem",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Lori",
+          "lastname": "Bennett",
+          "imageURL": "cdf_.png",
+          "description": "Amet. Ipsum Erat, Amet. Est Et ",
+          "category": "Biology",
+          "language": "ssdb",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Rachel",
+          "lastname": "Gray",
+          "imageURL": "cdf_.png",
+          "description": "fPAR - spectrometer - flightline",
+          "category": "Earth_Science",
+          "language": "iedadata",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Marilyn",
+          "lastname": "James",
+          "imageURL": "cdf_.png",
+          "description": "Sit Accusam Lorem Sed Consetetur Sea Sed Sanctus Sed ",
+          "category": "Agriculture",
+          "language": "earthchem",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Andrea",
+          "lastname": "Reyes",
+          "imageURL": "cdf_.png",
+          "description": "Periphyton, seston, and phytoplankton chemical properties",
+          "category": "Chemistry",
+          "language": "opencoredata",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Kathryn",
+          "lastname": "Cruz",
+          "imageURL": "cdf_.png",
+          "description": "Tempor Stet Diam Rebum. Dolor Takimata Sed Stet Magna Stet ",
+          "category": "Chemistry",
+          "language": "magic",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Louise",
+          "lastname": "Hughes",
+          "imageURL": "cdf_.png",
+          "description": "Periphyton, seston, and phytoplankton chemical properties",
+          "category": "Biology",
+          "language": "NEON",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Sara",
+          "lastname": "Price",
+          "imageURL": "cdf_.png",
+          "description": "Lorem Nonumy Duo Sit Dolor Nonumy Invidunt Diam Ipsum Elitr, Sed Rebum. Vero At ",
+          "category": "Computer_Science",
+          "language": "ssdb",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Anne",
+          "lastname": "Myers",
+          "imageURL": "cdf_.png",
+          "description": "Periphyton, seston, and phytoplankton chemical properties",
+          "category": "Medicine",
+          "language": "earthchem",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Jacqueline",
+          "lastname": "Long",
+          "imageURL": "cdf_.png",
+          "description": "Sit Diam Eos Duo Sea Eirmod Justo Stet Vero Dolor ",
+          "category": "Earth_Science",
+          "language": "NEON",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Wanda",
+          "lastname": "Foster",
+          "imageURL": "cdf_.png",
+          "description": "Periphyton, seston, and phytoplankton chemical properties",
+          "category": "Medicine",
+          "language": "opentopography",
+          "continent": "North America"
+        },
+        {
+          "firstname": "Bonnie",
+          "lastname": "Sanders",
+          "imageURL": "cdf_.png",
+          "description": "Takimata Consetetur Dolor Amet, Clita ",
+          "category": "Biology",
+          "language": "iedadata",
+          "continent": "Australia"
+        },
+        {
+          "firstname": "Julia",
+          "lastname": "Ross",
+          "imageURL": "cdf_.png",
+          "description": "Periphyton, seston, and phytoplankton chemical properties",
+          "category": "Climate_Science",
+          "language": "opencoredata",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "EDI",
+          "lastname": "Morales",
+          "imageURL": "cdf_.png",
+          "description": "Sit Sit Diam Labore Lorem Diam No Kasd Diam ",
+          "category": "Climate_Science",
+          "language": "opentopography",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Lois",
+          "lastname": "Powell",
+          "imageURL": "cdf_.png",
+          "description": "CO2 concentration - turbulent",
+          "category": "Computer_Science",
+          "language": "earthchem",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Tina",
+          "lastname": "Sullivan",
+          "imageURL": "cdf_.png",
+          "description": "Lorem Sit Ipsum Et Kasd Et Dolores Diam Dolor Sanctus Sadipscing Dolor Sed Diam ",
+          "category": "Earth_Science",
+          "language": "earthref",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Phyllis",
+          "lastname": "Russell",
+          "imageURL": "cdf_.png",
+          "description": "CO2 concentration - turbulent",
+          "category": "Computer_Science",
+          "language": "neotomadb",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Norma",
+          "lastname": "Ortiz",
+          "imageURL": "cdf_.png",
+          "description": "Rebum. Sadipscing Ea Lorem Sadipscing Ea Elitr, Erat, Vero ",
+          "category": "Physics",
+          "language": "hydroshare",
+          "continent": "South America"
+        },
+        {
+          "firstname": "Paula",
+          "lastname": "Jenkins",
+          "imageURL": "cdf_.png",
+          "description": "CO2 concentration - turbulent",
+          "category": "Chemistry",
+          "language": "csdco",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Diana",
+          "lastname": "Gutierrez",
+          "imageURL": "cdf_.png",
+          "description": "Amet. Justo No Et Dolor Et Erat, Voluptua. Amet, Ipsum Est ",
+          "category": "Climate_Science",
+          "language": "ssdb",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Annie",
+          "lastname": "Perry",
+          "imageURL": "cdf_.png",
+          "description": "CO2 concentration - turbulent",
+          "category": "Biology",
+          "language": "ssdb",
+          "continent": "Asia"
+        },
+        {
+          "firstname": "Lillian",
+          "lastname": "Butler",
+          "imageURL": "cdf_.png",
+          "description": "CO2 concentration - turbulent",
+          "category": "Medicine",
+          "language": "magic",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Emily",
+          "lastname": "Barnes",
+          "imageURL": "cdf_.png",
+          "description": "Kasd Et Amet. Ipsum Takimata Amet. Diam Sanctus Gubergren, Consetetur Rebum. Sea Amet, ",
+          "category": "Climate_Science",
+          "language": "iedadata",
+          "continent": "Europe"
+        },
+        {
+          "firstname": "Robin",
+          "lastname": "Fisher",
+          "imageURL": "cdf_.png",
+          "description": "Root biomass and chemistry, periodic",
+          "category": "Computer_Science",
+          "language": "EDI",
+          "continent": "North America"
+        }
+      ];
+    </script>
+    <div id=documentation name=documentation>
+
+      <h2>Documentation</h2>
+			<br>Other <a href=http://mbobak-ofc.ncsa.illinois.edu/search1.htm>DEMOS here</a></br>
+			<br>Below is the format that I almost filled this w/live data:
+        <small>
+        <p>
+          When you have a list of items which share a lot of keys such as these:
+        </p>
+        <pre>
+        var items = [
+          {
+            "firstname": "Mary",
+            "lastname": "Smith",
+            "imageURL": "cdf_.png",
+            "description": "Soil chemical properties, periodic",
+            "category": "Physics",
+            "language": ["iedadata", "earthchem"],
+            "continent": "Africa"
+          },
+          {
+            "firstname": "Patricia",
+            "lastname": "Johnson",
+            "imageURL": "cdf_.png",
+            "description": "Ut Takimata Sit Aliquyam Labore Aliquyam Sit Sit Lorem Amet. Ipsum Rebum. ",
+            "category": "Computer_Science",
+            "continent": "North America"
+            },
+            ...
+          ]
+        </pre>
+        <p>
+        You would like the user view these items, sort them by a certain key, and filter them by another. Maybe the user wants to see the <tt>Computer_Sciences</tt> from <tt>North America</tt> and sort them by their <tt>firstname</tt>. This library gives you the means to do that and provides you with a way to generate the output just as you want it to be. First check out the demo, then read the <a href="#documentation">documentation</a>.
+        </p>
+        </small>
+      <p>This library depends on the existence of <a href="http://jquery.com/">jquery</a> and <a href="http://documentcloud.github.com/underscore/">underscore</a>.</p>
+
+      <h3>Functions</h3>
+      <p>Two functions are exported into the jQuery namespace</p>
+      <p><tt>facetelize</tt> is used to initialize the faceted search with the given settings. </p>
+      <p><tt>facetUpdate</tt> can be used if you want to change the state of the faceted search from the outside.</p>
+
+      <h3>Settings object</h3>
+      <p><tt>items</tt> : An array of items which will be filtered and sorted in the process.</p>
+      <p><tt>facets</tt> : An object for which the keys correspond to keys from the items and the values are the headline for this facet. The items will be filtered based on what value they have for these keys.</p>
+      <p><tt>orderByOptions</tt> : Just like the facets, except that these key-value pairs are used for sorting only. When the key <tt>RANDOM</tt> is included, the results can be randomized.</p>
+      <p><tt>facetSelector</tt> : This is the selector which is used to find the DOM-node where the facets are displayed.</p>
+      <p><tt>resultSelector</tt> : This is the selector which is used to find the DOM-node where the results are displayed.</p>
+      <p><tt>resultTemplate</tt> : A string that is used by the <a href="http://documentcloud.github.com/underscore/#template">underscore templating system</a> to render each item from the <tt>items</tt> array. The following attributes are added to each item which can be used in the template as well: batchItemNr, batchItemCount and totalItemCount.</p>
+      <p><tt>state</tt> : This object stores the current filters, sort option, <tt>currentResult</tt> and other things. You can provide a <tt>orderBy</tt> string or an <tt>filters</tt> object to preset those.</p>
+      <p><tt>enablePagination</tt> : Boolean to enable the pagination / "load more" functionality, defaults to true.</p>
+      <p><tt>paginationCount</tt> : If pagination is enabled, set the number of items to display in a batch, defaults to 50.</p>
+      <p><tt>facetSortOption</tt> : Use this to change the order of facet items. Takes an object in which the keys correspond to facet names and the values to an array of facet values which can be arranged in the order you would like them to appear. This example will sort the continents in a different order, elements which are not included in the array will be appended in alphabetical order: </p>
+      <pre>
+          facetSortOption  : {'continent': ["North America", "South America"]}
+      </pre>
+
+      <p>There are some more templates, please have a look at the source of the <a href="facetedsearch.js">facetedsearch.js</a> to see all available template options.</a>
+
+      <h3>Events</h3>
+      <p>You can bind to some Events to be notified when some actions have happened. This uses the jquery event system. They are:</p>
+      <p><tt>facetuicreated</tt> : You can bind to this function on the settings.facetSelector DOM node to be notified when the UI has been created.</p>
+      <p><tt>facetedsearchresultupdate</tt> : You can bind to this function on the settings.resultSelector DOM node to be notified when the results have been updated.</p>
+      <p><tt>facetedsearchfacetclick</tt> : This event is fired when a facet is clicked and it is fired on the settings.facetSelector node. It receives the id of the facet as an argument. </p>
+      <p><tt>facetedsearchorderby</tt> : This event is fired when a sortby item is clicked and it is fired on the settings.facetSelector node. It receives the id of the orderby as an argument. </p>
+      <pre>
+        $(settings.resultSelector).bind("facetedsearchresultupdate", function(){
+          // do something, maybe
+        });
+      </pre>
+
+      <h3>Example Code</h3>
+      <p>Here you can see a typical setup which includes a DOM-node to display the facets in and one where to display the results in.</p>
+<pre>
+    &lt;div id=facets>&lt;/div>
+    &lt;div id=results>&lt;/div>
+    &lt;script src="dependencies/jquery-1.6.2.js">&lt;/script>
+    &lt;script src="dependencies/underscore-1.1.6.js">&lt;/script>
+    &lt;script src="facetedsearch.js">&lt;/script>
+    &lt;script>
+      var example_items = [
+        {
+          "firstname": "Mary",
+          "lastname": "Smith",
+          "imageURL": "cdf_.png",
+          "description": "Sed Ea Amet. Stet Voluptua. Nonumy Magna Takimata ",
+          "category": "Physics",
+          "language": "earthchem",
+          "continent": "Africa"
+        },
+        {
+          "firstname": "Patricia",
+          "lastname": "Johnson",
+          "imageURL": "cdf_.png",
+          "description": "Ut Takimata Sit Aliquyam Labore Aliquyam Sit Sit Lorem Amet. Ipsum Rebum. ",
+          "category": "Computer_Science",
+          "language": "Resource-Registry",
+          "continent": "North America"
+        }];
+      var item_template =
+       '&lt;div class="item">' +
+         '&lt;img src="&lt;%= obj.imageURL %>">' +
+         '&lt;h4>&lt;%= obj.lastname %>, &lt;%= obj.firstname %>&lt;/h4>' +
+         '&lt;p class="tags">' +
+         '&lt;% if (obj.category) {  %>&lt;%= obj.category %>&lt;% } %>' +
+         '&lt;% if (obj.continent) {  %>, &lt;%= obj.continent %>&lt;% } %>' +
+         '&lt;% if (obj.language) {  %>, &lt;%= obj.language %>&lt;% } %>' +
+         '&lt;/p>' +
+         '&lt;p class="desc">&lt;%= obj.description %>&lt;/p>' +
+       '&lt;/div>';
+      var settings = {
+        items           : example_items,
+        facets          : {
+                            'category'     : 'What Category',
+                            'continent'    : 'Which Continent',
+                            'language'     : 'Programming Language'
+        },
+        resultSelector  : '#results',
+        facetSelector   : '#facets',
+        resultTemplate  : item_template,
+        orderByOptions  : {'firstname': 'First name', 'lastname': 'Last name', 'category': 'Category', 'RANDOM': 'Random'}
+      }
+      $(function(){
+        $.facetelize(settings);
+      });
+    &lt;/script>
+</pre>
+    </div>
+    <a href="http://github.com/eikes/facetedsearch"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+  </body>
+</html>
