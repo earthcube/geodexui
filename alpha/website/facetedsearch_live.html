@@ -225,11 +225,11 @@
 // LIMIT ${n}
 // OFFSET ${o}
 // ` }
-                    params = {
-                        query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                params = {
+                    query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 			prefix schema: <http://schema.org/>
-			SELECT distinct ?subj ?pubname ?datep  ?disurl ?score  ?name ?description
+			SELECT distinct ?subj ?pubname ?geo ?kw ?datep  ?disurl ?score  ?name ?description
 	WHERE {
 			?lit bds:search \"${q}\" .
 		?lit bds:matchAllTerms "false" .
@@ -249,6 +249,8 @@
 		OPTIONAL {?s schema:datePublished ?datep .}
 		OPTIONAL {?s schema:publisher ?pub .
 		?pub schema:name ?pubname .}
+			OPTIONAL {?s schema:spatialCoverage/schema:name ?geo .}
+			OPTIONAL {?subj schema:keywords ?kw .}
 	}
 	ORDER BY DESC(?score)
 	 LIMIT ${n}
@@ -287,8 +289,26 @@
 
 
         };
-
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results==null){
+                return null;
+            }
+            else{
+                return results[1] || 0;
+            }
+        }
+        $
       $( function() {
+          let q = document.querySelector('#q').value;
+          let qurl = $.urlParam('q');
+          if (q === "") {
+              if (qurl !== null ) {
+                q= qurl;
+              }
+          }
+
+
           const item_template =
               `<div class="item card">
                 <div class="card-header">
@@ -344,13 +364,16 @@
                     </div>`;
 
 
-          getItemsFromSparql('carbon')
+
+            getItemsFromSparql(q)
               .then(function (results) {
-                  settings = {
+                  $.facetsettings = {
                       items: results,
                       facets: {
-                         // 'subj': 'Science Domain',
-                         // 'name': 'Place',
+                          // 'subj': 'Science Domain',
+                          'kw': 'Science Domain',
+                          // 'name': 'Place',
+                          'geo': 'Place',
                           'pubname': 'Publisher/Repo',
                           'datep': 'Date'
                       },
@@ -371,21 +394,45 @@
                       },
                       facetSortOption: {'continent': ["North America", "South America"]}
                   };
-              $.facetelize(settings);
+              $.facetelize($.facetsettings);
               }
       )
       });
     </script>
 
 <script>
+    $.facetelize($.facetsettings);
     document.querySelector('#searchBtn').addEventListener('click', search);
     function search(e){
-        (async () => {
+       // (async () => {
             let q = document.querySelector('#q').value;
-            var example_items = await getItemsFromSparql(q);
-            $.facetUpdate();
-        });
-    }
+            getItemsFromSparql(q).
+            then( function(results){
+                $.facetsettings.items= results;
+                //$.facetUpdate();
+                $.facetelize($.facetsettings);
+            });
+
+       // });
+    };
+    document.addEventListener('show.bs.collapse', _handleCollapse);
+    document.addEventListener('hide.bs.collapse', _handleExpand);
+
+    function _handleCollapse(e) {
+        console.log("collapse");
+
+        // Toggle plus minus icon on show hide of collapse element
+
+        $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+
+    };
+
+    function _handleExpand(e) {
+        console.log("collapse");
+
+        // Toggle plus minus icon on show hide of collapse element
+        $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+    };
 
 </script>
 </div>

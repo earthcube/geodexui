@@ -209,17 +209,21 @@ function createFacetUI() {
   var itemtemplate  = _.template(settings.listItemTemplate);
   var titletemplate = _.template(settings.facetTitleTemplate);
   var containertemplate = _.template(settings.facetContainer);
+  var facetlisttemplate = _.template(settings.facetListContainer)
 
   $(settings.facetSelector).html("");
   _.each(settings.facets, function(facettitle, facet) {
     var facetHtml     = $(containertemplate({id: facet}));
     var facetItem     = {title: facettitle,id: facet};
     var facetItemHtml = $(titletemplate(facetItem));
+    var facetListHtml = $(facetlisttemplate({id: facet}));
 
     facetHtml.append(facetItemHtml);
-    var facetlist = $(settings.facetListContainer);
-    var selectedFacetList = $(facetlist).find(settings.facetListSelector);
+
+    var facetlist= facetListHtml;
+    //var selectedFacetList = $(facetlist).find(settings.facetListSelector);
     _.each(settings.facetStore[facet], function(filter, filtername){
+      var selectedFacetList = $(facetlist).find(settings.facetListSelector);
       var item = {id: filter.id, name: filtername, count: filter.count};
       var filteritem  = $(itemtemplate(item));
       if (_.indexOf(settings.state.filters[facet], filtername) >= 0) {
