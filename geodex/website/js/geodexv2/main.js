@@ -58,17 +58,16 @@ function stateChangeSearch() {
 
 	if (q != null && q != "") {
 		generalText(q, n, o);
-		var ct = calltest(q, n, o);
 
 		// TODO  how to wait (sigh)
 		// OR maybe not..  let each query do their render when they finish..
-		// or deal with the "redner" promis ourselves..
-		console.log("-- CALL TEST --");
-		console.log(ct);
+		// or deal with the "render" promise ourselves..
+		// var ct = calltest(q, n, o);
+		// console.log("-- CALL TEST --");
+		// console.log(ct);
 	}
 
 	updateURL(q, n, o, false);
-
 	const navel = document.querySelector('#container1');
 	render(navstatus(q, n, o), navel);
 }
