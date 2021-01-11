@@ -2,7 +2,7 @@
 import {
 	html,
 	render
-} from '/js/lit-html.js';
+} from './lit-html.js';
 
 // event listeners
 document.querySelector('#q').addEventListener('keyup', function (e) {
@@ -34,8 +34,8 @@ function stateChangeSearch() {
 
 	// Hack to replace any string like "word+word2" with "word word2"
 	// happens on the form feed
-	var qupv2 = qup.replace(/(?<=[A-Za-z_0-9])[+](?=[A-Za-z_0-9])/g, ' ');
-
+	//var qupv2 = qup.replace(/(?<=[A-Za-z_0-9])[+](?=[A-Za-z_0-9])/g, ' ');
+	var qupv2 = qup.replace(/([A-Za-z_0-9][+][A-Za-z_0-9])/g, ' ');
 	console.log(qupv2);
 
 
@@ -252,7 +252,7 @@ function getAllUrlParams(url) {
 
 			// set parameter name and value (use 'true' if empty)
 			var paramName = a[0];
-			var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+			var paramValue = typeof (a[1]) === 'undefined' ? true : decodeURIComponent(a[1].replace(/\+/g, ' '));
 
 			// (optional) keep case consistent
 			paramName = paramName.toLowerCase();
@@ -344,7 +344,7 @@ const showresults = (content) => {
 			<a target="_blank" href="/id/do/${barval[i].relto.value}">${barval[i].relto.value}</a> </p>`);
 		}
 
-	
+
 
 
 		// itemTemplates.push(html`</code></pre></div></div>`);
