@@ -17,7 +17,7 @@ var defaults = {
   facetTitleTemplate : '<h3 class=facettitle><%= title %></h3>',
   facetListContainer : '<div class=facetlist></div>',
   listItemTemplate   : '<div class=facetitem id="<%= id %>"><%= name %> <span class=facetitemcount>(<%= count %>)</span></div>',
-  //bottomContainer    : '<div class=bottomline></div>',
+  //bottomContainer    : '<div class="btn-group mr-2" role="group"></div>',
   bottomContainer        : '#heading',
   orderByTemplate    : '<div class=orderby><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
                        '<li class=orderbyitem id=orderby_<%= key %>>'+
@@ -127,7 +127,7 @@ function filter() {
     var filtersApply = true;
     _.each(settings.state.filters, function(filter, facet) {
       if ($.isArray(item[facet])) {
-         var inters = _.intersect(item[facet], filter);
+         var inters = _.intersection(item[facet], filter);
          if (inters.length == 0) {
            filtersApply = false;
          }

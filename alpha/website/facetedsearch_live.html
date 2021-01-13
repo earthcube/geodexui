@@ -2,100 +2,100 @@
 <html>
 
 <head>
-    <style>
+<!--    <style>-->
 
-      /* First come the styles which are used in the demo */
+<!--      /* First come the styles which are used in the demo */-->
 
-      .facetsearch {
-        display: inline-block;
-        width: 200px;
-        vertical-align: top;
-      }
-      .activeorderby,
-      .activefacet {
-        color: red;
-      }
-      .bottomline {
-        padding: 10px 0 10px 0;
-        font-weight: bold;
-      }
-      .bottomline .orderby,
-      .bottomline .facettotalcount {
-        display: inline-block;
-      }
-      .bottomline .orderby ul,
-      .bottomline .orderby li {
-        display: inline;
-        padding: 0;
-      }
-      .bottomline .orderby-title {
-        margin: 0 0 0 10px;
-      }
-      .bottomline .deselectstartover {
-        float: right;
-      }
-      #language {
-        width: 400px;
-      }
-      #language .facetlist{
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        -o-column-count: 2;
-      }
-      /*.item {*/
-      /*  width: 150px;*/
-      /*  height: 250px;*/
-      /*  margin: 0 10px 10px 0;*/
-      /*  display: inline-block;*/
-      /*  vertical-align: top;*/
-      /*}*/
-      /*.item h4 {*/
-      /*  font-size: 1.2em;*/
-      /*}*/
-      /*.item .tags {*/
-      /*  font-weight: bold;*/
-      /*  color: gray;*/
-      /*}*/
-      #showmorebutton {
-        border: 1px solid #AAA;
-        border-radius: 15px;
-        background-color: #DDD;
-        margin: 0 0 10px 0;
-        padding: 10px;
-        width: 100%;
-        display: block;
-        text-align: center;
-        cursor: pointer;
-      }
+<!--      .facetsearch { -->
+<!--        display: inline-block;-->
+<!--        width: 200px;-->
+<!--        vertical-align: top;-->
+<!--      }-->
+<!--      .activeorderby,-->
+<!--      .activefacet {-->
+<!--        color: red;-->
+<!--      }-->
+<!--      .bottomline {-->
+<!--        padding: 10px 0 10px 0;-->
+<!--        font-weight: bold;-->
+<!--      }-->
+<!--      .bottomline .orderby,-->
+<!--      .bottomline .facettotalcount {-->
+<!--        display: inline-block;-->
+<!--      }-->
+<!--      .bottomline .orderby ul,-->
+<!--      .bottomline .orderby li {-->
+<!--        display: inline;-->
+<!--        padding: 0;-->
+<!--      }-->
+<!--      .bottomline .orderby-title {-->
+<!--        margin: 0 0 0 10px;-->
+<!--      }-->
+<!--      .bottomline .deselectstartover {-->
+<!--        float: right;-->
+<!--      }-->
+<!--      #language {-->
+<!--        width: 400px;-->
+<!--      }-->
+<!--      #language .facetlist{-->
+<!--        column-count: 2;-->
+<!--        -webkit-column-count: 2;-->
+<!--        -moz-column-count: 2;-->
+<!--        -o-column-count: 2;-->
+<!--      }-->
+<!--      /*.item {*/-->
+<!--      /*  width: 150px;*/-->
+<!--      /*  height: 250px;*/-->
+<!--      /*  margin: 0 10px 10px 0;*/-->
+<!--      /*  display: inline-block;*/-->
+<!--      /*  vertical-align: top;*/-->
+<!--      /*}*/-->
+<!--      /*.item h4 {*/-->
+<!--      /*  font-size: 1.2em;*/-->
+<!--      /*}*/-->
+<!--      /*.item .tags {*/-->
+<!--      /*  font-weight: bold;*/-->
+<!--      /*  color: gray;*/-->
+<!--      /*}*/-->
+<!--      #showmorebutton {-->
+<!--        border: 1px solid #AAA;-->
+<!--        border-radius: 15px;-->
+<!--        background-color: #DDD;-->
+<!--        margin: 0 0 10px 0;-->
+<!--        padding: 10px;-->
+<!--        width: 100%;-->
+<!--        display: block;-->
+<!--        text-align: center;-->
+<!--        cursor: pointer;-->
+<!--      }-->
 
-      /* These styles are just general purpose styles to make the page look a little less aweful */
+<!--      /* These styles are just general purpose styles to make the page look a little less aweful */-->
 
-      * {
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        padding: 20px;
-        font-family: sans-serif;
-        font-size: 14px;
-      }
-      #wrapper, #documentation {
-        margin: 0 auto;
-        width: 800px;
-      }
-      p {
-        padding-bottom: 1em;
-        line-height: 1.3em;
-      }
-      h1, h2, h3{
-        margin: 0 0 1em 0;
-      }
-      tt {
-        background-color: #EEE;
-        border: 1px solid #CCC;
-      }
-    </style>
+<!--      * {-->
+<!--        margin: 0;-->
+<!--        padding: 0;-->
+<!--      }-->
+<!--      body {-->
+<!--        padding: 20px;-->
+<!--        font-family: sans-serif;-->
+<!--        font-size: 14px;-->
+<!--      }-->
+<!--      #wrapper, #documentation {-->
+<!--        margin: 0 auto;-->
+<!--        width: 800px;-->
+<!--      }-->
+<!--      p {-->
+<!--        padding-bottom: 1em;-->
+<!--        line-height: 1.3em;-->
+<!--      }-->
+<!--      h1, h2, h3{-->
+<!--        margin: 0 0 1em 0;-->
+<!--      }-->
+<!--      tt {-->
+<!--        background-color: #EEE;-->
+<!--        border: 1px solid #CCC;-->
+<!--      }-->
+<!--    </style>-->
 
 
 
@@ -113,7 +113,7 @@
             crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
 
 
 
@@ -168,15 +168,15 @@
       <!-- Here comes the demo, if you want to copy and paste, start here -->
         <div class="row col-12"  id="filterDiv"> <!-- filters -->
             <div class="row col-3 align-items-start">
-                <div id="filters" class="row col-12">
-                 <div id="facets"></div>
+                <div id="facets" class="row col-12">
+                 
                 </div>
 
 
             </div>
-            <div class="row col-8 ">
-                <div id="heading" class="row col-12"></div>
-                 <div id="results" class="row row-cols-1"></div>
+            <div class="row col-8 align-self-start ">
+                <div id="heading" class="row col-12" style="height: 2em;"></div>
+                 <div id="results" class="row col-12"></div>
             </div>
         </div>
     </div>
@@ -231,38 +231,41 @@
 // LIMIT ${n}
 // OFFSET ${o}
 // ` }
-
+//const sparqlqueryData=
                 params = {
-                    query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-			prefix schema: <http://schema.org/>
-			SELECT distinct ?subj ?pubname ?geo ?kw ?datep  ?disurl ?score  ?name ?description
-	WHERE {
-			?lit bds:search \"${q}\" .
-		?lit bds:matchAllTerms "false" .
-		?lit bds:relevance ?score .
-		?subj ?p ?lit .
-		BIND (?subj as ?s)
-	{
-		SELECT  ?s (MIN(?url) as ?disurl) {
-		?s a schema:Dataset .
-		?s schema:distribution ?dis .
-		?dis schema:url ?url .
-	} GROUP BY ?s
-	}
-		?s schema:name ?name .
-		?s schema:description ?description .
-		filter( ?score > 0.04).
-		OPTIONAL {?s schema:datePublished ?datep .}
-		OPTIONAL {?s schema:publisher ?pub .
-		?pub schema:name ?pubname .}
-			OPTIONAL {?s schema:spatialCoverage/schema:name ?geo .}
-			OPTIONAL {?subj schema:keywords ?kw .}
-	}
-	ORDER BY DESC(?score)
-	 LIMIT ${n}
-     OFFSET ${o}
-	`}
+                    query:`PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                        prefix schema: <http://schema.org/>
+                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?geo; SEPARATOR=", ") AS ?places)
+        (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
+        ?datep  ?disurl ?score  ?name ?description ?resourceType
+        WHERE {
+                ?lit bds:search \"${q}\" .
+            ?lit bds:matchAllTerms "false" .
+            ?lit bds:relevance ?score .
+            ?subj ?p ?lit .
+            BIND (?subj as ?s)
+        {
+            SELECT  ?s (MIN(?url) as ?disurl) {
+            ?s a schema:Dataset .
+            ?s schema:distribution ?dis .
+            ?dis schema:url ?url .
+        } GROUP BY ?s
+        }
+            ?subj schema:name ?name .
+            ?subj schema:description ?description .
+            filter( ?score > 0.04).
+            BIND('data' AS ?resourceType)
+            OPTIONAL {?subj schema:datePublished ?datep .}
+            OPTIONAL {?subj schema:publisher/schema:name ?pubname .}
+            OPTIONAL {?subj schema:spatialCoverage/schema:name ?geo .}
+            OPTIONAL {?subj schema:keywords ?kwu .}
+        }
+        GROUP BY ?subj ?datep ?pubname ?name ?description ?disurl ?score ?resourceType
+        ORDER BY DESC(?score)
+        LIMIT ${n}
+        OFFSET ${o}`
+        }
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
                 console.log(params["query"]);
@@ -284,7 +287,13 @@
                 var items = _.map(content.results.bindings, function(item ){
 
                     var flattened= _.mapObject(item, function(value,key){
-                        return value.value;
+                        if (key === 'kw') {
+                            var elements = value.value.split(',')
+                            return elements;
+                        } else {
+                            return value.value;
+                        }
+
                     })
                     return flattened;
                })
@@ -307,17 +316,18 @@
         }
         $
       $( function() {
-          let q = document.querySelector('#q').value;
+          let queryTextBox = $('#q');
+          let q = queryTextBox.val();
           let qurl = $.urlParam('q');
           if (q === "") {
               if (qurl !== null ) {
                 q= qurl;
+                queryTextBox.val(q);
               }
           }
 
 
-          const item_template =
-              `<div class="item card">
+          const item_template=`<div class="item card rounded">
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
                   <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
@@ -325,18 +335,20 @@
                 <div class="tags card-body overflow-auto">
                     <div class="card-text">
                      <% if (obj.description) {  %><%= obj.description %><% } %>
-
+                    </div>
+                    <div class="card-text">
+                        <% if (obj.kw) {  %> <b>Keywords:</b> <%= obj.kw %><% } %>
                     </div>
                 </div>
                 <div class="card-footer">
+                     <span class="badge badge-light"><%= obj.resourceType %></span>
                         <a class="card-link" href="<%= obj.disurl %>"><%= obj.disurl %></a>
                  </div>
-
-            </div>`;
+            </div> `;
 
           // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
-            const facetContainer = `<div class="accordion col-12 facetsearch " id="<%= id %>accordian">
-                <div class="card" id="<%= id %>">
+            const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
+               <div class="card" id='<%= id %>'>
                     <!-- title -->
 
                 <!-- list -->
@@ -355,25 +367,22 @@
           const facetListContainer = `<div id="collapse<%= id %>" class="collapse " aria-labelledby="heading<%= id %>" data-parent="#<%= id %>accordian">
             <div class="card-body">
                 <div class="list-group pl-3 facetlist " >
-
-
             </div>
 
             </div>
        </div>`;
             const listItemTemplate= `<div class="list-group-item  facetitem">
-
                         <input type="radio" id="item<%= id %>" name="customRadioInline1"
                                aria-label="Checkbox for following text input" />
-
                         <label class="p-2" for="item<%= id %>"> <%= name %>  </label>
                         <span  class="badge badge-secondary float-right"><%= count %></span>
                     </div>`;
-  const listItemTemplateSimple =`<div class="facetitem" id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
-          const countTemplate=`<div class="facettotalcount col order-12"><%= count %> Results</div>`;
-  const deselectTemplate = `<div class='btn btn-info col order-6'>Clear all filters</div>`;
 
-const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  const listItemTemplateSimple =`<div class="facetitem " id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
+          const countTemplate=`<div class="facettotalcount col order-12"><%= count %> Results</div>`;
+  const deselectTemplate = `<div class='btn btn-sm btn-info col order-6'>Clear all filters</div>`;
+
+const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-sm btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="orderby-title">Sort by: </span> </button>
             <div class="dropdown-menu" aria-labelledby="orderbyMenuButton"><% _.each(options, function(value, key) { %>
                        <a class="orderbyitem dropdown-item" id="orderby_<%= key %>">
@@ -427,11 +436,18 @@ const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn b
 
 <script>
     //$.facetelize($.facetsettings);
+    //var yaml = require('js-yaml');
+//     jQuery.getJSON('./settings.yaml',
+// function(data ){
+//     var settings = jsyaml.load(data);
+// }
+//     );
+
 
     document.querySelector('#searchBtn').addEventListener('click', search);
     function search(e){
        // (async () => {
-            let q = document.querySelector('#q').value;
+            let q = $('#q').val();
             getItemsFromSparql(q).
             then( function(results){
                 $.facetsettings.items= results;
