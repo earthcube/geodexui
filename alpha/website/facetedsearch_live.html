@@ -43,20 +43,20 @@
         -moz-column-count: 2;
         -o-column-count: 2;
       }
-      .item {
-        width: 150px;
-        height: 250px;
-        margin: 0 10px 10px 0;
-        display: inline-block;
-        vertical-align: top;
-      }
-      .item h4 {
-        font-size: 1.2em;
-      }
-      .item .tags {
-        font-weight: bold;
-        color: gray;
-      }
+      /*.item {*/
+      /*  width: 150px;*/
+      /*  height: 250px;*/
+      /*  margin: 0 10px 10px 0;*/
+      /*  display: inline-block;*/
+      /*  vertical-align: top;*/
+      /*}*/
+      /*.item h4 {*/
+      /*  font-size: 1.2em;*/
+      /*}*/
+      /*.item .tags {*/
+      /*  font-weight: bold;*/
+      /*  color: gray;*/
+      /*}*/
       #showmorebutton {
         border: 1px solid #AAA;
         border-radius: 15px;
@@ -104,6 +104,7 @@
     <title>Earthcube</title>
 
     <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -112,17 +113,22 @@
             crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
-    <script src="js/facetedsearch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
 
+
+
+
+    <script src="js/facetedsearch.js"></script>
+<link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
 <div class="container-fluid" >
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="https://www.earthcube.org/">
-            <img src="https://www.earthcube.org/sites/default/files/earthcubeicon.png" width="30" height="30"
-                 class="d-inline-block align-top" alt="" loading="lazy">
-            EarthCube
+            <img src="images/EarthCube-White-Long-Tagline.png"  height="30"
+                 class="d-inline-block align-top" alt="EarthCube" loading="lazy">
+
         </a>
         <!-- -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -160,7 +166,7 @@
       </div>
     </div>
       <!-- Here comes the demo, if you want to copy and paste, start here -->
-        <div class="row col-12"> <!-- filters -->
+        <div class="row col-12"  id="filterDiv"> <!-- filters -->
             <div class="row col-3 align-items-start">
                 <div id="filters" class="row col-12">
                  <div id="facets"></div>
@@ -169,7 +175,7 @@
 
             </div>
             <div class="row col-8 ">
-                <!-- future page  header here -->
+                <div id="heading" class="row col-12"></div>
                  <div id="results" class="row row-cols-1"></div>
             </div>
         </div>
@@ -225,6 +231,7 @@
 // LIMIT ${n}
 // OFFSET ${o}
 // ` }
+
                 params = {
                     query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -312,7 +319,7 @@
           const item_template =
               `<div class="item card">
                 <div class="card-header">
-                  <div class="card-title"><%= obj.name %></div>
+                  <div class="card-title" ><%= obj.name %></div>
                   <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
                 </div>
                 <div class="tags card-body overflow-auto">
@@ -322,13 +329,13 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                        <div class="card-link"><%= obj.disurl %></div>
+                        <a class="card-link" href="<%= obj.disurl %>"><%= obj.disurl %></a>
                  </div>
 
             </div>`;
 
           // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
-            const facetContainer = `<div class="accordion col-12 facetsearch" id="<%= id %>accordian">
+            const facetContainer = `<div class="accordion col-12 facetsearch " id="<%= id %>accordian">
                 <div class="card" id="<%= id %>">
                     <!-- title -->
 
@@ -336,8 +343,8 @@
                 </div>
             </div>`;
           const facetTitleTemplate =`<div class="card-header" id="heading<%= id %>">
-            <h2 class="ml-6">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+            <h2 class="ml-6 ">
+                <button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"
                         data-target="#collapse<%= id %>" aria-expanded="true" aria-controls="collapse<%= id %>">
                     <%= title %><i class="fa fa-plus  float-right"></i>
                 </button>
@@ -345,9 +352,9 @@
             </h2>
             </div>`;
 
-          const facetListContainer = `<div id="collapse<%= id %>" class="collapse show" aria-labelledby="heading<%= id %>" data-parent="#<%= id %>accordian">
+          const facetListContainer = `<div id="collapse<%= id %>" class="collapse " aria-labelledby="heading<%= id %>" data-parent="#<%= id %>accordian">
             <div class="card-body">
-                <div class="list-group pl-3 facetlist">
+                <div class="list-group pl-3 facetlist " >
 
 
             </div>
@@ -362,8 +369,17 @@
                         <label class="p-2" for="item<%= id %>"> <%= name %>  </label>
                         <span  class="badge badge-secondary float-right"><%= count %></span>
                     </div>`;
+  const listItemTemplateSimple =`<div class="facetitem" id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
+          const countTemplate=`<div class="facettotalcount col order-12"><%= count %> Results</div>`;
+  const deselectTemplate = `<div class='btn btn-info col order-6'>Clear all filters</div>`;
 
-
+const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="orderby-title">Sort by: </span> </button>
+            <div class="dropdown-menu" aria-labelledby="orderbyMenuButton"><% _.each(options, function(value, key) { %>
+                       <a class="orderbyitem dropdown-item" id="orderby_<%= key %>">
+                       <%= value %> </a> <% }); %></div></button>
+</div>`
+;
 
             getItemsFromSparql(q)
               .then(function (results) {
@@ -382,26 +398,36 @@
                       facetContainer     : facetContainer,
                       facetTitleTemplate : facetTitleTemplate,
                       facetListContainer : facetListContainer,
-                      //listItemTemplate   : listItemTemplate,
+                      listItemTemplate   : listItemTemplateSimple,
                       resultTemplate: item_template,
+
+                      deselectTemplate: deselectTemplate,
+                      orderByTemplate: orderByTemplate,
+                      countTemplate:countTemplate,
                       paginationCount: 50,
                       orderByOptions: {
                           'name': 'Name',
                           'pubname': 'Publisher',
                           'date': 'Date',
                          // 'subj': 'Subject',
-                          'RANDOM': 'Random'
+                          //'RANDOM': 'Score'
+                          'score': 'Score'
                       },
                       facetSortOption: {'continent': ["North America", "South America"]}
                   };
+
               $.facetelize($.facetsettings);
+              //$('#filterDiv').show();
+                 $('.facetsearch').on('show.bs.collapse', _handleCollapse);
+                  $('.facetsearch').on('hide.bs.collapse', _handleExpand);
               }
       )
       });
     </script>
 
 <script>
-    $.facetelize($.facetsettings);
+    //$.facetelize($.facetsettings);
+
     document.querySelector('#searchBtn').addEventListener('click', search);
     function search(e){
        // (async () => {
@@ -415,23 +441,23 @@
 
        // });
     };
-    document.addEventListener('show.bs.collapse', _handleCollapse);
-    document.addEventListener('hide.bs.collapse', _handleExpand);
+   // document.querySelector('.collapse').addEventListener('show.bs.collapse', _handleCollapse);
+   // document.querySelector('.collapse').addEventListener('hide.bs.collapse', _handleExpand);
 
     function _handleCollapse(e) {
         console.log("collapse");
 
         // Toggle plus minus icon on show hide of collapse element
+        $(this).find(".fa").removeClass("fa-plus").addClass("fa-minus")
 
-        $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
 
     };
 
     function _handleExpand(e) {
-        console.log("collapse");
+        console.log("expand");
 
         // Toggle plus minus icon on show hide of collapse element
-        $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+      $(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
     };
 
 </script>

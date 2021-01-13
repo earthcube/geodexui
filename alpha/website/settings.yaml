@@ -1,0 +1,18 @@
+
+"queryfile": "queries/facetedsearch.sparql.txt",
+"facets":
+  // "subj": "Science Domain",
+  "kw": "Science Domain",
+  // "name": "Place",
+  "geo": "Place",
+  "pubname": "Publisher/Repo",
+  "datep": "Date"
+},
+"orderByOptions": {
+  "name": "Name",
+  "pubname": "Publisher",
+  "date": "Date",
+  // "subj": "Subject",
+  "RANDOM": "Random"
+
+

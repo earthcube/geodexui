@@ -19,9 +19,8 @@
 <div class="container-fluid" >
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="https://www.earthcube.org/">
-            <img src="https://www.earthcube.org/sites/default/files/earthcubeicon.png" width="30" height="30"
+            <img src="images/EarthCube-White-Long-Tagline.png"  height="38"
                  class="d-inline-block align-top" alt="" loading="lazy">
-            EarthCube
         </a>
         <!-- -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -35,10 +34,10 @@
                 <!--                    <a class="nav-link" href="#">EarthCube <span class="sr-only">(current)</span></a>-->
                 <!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">SPARQL Endpoint</a>
+                    <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query">SPARQL Endpoint</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
+                    <a class="nav-link" href="./about.htm">Help</a>
                 </li>
             </ul>
             <!--            <form class="form-inline my-2 my-lg-0">-->
@@ -50,43 +49,59 @@
 
     <div class="row  mb-3  mt-3">
         <div class="col-2"></div>
-        <div class="col-4 d-flex justify-content-center">
-            <img src="images/v292_71.png"/>
+        <div class="col-6  d-flex justify-content-center">
+            <img src="images/blueEConwhite.png" height=66 />
         </div>
 
     </div>
 
-    <form>
+    <form
+					action="./facetedsearch_live.html" method="GET">
         <div class="row">
             <div class="col-2"></div>
             <div class="input-group mb-3 col-6 d-flex justify-content-center">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+						id="q" name="q"
+								>
+						<!--clean more of this up soon
+						<input style="font-size:120%" type="search"
+						id="q" name="q"
+						aria-label="Search for samples">
                 <div class="input-group-append">
-                    <a href="#" class="btn btn-default col-2"><img src="../../geodex/website/img/icons/search.svg" alt="" width="32"
-                                                                   height="32" title="Search"></span> </a>
+                    <a href="#" class="btn btn-default col-2">
+												<img src="images/sqButton.png" alt="search" height="32" title="Search"></span></a>
                 </div>
+
+						<button style="color:black;border-color:black;border-style:solid" id="update">Search</button>-->
+                <button href="#" class="btn btn-default" id="update">
+                    <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
+                </button>
+
             </div>
         </div>
         <div class="row">
             <div class="col-2"></div>
             <div class="input-group mb-3 col-6 d-flex justify-content-center">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="all" name="customRadioInline1" class="custom-control-input">
-                    <label class="custom-control-label" for="all">All</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="all" value="all" name="searchTypes" class="form-check-input" checked>
+                    <label class="form-check-label" for="all">All</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="tool" name="customRadioInline1" class="custom-control-input">
-                    <label class="custom-control-label" for="tool">Tool</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="tool" value="tool" name="searchTypes" class="form-check-input">
+                    <label class="form-check-label" for="tool">Tool</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="data" name="customRadioInline1" class="custom-control-input">
-                    <label class="custom-control-label" for="data">data</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="data" value="data" name="searchTypes" class="form-check-input">
+                    <label class="form-check-label" for="data">data</label>
                 </div>
             </div>
         </div>
-        <div class="v292_111"></div>
     </form>
 </div>
 </body>
+<script >
+    function searchBtn(e) {
 
+    }
+</script>
 </html>

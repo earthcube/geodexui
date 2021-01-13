@@ -11,12 +11,14 @@ var defaults = {
   facets             : {'a': 'Title A', 'b': 'Title B', 'c': 'Title C'},
   resultSelector     : '#results',
   facetSelector      : '#facets',
+  facetHeading        : '#heading',
   facetListSelector  : '.facetlist',
   facetContainer     : '<div class=facetsearch id=<%= id %> ></div>',
   facetTitleTemplate : '<h3 class=facettitle><%= title %></h3>',
   facetListContainer : '<div class=facetlist></div>',
   listItemTemplate   : '<div class=facetitem id="<%= id %>"><%= name %> <span class=facetitemcount>(<%= count %>)</span></div>',
-  bottomContainer    : '<div class=bottomline></div>',
+  //bottomContainer    : '<div class=bottomline></div>',
+  bottomContainer        : '#heading',
   orderByTemplate    : '<div class=orderby><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
                        '<li class=orderbyitem id=orderby_<%= key %>>'+
                        '<%= value %> </li> <% }); %></ul></div>',
@@ -255,7 +257,8 @@ function createFacetUI() {
   var ordertemplate = _.template(settings.orderByTemplate);
   var itemHtml = $(ordertemplate({'options': settings.orderByOptions}));
   $(bottom).append(itemHtml);
-  $(settings.facetSelector).append(bottom);
+  //$(settings.facetSelector).append(bottom);
+  //$(settings.facetHeading).append(bottom);
   $('.orderbyitem').each(function(){
     var id = this.id.substr(8);
     if (settings.state.orderBy == id) {

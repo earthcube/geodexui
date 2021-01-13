@@ -1,0 +1,29 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+			prefix schema: <http://schema.org/>
+			SELECT distinct ?subj ?pubname ?geo ?kw ?datep  ?disurl ?score  ?name ?description
+	WHERE {
+			?lit bds:search \"${q}\" .
+		?lit bds:matchAllTerms "false" .
+		?lit bds:relevance ?score .
+		?subj ?p ?lit .
+		BIND (?subj as ?s)
+	{
+		SELECT  ?s (MIN(?url) as ?disurl) {
+		?s a schema:Dataset .
+		?s schema:distribution ?dis .
+		?dis schema:url ?url .
+	} GROUP BY ?s
+	}
+		?s schema:name ?name .
+		?s schema:description ?description .
+		filter( ?score > 0.04).
+		OPTIONAL {?s schema:datePublished ?datep .}
+		OPTIONAL {?s schema:publisher ?pub .
+		?pub schema:name ?pubname .}
+			OPTIONAL {?s schema:spatialCoverage/schema:name ?geo .}
+			OPTIONAL {?subj schema:keywords ?kw .}
+	}
+	ORDER BY DESC(?score)
+	 LIMIT ${n}
+     OFFSET ${o}

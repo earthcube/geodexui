@@ -2,3 +2,8 @@ card-overrides {
     overflow-x: visible !important;
     overflow-y: visible !important;
 }
+
+.facetlist {
+    overflow-y:scroll;
+    max-height:20em;
+}
