@@ -27,20 +27,48 @@ import {
 
                 const detailsTemplate = [];
 
-                var url = new URL("https://graph.geodex.org/blazegraph/namespace/rr/sparql"),
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const object = urlParams.get('o');
+                var op = object.replaceAll("/", ":");  // this is stupid that I an turning this back now...  
+                op = op.replace(".jsonld", "");
+                console.log(op);
+
+                var url = new URL("https://graph.geodex.org/blazegraph/namespace/nabu/sparql"),
 
                     // var url = new URL("https://192.168.2.89:8080/blazegraph/sparql"),
                     // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
 
-                    params = {
-                        query: `prefix schema: <http://schema.org/> \
-                        SELECT ?name ?desc ?repo \
-                        WHERE {  \
-                           <https://n2t.net/ark:/23942/g2600006> schema:name ?name . \
-                         <https://n2t.net/ark:/23942/g2600006> schema:description ?desc . \
-                          <https://n2t.net/ark:/23942/g2600006> schema:codeRepository ?repo . \
-                        }\
-                        ` }
+                    // params = {
+                    //     query: `prefix schema: <http://schema.org/> \
+                    //     SELECT ?name ?desc ?repo \
+                    //     WHERE {  \
+                    //        <https://n2t.net/ark:/23942/g2600006> schema:name ?name . \
+                    //      <https://n2t.net/ark:/23942/g2600006> schema:description ?desc . \
+                    //       <https://n2t.net/ark:/23942/g2600006> schema:codeRepository ?repo . \
+                    //     }\
+                    //     ` }
+
+
+                params = {
+                    query: `PREFIX schema:  <https://schema.org/> \
+                  PREFIX schemaold:  <http://schema.org/> \
+                  select DISTINCT ?rrs ?name \
+                  WHERE \
+                   { \
+                    graph <urn:gleaner:milled${op}> { \
+                    ?s  schema:encodingFormat|schema:encodingFormat ?type . \
+                   } \
+                    BIND (str(?type) as ?label) \
+                    SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> { \
+                        GRAPH <http://earthcube.org/gleaner-summoned>  \
+                        {                \
+                           ?rrs schemaold:supportingData/schemaold:encodingFormat  ?label . \
+                           ?rrs schemaold:name ?name . \
+                      }  \
+                    } \
+                    }`
+                }
 
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
@@ -64,13 +92,12 @@ import {
                 console.log(r);
 
 
-               r.forEach(element => {
-                   detailsTemplate.push(html`<div><p style="text-align:left"><b> ${element.name.value}</b> </p> </div>`);
-                   detailsTemplate.push(html`<div><p style="text-align:left"> ${element.desc.value}</p> </div>`);
-                   detailsTemplate.push(html`<div><p style="text-align:left"> <a target="_blank" href="${element.repo.value}">${element.repo.value}</a></p> </div>`);
-               }
-               );
-                
+                r.forEach(element => {
+                    detailsTemplate.push(html`<div><p style="text-align:left">
+                    <a target="_blank" href="${element.rrs.value}"> ${element.name.value}</a></p> </div>`);
+                }
+                );
+
 
                 // r.forEach(element => {
                 // detailsTemplate.push(html`<sl-card class="card-footer" style="margin:3px;max-width: 290px;"> \

@@ -50,7 +50,7 @@ export const showresults = (content) => {
 		}
 
 		if (getSafe(() => barval[i].g.value)) {
-			containerTemplate.push(html`<span id="${barval[i].g.value}">Doing Tool Check</span><br>`);
+			containerTemplate.push(html`<span id="${barval[i].g.value}"></span><br>`);
 		}
 
 		var rrta = rrtoolask( barval[i].g.value);

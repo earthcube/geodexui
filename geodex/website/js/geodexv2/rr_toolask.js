@@ -1,4 +1,5 @@
 // Conduct the SPARQL call and call the lithtml functions to render results
+import { rrshowresults } from './rr_render.js';
 import {
 	html,
 	render
@@ -16,33 +17,29 @@ export function rrtoolask(g) {
 
 			params = {
 				query: `
-				PREFIX sdo:  <http://schema.org/>  \
-  \
+				PREFIX schema:  <https://schema.org/> \
+				PREFIX schemaold:  <http://schema.org/> \
 ASK \
 WHERE \
 { \
   graph <${g}> { \
      \
-   ?s  <https://schema.org/additionType> ?type . \
+   ?s   schema:encodingFormat|schema:encodingFormat ?type . \
     } \
       BIND (str(?type) as ?label) \
    SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> { \
        GRAPH <http://earthcube.org/gleaner-summoned>  \
        {                \
-         ?rrs sdo:supportingData/sdo:encodingFormat  ?label . \
-         ?rrs sdo:name ?rrname. \
+		?rrs schemaold:supportingData|schemaold:encodingFormat  ?label . \
+		?rrs schemaold:name ?rrname. \
         } \
     }     \
  } \
 ` }
 
 
-console.log(params["query"]);
-
-
+		console.log(params["query"]);
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
-		// console.log(params["query"]);
 
 		const rawResponse = await fetch(url, {
 			method: 'GET',
@@ -57,17 +54,17 @@ console.log(params["query"]);
 		});
 
 		const askresp = await rawResponse.json();
-        //console.log(content);
 
-        // TODO  try to return content here back to main
-        console.log("-- end of RR tool ask --");
+		// TODO  try to return content here back to main
+		console.log("-- end of RR tool ask --");
 		console.log(askresp);
 
-		document.getElementById(g).innerHTML = askresp.boolean;
+		if (askresp.boolean ) {
+			const t = document.getElementById(g);
+			render(rrshowresults(g), t);
+		}
 
-		// could I grab an DOM ID and update it?
-
-        return askresp;
+		return askresp;
 
 	})();
 }
