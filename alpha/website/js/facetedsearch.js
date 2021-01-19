@@ -82,10 +82,12 @@ function initFacetCount() {
     _.each(settings.facets, function(facettitle, facet) {
       if ($.isArray(item[facet])) {
         _.each(item[facet], function(facetitem) {
+          if (_.isEmpty(facetitem)) {return;};
           settings.facetStore[facet][facetitem] = settings.facetStore[facet][facetitem] || {count: 0, id: _.uniqueId("facet_")}
         });
       } else {
         if (item[facet] !== undefined) {
+          if (_.isEmpty(item[facet] )) {return;};
           settings.facetStore[facet][item[facet]] = settings.facetStore[facet][item[facet]] || {count: 0, id: _.uniqueId("facet_")}
         }
       }
@@ -147,10 +149,12 @@ function filter() {
     _.each(settings.currentResults, function(item) {
       if ($.isArray(item[facet])) {
         _.each(item[facet], function(facetitem) {
+          if (_.isEmpty(item[facet] )) {return;};
           settings.facetStore[facet][facetitem].count += 1;
         });
       } else {
         if (item[facet] !== undefined) {
+          if (_.isEmpty(item[facet] )) {return;};
           settings.facetStore[facet][item[facet]].count += 1;
         }
       }
@@ -248,6 +252,7 @@ function createFacetUI() {
   });
   // Append total result count
   var bottom = $(settings.bottomContainer);
+  bottom.innerText="";
   //countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
   //$(bottom).append(countHtml);
   countHtml = _.template(settings.countTemplate);

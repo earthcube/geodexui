@@ -2,101 +2,100 @@
 <html>
 
 <head>
-<!--    <style>-->
+    <!--    <style>-->
 
-<!--      /* First come the styles which are used in the demo */-->
+    <!--      /* First come the styles which are used in the demo */-->
 
-<!--      .facetsearch { -->
-<!--        display: inline-block;-->
-<!--        width: 200px;-->
-<!--        vertical-align: top;-->
-<!--      }-->
-<!--      .activeorderby,-->
-<!--      .activefacet {-->
-<!--        color: red;-->
-<!--      }-->
-<!--      .bottomline {-->
-<!--        padding: 10px 0 10px 0;-->
-<!--        font-weight: bold;-->
-<!--      }-->
-<!--      .bottomline .orderby,-->
-<!--      .bottomline .facettotalcount {-->
-<!--        display: inline-block;-->
-<!--      }-->
-<!--      .bottomline .orderby ul,-->
-<!--      .bottomline .orderby li {-->
-<!--        display: inline;-->
-<!--        padding: 0;-->
-<!--      }-->
-<!--      .bottomline .orderby-title {-->
-<!--        margin: 0 0 0 10px;-->
-<!--      }-->
-<!--      .bottomline .deselectstartover {-->
-<!--        float: right;-->
-<!--      }-->
-<!--      #language {-->
-<!--        width: 400px;-->
-<!--      }-->
-<!--      #language .facetlist{-->
-<!--        column-count: 2;-->
-<!--        -webkit-column-count: 2;-->
-<!--        -moz-column-count: 2;-->
-<!--        -o-column-count: 2;-->
-<!--      }-->
-<!--      /*.item {*/-->
-<!--      /*  width: 150px;*/-->
-<!--      /*  height: 250px;*/-->
-<!--      /*  margin: 0 10px 10px 0;*/-->
-<!--      /*  display: inline-block;*/-->
-<!--      /*  vertical-align: top;*/-->
-<!--      /*}*/-->
-<!--      /*.item h4 {*/-->
-<!--      /*  font-size: 1.2em;*/-->
-<!--      /*}*/-->
-<!--      /*.item .tags {*/-->
-<!--      /*  font-weight: bold;*/-->
-<!--      /*  color: gray;*/-->
-<!--      /*}*/-->
-<!--      #showmorebutton {-->
-<!--        border: 1px solid #AAA;-->
-<!--        border-radius: 15px;-->
-<!--        background-color: #DDD;-->
-<!--        margin: 0 0 10px 0;-->
-<!--        padding: 10px;-->
-<!--        width: 100%;-->
-<!--        display: block;-->
-<!--        text-align: center;-->
-<!--        cursor: pointer;-->
-<!--      }-->
+    <!--      .facetsearch { -->
+    <!--        display: inline-block;-->
+    <!--        width: 200px;-->
+    <!--        vertical-align: top;-->
+    <!--      }-->
+    <!--      .activeorderby,-->
+    <!--      .activefacet {-->
+    <!--        color: red;-->
+    <!--      }-->
+    <!--      .bottomline {-->
+    <!--        padding: 10px 0 10px 0;-->
+    <!--        font-weight: bold;-->
+    <!--      }-->
+    <!--      .bottomline .orderby,-->
+    <!--      .bottomline .facettotalcount {-->
+    <!--        display: inline-block;-->
+    <!--      }-->
+    <!--      .bottomline .orderby ul,-->
+    <!--      .bottomline .orderby li {-->
+    <!--        display: inline;-->
+    <!--        padding: 0;-->
+    <!--      }-->
+    <!--      .bottomline .orderby-title {-->
+    <!--        margin: 0 0 0 10px;-->
+    <!--      }-->
+    <!--      .bottomline .deselectstartover {-->
+    <!--        float: right;-->
+    <!--      }-->
+    <!--      #language {-->
+    <!--        width: 400px;-->
+    <!--      }-->
+    <!--      #language .facetlist{-->
+    <!--        column-count: 2;-->
+    <!--        -webkit-column-count: 2;-->
+    <!--        -moz-column-count: 2;-->
+    <!--        -o-column-count: 2;-->
+    <!--      }-->
+    <!--      /*.item {*/-->
+    <!--      /*  width: 150px;*/-->
+    <!--      /*  height: 250px;*/-->
+    <!--      /*  margin: 0 10px 10px 0;*/-->
+    <!--      /*  display: inline-block;*/-->
+    <!--      /*  vertical-align: top;*/-->
+    <!--      /*}*/-->
+    <!--      /*.item h4 {*/-->
+    <!--      /*  font-size: 1.2em;*/-->
+    <!--      /*}*/-->
+    <!--      /*.item .tags {*/-->
+    <!--      /*  font-weight: bold;*/-->
+    <!--      /*  color: gray;*/-->
+    <!--      /*}*/-->
+    <!--      #showmorebutton {-->
+    <!--        border: 1px solid #AAA;-->
+    <!--        border-radius: 15px;-->
+    <!--        background-color: #DDD;-->
+    <!--        margin: 0 0 10px 0;-->
+    <!--        padding: 10px;-->
+    <!--        width: 100%;-->
+    <!--        display: block;-->
+    <!--        text-align: center;-->
+    <!--        cursor: pointer;-->
+    <!--      }-->
 
-<!--      /* These styles are just general purpose styles to make the page look a little less aweful */-->
+    <!--      /* These styles are just general purpose styles to make the page look a little less aweful */-->
 
-<!--      * {-->
-<!--        margin: 0;-->
-<!--        padding: 0;-->
-<!--      }-->
-<!--      body {-->
-<!--        padding: 20px;-->
-<!--        font-family: sans-serif;-->
-<!--        font-size: 14px;-->
-<!--      }-->
-<!--      #wrapper, #documentation {-->
-<!--        margin: 0 auto;-->
-<!--        width: 800px;-->
-<!--      }-->
-<!--      p {-->
-<!--        padding-bottom: 1em;-->
-<!--        line-height: 1.3em;-->
-<!--      }-->
-<!--      h1, h2, h3{-->
-<!--        margin: 0 0 1em 0;-->
-<!--      }-->
-<!--      tt {-->
-<!--        background-color: #EEE;-->
-<!--        border: 1px solid #CCC;-->
-<!--      }-->
-<!--    </style>-->
-
+    <!--      * {-->
+    <!--        margin: 0;-->
+    <!--        padding: 0;-->
+    <!--      }-->
+    <!--      body {-->
+    <!--        padding: 20px;-->
+    <!--        font-family: sans-serif;-->
+    <!--        font-size: 14px;-->
+    <!--      }-->
+    <!--      #wrapper, #documentation {-->
+    <!--        margin: 0 auto;-->
+    <!--        width: 800px;-->
+    <!--      }-->
+    <!--      p {-->
+    <!--        padding-bottom: 1em;-->
+    <!--        line-height: 1.3em;-->
+    <!--      }-->
+    <!--      h1, h2, h3{-->
+    <!--        margin: 0 0 1em 0;-->
+    <!--      }-->
+    <!--      tt {-->
+    <!--        background-color: #EEE;-->
+    <!--        border: 1px solid #CCC;-->
+    <!--      }-->
+    <!--    </style>-->
 
 
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
@@ -113,20 +112,17 @@
             crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
-    <script  src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
-
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mocha/1.0.2/package/lib/browser/fs.js"></script>
     <script src="js/facetedsearch.js"></script>
-<link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main.css"/>
 </head>
 
 <body>
-<div class="container-fluid" >
+<div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="https://www.earthcube.org/">
-            <img src="images/EarthCube-White-Long-Tagline.png"  height="30"
+            <img src="images/EarthCube-White-Long-Tagline.png" height="30"
                  class="d-inline-block align-top" alt="EarthCube" loading="lazy">
 
         </a>
@@ -157,42 +153,39 @@
     </nav>
 
 
-
-
     <div id="wrapper row">
-      <div id="description">
-        <h3>Faceted Search of EarthCube resources</h3>
+        <div id="description">
+            <h3>Faceted Search of EarthCube resources</h3>
 
-      </div>
-    </div>
-      <!-- Here comes the demo, if you want to copy and paste, start here -->
-        <div class="row col-12"  id="filterDiv"> <!-- filters -->
-            <div class="row col-3 align-items-start">
-                <div id="facets" class="row col-12">
-                 
-                </div>
-
-
-            </div>
-            <div class="row col-8 align-self-start ">
-                <div id="heading" class="row col-12" style="height: 2em;"></div>
-                 <div id="results" class="row col-12"></div>
-            </div>
         </div>
     </div>
+    <!-- Here comes the demo, if you want to copy and paste, start here -->
+    <div class="row col-12" id="filterDiv"> <!-- filters -->
+        <div class="row col-3 align-items-start">
+            <div id="facets" class="row col-12">
+
+            </div>
 
 
-    <script>
-        async function getItemsFromSparql(q, n=1000, o=0) {
-            console.log("Get Blaze full text");
-            console.log(n);
+        </div>
+        <div class="row col-8 align-self-start ">
+            <div id="heading" class="row col-12" style="height: 2em;"></div>
+            <div id="results" class="row col-12"></div>
+        </div>
+    </div>
+</div>
 
 
+<script>
+    async function getItemsFromSparql(q, n = 1000, o = 0) {
+        console.log("Get Blaze full text");
+        console.log(n);
 
-                var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
 
-                    // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
-                    // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
+        var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
+
+            // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
+            // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
 
 // 			params = {
 // 				query: ` prefix schema: <http://schema.org/> \
@@ -232,11 +225,11 @@
 // OFFSET ${o}
 // ` }
 //const sparqlqueryData=
-                params = {
-                    query:`PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            params = {
+                query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                         prefix schema: <http://schema.org/>
-                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?geo; SEPARATOR=", ") AS ?places)
+                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
         ?datep  ?disurl ?score  ?name ?description ?resourceType
         WHERE {
@@ -258,76 +251,79 @@
             BIND('data' AS ?resourceType)
             OPTIONAL {?subj schema:datePublished ?datep .}
             OPTIONAL {?subj schema:publisher/schema:name ?pubname .}
-            OPTIONAL {?subj schema:spatialCoverage/schema:name ?geo .}
+            OPTIONAL {?subj schema:spatialCoverage/schema:name ?placename .}
             OPTIONAL {?subj schema:keywords ?kwu .}
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?disurl ?score ?resourceType
         ORDER BY DESC(?score)
         LIMIT ${n}
         OFFSET ${o}`
-        }
-                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
-                console.log(params["query"]);
-
-                const rawResponse = await fetch(url, {
-                    method: 'GET',
-                    //mode: 'no-cors', // no-cors, *cors, same-origin
-                    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                    //credentials: 'omit', // include, *same-origin, omit
-                    headers: {
-                        'Accept': 'application/sparql-results+json',
-                        'Content-Type': 'application/json'
-                    } // ,
-                    // body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
-                });
-
-                const content = await rawResponse.json();
-                //console.log(content);
-                var items = _.map(content.results.bindings, function(item ){
-
-                    var flattened= _.mapObject(item, function(value,key){
-                        if (key === 'kw') {
-                            var elements = value.value.split(',')
-                            return elements;
-                        } else {
-                            return value.value;
-                        }
-
-                    })
-                    return flattened;
-               })
-                return items; //content.results.bindings;
-                // const el = document.querySelector('#resultsRecords');
-                // const s1 = document.querySelector('#filters');
-                // render(showresults(content), el);
-                // // render(projresults(content), s1);
-
-
-        };
-        $.urlParam = function(name){
-            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-            if (results==null){
-                return null;
             }
-            else{
-                return results[1] || 0;
-            }
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+        console.log(params["query"]);
+
+        const rawResponse = await fetch(url, {
+            method: 'GET',
+            //mode: 'no-cors', // no-cors, *cors, same-origin
+            // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            //credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                'Accept': 'application/sparql-results+json',
+                'Content-Type': 'application/json'
+            } // ,
+            // body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
+        });
+
+        const content = await rawResponse.json();
+        //console.log(content);
+        var items = _.map(content.results.bindings, function (item) {
+
+            var flattened = _.mapObject(item, function (value, key) {
+                if (key === 'kw') {
+                    var elements = value.value.split(',')
+                    return elements;
+                } else {
+                    // if (_.isEmpty(value.value)) {
+                    //     return null;
+                    // }
+                    return value.value;
+
+                }
+
+            })
+            return flattened;
+        })
+        return items; //content.results.bindings;
+        // const el = document.querySelector('#resultsRecords');
+        // const s1 = document.querySelector('#filters');
+        // render(showresults(content), el);
+        // // render(projresults(content), s1);
+
+
+    };
+    $.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        } else {
+            return results[1] || 0;
         }
-        $
-      $( function() {
-          let queryTextBox = $('#q');
-          let q = queryTextBox.val();
-          let qurl = $.urlParam('q');
-          if (q === "") {
-              if (qurl !== null ) {
-                q= qurl;
+    }
+    $
+    $(function () {
+        let queryTextBox = $('#q');
+        let q = queryTextBox.val();
+        let qurl = $.urlParam('q');
+        if (q === "") {
+            if (qurl !== null) {
+                q = qurl;
                 queryTextBox.val(q);
-              }
-          }
+            }
+        }
 
 
-          const item_template=`<div class="item card rounded">
+        const item_template = `<div class="item card rounded mt-2">
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
                   <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
@@ -346,15 +342,15 @@
                  </div>
             </div> `;
 
-          // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
-            const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
+        // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
+        const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
                <div class="card" id='<%= id %>'>
                     <!-- title -->
 
                 <!-- list -->
                 </div>
             </div>`;
-          const facetTitleTemplate =`<div class="card-header" id="heading<%= id %>">
+        const facetTitleTemplate = `<div class="card-header" id="heading<%= id %>">
             <h2 class="ml-6 ">
                 <button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"
                         data-target="#collapse<%= id %>" aria-expanded="true" aria-controls="collapse<%= id %>">
@@ -364,120 +360,135 @@
             </h2>
             </div>`;
 
-          const facetListContainer = `<div id="collapse<%= id %>" class="collapse " aria-labelledby="heading<%= id %>" data-parent="#<%= id %>accordian">
+        const facetListContainer = `<div id="collapse<%= id %>" class="collapse " aria-labelledby="heading<%= id %>" data-parent="#<%= id %>accordian">
             <div class="card-body">
                 <div class="list-group pl-3 facetlist " >
             </div>
 
             </div>
        </div>`;
-            const listItemTemplate= `<div class="list-group-item  facetitem">
+        const listItemTemplate = `<div class="list-group-item  facetitem">
                         <input type="radio" id="item<%= id %>" name="customRadioInline1"
                                aria-label="Checkbox for following text input" />
                         <label class="p-2" for="item<%= id %>"> <%= name %>  </label>
                         <span  class="badge badge-secondary float-right"><%= count %></span>
                     </div>`;
 
-  const listItemTemplateSimple =`<div class="facetitem " id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
-          const countTemplate=`<div class="facettotalcount col order-12"><%= count %> Results</div>`;
-  const deselectTemplate = `<div class='btn btn-sm btn-info col order-6'>Clear all filters</div>`;
+        const listItemTemplateSimple = `<div class="facetitem " id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
+        const countTemplate = `<div class="facettotalcount col order-12"><%= count %> Results</div>`;
+        const deselectTemplate = `<div class='btn btn-sm btn-info col order-6'>Clear all filters</div>`;
 
-const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-sm btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-sm btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="orderby-title">Sort by: </span> </button>
             <div class="dropdown-menu" aria-labelledby="orderbyMenuButton"><% _.each(options, function(value, key) { %>
                        <a class="orderbyitem dropdown-item" id="orderby_<%= key %>">
                        <%= value %> </a> <% }); %></div></button>
 </div>`
-;
+        ;
 
-            getItemsFromSparql(q)
-              .then(function (results) {
-                  $.facetsettings = {
-                      items: results,
-                      facets: {
-                          // 'subj': 'Science Domain',
-                          'kw': 'Science Domain',
-                          // 'name': 'Place',
-                          'geo': 'Place',
-                          'pubname': 'Publisher/Repo',
-                          'datep': 'Date'
-                      },
-                      resultSelector: '#results',
-                      facetSelector: '#facets',
-                      facetContainer     : facetContainer,
-                      facetTitleTemplate : facetTitleTemplate,
-                      facetListContainer : facetListContainer,
-                      listItemTemplate   : listItemTemplateSimple,
-                      resultTemplate: item_template,
+        getItemsFromSparql(q)
+            .then(function (results) {
+                    $.facetsettings = {
+                        items: results,
+                        facets: {
+                            // 'subj': 'Science Domain',
+                            'resourceType': 'Resource Type',
+                            'kw': 'Science Domain',
+                            // 'name': 'Place',
+                            'placenames': 'Place',
+                            'pubname': 'Publisher/Repo',
+                            'datep': 'Year Pulished'
+                        },
+                        resultSelector: '#results',
+                        facetSelector: '#facets',
+                        facetContainer: facetContainer,
+                        facetTitleTemplate: facetTitleTemplate,
+                        facetListContainer: facetListContainer,
+                        listItemTemplate: listItemTemplateSimple,
+                        resultTemplate: item_template,
 
-                      deselectTemplate: deselectTemplate,
-                      orderByTemplate: orderByTemplate,
-                      countTemplate:countTemplate,
-                      paginationCount: 50,
-                      orderByOptions: {
-                          'name': 'Name',
-                          'pubname': 'Publisher',
-                          'date': 'Date',
-                         // 'subj': 'Subject',
-                          //'RANDOM': 'Score'
-                          'score': 'Score'
-                      },
-                      facetSortOption: {'continent': ["North America", "South America"]}
-                  };
+                        deselectTemplate: deselectTemplate,
+                        orderByTemplate: orderByTemplate,
+                        countTemplate: countTemplate,
+                        paginationCount: 50,
+                        orderByOptions: {
+                            'name': 'Name',
+                            'pubname': 'Publisher',
+                            'date': 'Date',
+                            // 'subj': 'Subject',
+                            //'RANDOM': 'Score'
+                            'score': 'Score'
+                        },
+                        facetSortOption: {'continent': ["North America", "South America"]}
+                    };
 
-              $.facetelize($.facetsettings);
-              //$('#filterDiv').show();
-                 $('.facetsearch').on('show.bs.collapse', _handleCollapse);
-                  $('.facetsearch').on('hide.bs.collapse', _handleExpand);
-              }
-      )
-      });
-    </script>
+                    $.facetelize($.facetsettings);
+                    //$('#filterDiv').show();
+                    $('.facetsearch').on('show.bs.collapse', _handleCollapse);
+                    $('.facetsearch').on('hide.bs.collapse', _handleExpand);
+                }
+            )
+    });
+</script>
 
 <script>
     //$.facetelize($.facetsettings);
     //var yaml = require('js-yaml');
-//     jQuery.getJSON('./settings.yaml',
-// function(data ){
-//     var settings = jsyaml.load(data);
-// }
-//     );
-
-
+    //     jQuery.getJSON('./settings.yaml',
+    // function(data ){
+    //     var settings = jsyaml.load(data);
+    // }
+    //     );
+    // $(function () {
+    //     "use strict";
+    //     $(document).ready(function () {
+    //         $.get('./settings.yaml')
+    //             .done(function (data) {
+    //                 console.log('File load complete');
+    //                 console.log(jsyaml.load(data));
+    //                 var jsonString = JSON.stringify(data);
+    //                 console.log(jsonString);
+    //                 console.log($.parseJSON(jsonString));
+    //             });
+    //     }() );
+    // });
     document.querySelector('#searchBtn').addEventListener('click', search);
-    function search(e){
-       // (async () => {
-            let q = $('#q').val();
-            getItemsFromSparql(q).
-            then( function(results){
-                $.facetsettings.items= results;
-                //$.facetUpdate();
-                $.facetelize($.facetsettings);
-            });
 
-       // });
-    };
-   // document.querySelector('.collapse').addEventListener('show.bs.collapse', _handleCollapse);
-   // document.querySelector('.collapse').addEventListener('hide.bs.collapse', _handleExpand);
+                function search(e) {
+                    // (async () => {
+                    let q = $('#q').val();
+                    getItemsFromSparql(q).then(function (results) {
+                        $.facetsettings.items = results;
+                        //$.facetUpdate();
+                        $.facetelize($.facetsettings);
+                    });
 
-    function _handleCollapse(e) {
-        console.log("collapse");
+                    // });
+                };
+                // document.querySelector('.collapse').addEventListener('show.bs.collapse', _handleCollapse);
+                // document.querySelector('.collapse').addEventListener('hide.bs.collapse', _handleExpand);
 
-        // Toggle plus minus icon on show hide of collapse element
-        $(this).find(".fa").removeClass("fa-plus").addClass("fa-minus")
+                function _handleCollapse(e) {
+                    console.log("collapse");
+
+                    // Toggle plus minus icon on show hide of collapse element
+                    $(this).find(".fa").removeClass("fa-plus").addClass("fa-minus")
 
 
-    };
+                };
 
-    function _handleExpand(e) {
-        console.log("expand");
+                function _handleExpand(e) {
+                    console.log("expand");
 
-        // Toggle plus minus icon on show hide of collapse element
-      $(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
-    };
+                    // Toggle plus minus icon on show hide of collapse element
+                    $(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
+                };
+
 
 </script>
 </div>
-    <a href="http://github.com/eikes/facetedsearch"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
-  </body>
+<a href="http://github.com/eikes/facetedsearch"><img style="position: absolute; top: 0; right: 0; border: 0;"
+                                                     src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                                                     alt="Fork me on GitHub"></a>
+</body>
 </html>
