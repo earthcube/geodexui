@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>GeoDex: JS-SPARQL search</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="../img/favicon.png">
 
-  <script type="module" type="text/javascript" src="js/geodex.js"></script>
+  <!-- <script type="module">
+    import {html, render} from '/js/lit-html.js';
+  </script>
+  <script data-main="/js/geodexv2/main" src="/js/require.js"></script> -->
 
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
-  <link rel="stylesheet" type="text/css" href="css/simple-grid.css">
-  <link rel="stylesheet" type="text/css" href="css/zc-grid.css">
-  <link rel="stylesheet" type="text/css" href="css/card.css">
 
+  <script type="module" src="/js/geodexv2/main.js"></script>
+
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/simple-grid.css">
+  <link rel="stylesheet" href="/css/zc-grid.css">
+  <link rel="stylesheet" href="/css/card.css">
 </head>
 
 <body>
@@ -21,10 +25,10 @@
     <div class="container">
       <div class="row">
         <div class="col-12 center">
-          <img src="img/location2.svg">
+          <img src="/img/location2.svg">
           <h3 style="margin:5px;color:white">geodex</h3>
           <h3 style="margin:5px;color:white" class="font-light">a schema.org/Dataset search</h3>
-            <!--
+          <!-- 
           <div class="img img-logo center"></div>
           <h1>Simple Grid is a CSS grid for your website.</h1>
           <h2 class="font-light">Responsive, light, simple.</h2>
@@ -38,9 +42,9 @@
       <div class="row">
         <div class="col-12 center">
           <p>
-            <a style="margin:5px;color:white "href="index.html">home</a>
-            <a style="margin:5px;color:white "href="search.html">search</a>
-            <a style="margin:5px;color:white "href="about.html">about</a>
+            <a style="margin:5px;color:white " href="/index.html">home</a>
+            <a style="margin:5px;color:white " href="/search.html">search</a>
+            <a style="margin:5px;color:white " href="/about.html">about</a>
           </p>
         </div>
       </div>
@@ -50,7 +54,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="body-content" style="padding:0px">
 
@@ -77,11 +80,11 @@
       <div slot="header">
         Header Title
       </div>
-
+    
       This card has a header. You can put all sorts of things in it!
     </sl-card> -->
 
-    <div style="padding:0px;top:0px" class="container">
+    <div style="max-width:fit-content;padding:0px;top:0px" class="container">
       <div class="row">
         <div class="col-12 center">
           <img src="../img/search.svg" style="height:25px">
@@ -98,19 +101,22 @@
 	<label>
 		<input type="hidden" size="10" id="i">
   </label> -->
-  <div id="container1"></div>
+          <div id="container1"></div>
 
         </div>
       </div>
     </div>
 
-    <div style="padding:0px;top:0px" class="container">
-      <div class="row">
-        <div class="col-12">
-          <div id="container2"></div>
+      <div style="padding:0px;top:0px" class="container">
+        <div class="row">
+          <div class="col-12">
+            <div id="container2"></div>
+          </div>
+          <!-- <div class="col-4">
+            <div id="container2">Tool Match Results Here</div>
+          </div> -->
         </div>
       </div>
-    </div>
 
   </div>
 

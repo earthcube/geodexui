@@ -2,7 +2,7 @@
 import {
 	html,
 	render
-} from '/js/lit-html.js';
+} from './lit-html.js';
 
 // event listeners
 document.querySelector('#q').addEventListener('keyup', function (e) {
@@ -34,8 +34,8 @@ function stateChangeSearch() {
 
 	// Hack to replace any string like "word+word2" with "word word2"
 	// happens on the form feed
-	var qupv2 = qup.replace(/(?<=[A-Za-z_0-9])[+](?=[A-Za-z_0-9])/g, ' ');
-
+	//var qupv2 = qup.replace(/(?<=[A-Za-z_0-9])[+](?=[A-Za-z_0-9])/g, ' ');
+	var qupv2 = qup.replace(/([A-Za-z_0-9][+][A-Za-z_0-9])/g, ' ');
 	console.log(qupv2);
 
 
