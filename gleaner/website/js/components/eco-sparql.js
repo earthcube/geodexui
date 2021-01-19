@@ -50,25 +50,41 @@ import {
                     //     ` }
 
 
-                params = {
-                    query: `PREFIX schema:  <https://schema.org/> \
-                  PREFIX schemaold:  <http://schema.org/> \
-                  select DISTINCT ?rrs ?name \
-                  WHERE \
-                   { \
-                    graph <urn:gleaner:milled${op}> { \
-                    ?s  schema:encodingFormat|schema:encodingFormat ?type . \
-                   } \
-                    BIND (str(?type) as ?label) \
-                    SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> { \
-                        GRAPH <http://earthcube.org/gleaner-summoned>  \
-                        {                \
-                           ?rrs schemaold:supportingData/schemaold:encodingFormat  ?label . \
-                           ?rrs schemaold:name ?name . \
-                      }  \
-                    } \
-                    }`
-                }
+
+
+
+                    params = {
+                        query: `PREFIX schema:  <https://schema.org/>    
+                        PREFIX schemaold:  <http://schema.org/>       
+                        select DISTINCT ?rrs ?name ?curl
+                        WHERE                    {                    
+                            graph <urn:gleaner:milled${op}> 
+                              {
+                                {     
+                                  ?s schemaold:distribution|schema:distribution ?dist .    
+                                  ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .  
+                                  ?dist schemaold:contentUrl|schema:contentUrl ?curl 
+                                } 
+                                UNION {
+                                  VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }
+                                  ?s a ?dataset .  
+                                  ?s  schemaold:encodingFormat|schema:encodingFormat ?type . 
+                                  }
+                             }
+                             BIND (str(?type) as ?label)                                                                                                        
+                             SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> {     
+                              GRAPH <http://earthcube.org/gleaner-summoned>             
+                               {   
+                                  ?rrs schemaold:supportingData ?df.
+                                      ?df schemaold:encodingFormat  ?label ;
+                                          schemaold:position "input".	
+                                      ?rrs schemaold:name ?name.      
+                               }                 
+                           }               
+                        }`
+                    };
+
+               
 
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 

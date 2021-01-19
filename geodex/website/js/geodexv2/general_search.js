@@ -26,31 +26,31 @@ export function generalText(q, n, o) {
 
 		params = {
 			query: ` 
-			prefix schema: <http://schema.org/>  \
-			prefix sschema: <https://schema.org/>  \
-			SELECT DISTINCT ?s ?g ?url ?score  ?name ?description   \
-			WHERE {     \
-			  ?lit bds:search \"${q}\" .    \
-			  ?lit bds:matchAllTerms "false" .   \
-			  ?lit bds:relevance ?score .   \
-			  ?s ?p ?lit .       \
-			   \
-			  VALUES (?dataset) { ( schema:Dataset ) ( sschema:Dataset ) } \
-			  ?s a ?dataset .   \
-			  ?s schema:name|sschema:name ?name .   \
-			 \
-			  graph ?g { \
-			  ?s schema:description|sschema:description ?description .  \
-			  } \
-			 \
-			  OPTIONAL { \
-				?s schema:distribution|sschema:distribution ?dis .    	 \
-				?dis schema:contentUrl |sschema:contentUrl  ?url .    	     \
-			  } \
-			 \
-			} ORDER BY DESC(?score) \
-			LIMIT ${n} \
-			OFFSET ${o} \
+			prefix schema: <http://schema.org/>  
+			prefix sschema: <https://schema.org/>  
+			SELECT DISTINCT ?s ?g ?url ?score  ?name ?description   
+			WHERE {     
+			  ?lit bds:search \"${q}\" .    
+			  ?lit bds:matchAllTerms "false" .   
+			  ?lit bds:relevance ?score .   
+			  ?s ?p ?lit .       
+			   
+			  VALUES (?dataset) { ( schema:Dataset ) ( sschema:Dataset ) } 
+			  ?s a ?dataset .   
+			  ?s schema:name|sschema:name ?name .   
+			 
+			  graph ?g { 
+			  ?s schema:description|sschema:description ?description .  
+			  } 
+			 
+			  OPTIONAL { 
+				?s schema:distribution|sschema:distribution ?dis .    	 
+				?dis schema:contentUrl |sschema:contentUrl  ?url .    	     
+			  } 
+			 
+			} ORDER BY DESC(?score) 
+			LIMIT ${n} 
+			OFFSET ${o} 
 ` }
 
 
