@@ -15,30 +15,61 @@ export function rrtoolask(g) {
 			// var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
 			// params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
 
-			params = {
-				query: `
-				PREFIX schema:  <https://schema.org/> \
-				PREFIX schemaold:  <http://schema.org/> \
-ASK \
-WHERE \
-{ \
-  graph <${g}> { \
-     \
-   ?s   schema:encodingFormat|schema:encodingFormat ?type . \
-    } \
-      BIND (str(?type) as ?label) \
-   SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> { \
-       GRAPH <http://earthcube.org/gleaner-summoned>  \
-       {                \
-		?rrs schemaold:supportingData|schemaold:encodingFormat  ?label . \
-		?rrs schemaold:name ?rrname. \
-        } \
-    }     \
- } \
-` }
+// 			params = {
+// 				query: `
+// 				PREFIX schema:  <https://schema.org/> \
+// 				PREFIX schemaold:  <http://schema.org/> \
+// ASK \
+// WHERE \
+// { \
+//   graph <${g}> { \
+//      \
+//    ?s   schema:encodingFormat|schemaold:encodingFormat ?type . \
+//     } \
+//       BIND (str(?type) as ?label) \
+//    SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> { \
+//        GRAPH <http://earthcube.org/gleaner-summoned>  \
+//        {                \
+// 		?rrs schemaold:supportingData|schemaold:encodingFormat  ?label . \
+// 		?rrs schemaold:name ?rrname. \
+// 		FILTER isURI(?rrs) . \
+//         } \
+//     }     \
+//  } \
+// ` }
 
 
-		console.log(params["query"]);
+params = {
+	query: `PREFIX schema:  <https://schema.org/>    
+	PREFIX schemaold:  <http://schema.org/>       
+	ASK      
+	WHERE                    {                    
+	  graph  <${g}> 
+		  {
+			{     
+			  ?s schemaold:distribution|schema:distribution ?dist .    
+			  ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .  
+			} 
+			UNION {
+			  VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }
+			  ?s a ?dataset .  
+			  ?s  schemaold:encodingFormat|schema:encodingFormat ?type . 
+			  }
+		 }
+		 BIND (str(?type) as ?label)                                                                                                        
+		 SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> {     
+		  GRAPH <http://earthcube.org/gleaner-summoned>             
+		   {   
+			  ?rrs schemaold:supportingData ?df.
+				  ?df schemaold:encodingFormat  ?label ;
+					  schemaold:position "input".	
+				  ?rrs schemaold:name ?name.      
+		   }                 
+	   }               
+	}`
+};
+
+
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
 		const rawResponse = await fetch(url, {
@@ -60,6 +91,8 @@ WHERE \
 		console.log(askresp);
 
 		if (askresp.boolean ) {
+			console.log(params["query"]);
+
 			const t = document.getElementById(g);
 			render(rrshowresults(g), t);
 		}
