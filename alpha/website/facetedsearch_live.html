@@ -310,7 +310,7 @@
             return results[1] || 0;
         }
     }
-    $
+
     $(function () {
         let queryTextBox = $('#q');
         let q = queryTextBox.val();
@@ -457,6 +457,7 @@
                 function search(e) {
                     // (async () => {
                     let q = $('#q').val();
+                    
                     getItemsFromSparql(q).then(function (results) {
                         $.facetsettings.items = results;
                         //$.facetUpdate();
