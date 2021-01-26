@@ -252,7 +252,7 @@ function createFacetUI() {
   });
   // Append total result count
   var bottom = $(settings.bottomContainer);
-  bottom.innerText="";
+  bottom.empty();
   //countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
   //$(bottom).append(countHtml);
   countHtml = _.template(settings.countTemplate);

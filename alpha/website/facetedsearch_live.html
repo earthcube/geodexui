@@ -453,17 +453,21 @@
     //     }() );
     // });
     document.querySelector('#searchBtn').addEventListener('click', search);
-
+    $( "#q" ).keypress (function( event ) {
+        if ( event.which == 13 ) {
+            search(event);
+        }
+    });
                 function search(e) {
                     // (async () => {
                     let q = $('#q').val();
-                    
+
                     getItemsFromSparql(q).then(function (results) {
                         $.facetsettings.items = results;
                         //$.facetUpdate();
                         $.facetelize($.facetsettings);
                     });
-
+                    updateURL(q,"all", true);
                     // });
                 };
                 // document.querySelector('.collapse').addEventListener('show.bs.collapse', _handleCollapse);
@@ -485,7 +489,28 @@
                     $(this).find(".fa").removeClass("fa-minus").addClass("fa-plus");
                 };
 
+    function updateURL(q, s,  push) {
+        console.log("UpdateURL Called");
 
+        let params = new URLSearchParams(location.search.slice(1));
+        params.set('q', q);
+        params.set('searchTypes', s);
+
+
+        // Issues with current browsers and titles
+        //document.title = `Search:${q}&n=${n}&o=${o}`;
+
+        //window.history.replaceState({}, '', location.pathname + '?' + params);
+        const state = {
+            q: q,
+            searchTypes: s,
+
+        }
+        if (push) {
+            window.history.pushState(state, 'GeoDex Search', location.pathname + '?' + params);
+        }
+
+    }
 </script>
 </div>
 <a href="http://github.com/eikes/facetedsearch"><img style="position: absolute; top: 0; right: 0; border: 0;"
