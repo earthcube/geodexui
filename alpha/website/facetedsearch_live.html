@@ -237,7 +237,7 @@
             ?lit bds:matchAllTerms "false" .
             ?lit bds:relevance ?score .
             ?subj ?p ?lit .
-						optional {?subj schema:distribution/schema:url ?url .}
+						optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             BIND ( IF ( exists { ?subj a schema:Dataset .}, "data", "tool")  AS ?resourceType ).
             ?subj schema:name ?name .
             ?subj schema:description ?description .
