@@ -183,6 +183,10 @@ function order() {
         return item[settings.state.orderBy];
       }
     });
+    if (settings.orderByOptionsSort[settings.state.orderBy] === 'desc')
+    {
+      settings.currentResults = settings.currentResults.reverse();
+    }
   }
 }
 
