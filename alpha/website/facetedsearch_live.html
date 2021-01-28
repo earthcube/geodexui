@@ -115,6 +115,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mocha/1.0.2/package/lib/browser/fs.js"></script>
     <script src="js/facetedsearch.js"></script>
+
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 
@@ -176,7 +177,8 @@
 </div>
 
 
-<script>
+<script type="module">
+    import { rrtoolask } from './js/toolsregistry/rr_toolask.js';
     async function getItemsFromSparql(q, n = 1000, o = 0) {
         console.log("Get Blaze full text");
         console.log(n);
@@ -339,17 +341,14 @@
                 <div class="card-footer">
                      <span class="badge badge-light"><%= obj.resourceType %></span>
                         <a class="card-link" href="<%= obj.disurl %>"><%= obj.disurl %></a>
+                         <span class="badge badge-light" class="tool"></span>
                  </div>
             </div> `;
 
-        // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
-        const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
-               <div class="card" id='<%= id %>'>
-                    <!-- title -->
 
-                <!-- list -->
-                </div>
-            </div>`;
+        const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
+               <div class="card" id="<%= id %>"></div></div> ` ;
+
         const facetTitleTemplate = `<div class="card-header" id="heading<%= id %>">
             <h2 class="ml-6 ">
                 <button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"
@@ -426,38 +425,22 @@
                     //$('#filterDiv').show();
                     $('.facetsearch').on('show.bs.collapse', _handleCollapse);
                     $('.facetsearch').on('hide.bs.collapse', _handleExpand);
+
+
                 }
             )
     });
 </script>
 
 <script>
-    //$.facetelize($.facetsettings);
-    //var yaml = require('js-yaml');
-    //     jQuery.getJSON('./settings.yaml',
-    // function(data ){
-    //     var settings = jsyaml.load(data);
-    // }
-    //     );
-    // $(function () {
-    //     "use strict";
-    //     $(document).ready(function () {
-    //         $.get('./settings.yaml')
-    //             .done(function (data) {
-    //                 console.log('File load complete');
-    //                 console.log(jsyaml.load(data));
-    //                 var jsonString = JSON.stringify(data);
-    //                 console.log(jsonString);
-    //                 console.log($.parseJSON(jsonString));
-    //             });
-    //     }() );
-    // });
+
+
     document.querySelector('#searchBtn').addEventListener('click', search);
 
                 function search(e) {
                     // (async () => {
                     let q = $('#q').val();
-                    
+
                     getItemsFromSparql(q).then(function (results) {
                         $.facetsettings.items = results;
                         //$.facetUpdate();

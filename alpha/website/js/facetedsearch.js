@@ -149,7 +149,7 @@ function filter() {
     _.each(settings.currentResults, function(item) {
       if ($.isArray(item[facet])) {
         _.each(item[facet], function(facetitem) {
-          if (_.isEmpty(facetitem )) {return;};
+          if (_.isEmpty(facetitem )) {return;} ;
           settings.facetStore[facet][facetitem].count += 1;
         });
       } else {
