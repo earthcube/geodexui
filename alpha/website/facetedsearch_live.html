@@ -231,30 +231,23 @@
                         prefix schema: <http://schema.org/>
                         SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
-        ?datep  ?disurl ?score  ?name ?description ?resourceType
+        ?datep  (MIN(?url) as ?disurl) ?score  ?name ?description ?resourceType
         WHERE {
-                ?lit bds:search \"${q}\" .
+            ?lit bds:search \"${q}\" .
             ?lit bds:matchAllTerms "false" .
             ?lit bds:relevance ?score .
             ?subj ?p ?lit .
-            BIND (?subj as ?s)
-        {
-            SELECT  ?s (MIN(?url) as ?disurl) {
-            ?s a schema:Dataset .
-            ?s schema:distribution ?dis .
-            ?dis schema:url ?url .
-        } GROUP BY ?s
-        }
+						optional {?subj schema:distribution/schema:url ?url .}
+            BIND ( IF ( exists { ?subj a schema:Dataset .}, "data", "tool")  AS ?resourceType ).
             ?subj schema:name ?name .
             ?subj schema:description ?description .
             filter( ?score > 0.04).
-            BIND('data' AS ?resourceType)
             OPTIONAL {?subj schema:datePublished ?datep .}
             OPTIONAL {?subj schema:publisher/schema:name ?pubname .}
             OPTIONAL {?subj schema:spatialCoverage/schema:name ?placename .}
             OPTIONAL {?subj schema:keywords ?kwu .}
         }
-        GROUP BY ?subj ?datep ?pubname ?name ?description ?disurl ?score ?resourceType
+        GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType
         ORDER BY DESC(?score)
         LIMIT ${n}
         OFFSET ${o}`
