@@ -1,4 +1,4 @@
-name: Upload  to Website alpha.earthcube.org
+name: Upload master to Website alpha.earthcube.org
 
 on:
   push:
