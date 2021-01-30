@@ -1,9 +1,9 @@
-name: Upload geicides_boostrap to Websites
+name: Upload geocodes_bootstrap to Websites
 
 on:
   push:
     branches:
-    - geocodes_bootstrap
+    - geocodes_boostrap
 
 jobs:
 
