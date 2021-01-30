@@ -145,10 +145,13 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="https://geocodes.earthcube.org/about.html">Help</a>
+                    <a class="nav-link" href="about.html">Help</a>
                 </li>
             </ul>
 
+        </div>
+
+        <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
         </div>
     </nav>
 
@@ -237,7 +240,7 @@
             ?lit bds:matchAllTerms "false" .
             ?lit bds:relevance ?score .
             ?subj ?p ?lit .
-						optional {?subj schema:distribution/schema:url ?url .}
+						optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             BIND ( IF ( exists { ?subj a schema:Dataset .}, "data", "tool")  AS ?resourceType ).
             ?subj schema:name ?name .
             ?subj schema:description ?description .
