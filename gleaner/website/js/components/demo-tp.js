@@ -10,10 +10,12 @@ import {
         constructor() {
             super();
 
-            // const object = "r3d100011761";
-            // const fetchURL = `http://throughputdb.com/api/db/annotations?id=${object}`
+            const object = "r3d100011761";
+            const fetchURL = `https://throughputdb.com/api/db/annotations?id=${object}`
 
-            const fetchURL = `https://dx.geodex.org/data/tpdata.json`;
+            // const fetchURL = `https://dx.geodex.org/data/tpdata.json`;
+        
+            
             console.log(fetchURL);
 
             (async () => {
