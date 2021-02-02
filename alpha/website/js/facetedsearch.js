@@ -183,6 +183,10 @@ function order() {
         return item[settings.state.orderBy];
       }
     });
+    if (settings.orderByOptionsSort[settings.state.orderBy] === 'desc')
+    {
+      settings.currentResults = settings.currentResults.reverse();
+    }
   }
 }
 
@@ -252,7 +256,7 @@ function createFacetUI() {
   });
   // Append total result count
   var bottom = $(settings.bottomContainer);
-  bottom.innerText="";
+  bottom.empty();
   //countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
   //$(bottom).append(countHtml);
   countHtml = _.template(settings.countTemplate);
