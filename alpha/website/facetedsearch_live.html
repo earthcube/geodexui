@@ -96,7 +96,12 @@
     <!--        border: 1px solid #CCC;-->
     <!--      }-->
     <!--    </style>-->
-
+<style>
+    .activeorderby,
+    .activefacet {
+        font-weight: bold;
+    }
+</style>
 
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
 
@@ -149,16 +154,16 @@
                 </li>
             </ul>
 
-        </div>
 
-        <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+
+				<!-- <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span> -->
         </div>
     </nav>
 
 
     <div id="wrapper row">
         <div id="description">
-            <h3>Faceted Search of EarthCube resources</h3>
+            <h6>Faceted Search of EarthCube resources</h6>
 
         </div>
     </div>
@@ -185,8 +190,8 @@
         console.log(n);
 
 
-        var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
-
+      //  var url = new URL("https://graph.geodex.org/blazegraph/namespace/cdf/sparql"),
+        var url = new URL("https://graph.geodex.org/blazegraph/namespace/nabu/sparql"),
             // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
             // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
 
@@ -232,7 +237,7 @@
                 query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                         prefix schema: <http://schema.org/>
-                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
+                        SELECT distinct ?subj ?g ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
         ?datep  (MIN(?url) as ?disurl) ?score  ?name ?description ?resourceType
         WHERE {
@@ -243,14 +248,14 @@
 						optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             BIND ( IF ( exists { ?subj a schema:Dataset .}, "data", "tool")  AS ?resourceType ).
             ?subj schema:name ?name .
-            ?subj schema:description ?description .
+            graph ?g { ?subj schema:description ?description . }
             filter( ?score > 0.04).
             OPTIONAL {?subj schema:datePublished ?datep .}
             OPTIONAL {?subj schema:publisher/schema:name ?pubname .}
             OPTIONAL {?subj schema:spatialCoverage/schema:name ?placename .}
             OPTIONAL {?subj schema:keywords ?kwu .}
         }
-        GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType
+        GROUP BY ?subj ?g ?datep ?pubname ?name ?description ?url ?score ?resourceType
         ORDER BY DESC(?score)
         LIMIT ${n}
         OFFSET ${o}`
@@ -277,6 +282,9 @@
 
             var flattened = _.mapObject(item, function (value, key) {
                 if (key === 'kw') {
+                    var elements = value.value.split(',')
+                    return elements;
+                } if (key === 'placenames') {
                     var elements = value.value.split(',')
                     return elements;
                 } else {
@@ -333,8 +341,9 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                     <span class="badge badge-light"><%= obj.resourceType %></span>
-                        <a class="card-link" href="<%= obj.disurl %>"><%= obj.disurl %></a>
+                     <span class="badge badge-secondary"><%= obj.resourceType %></span>
+                        <a class="card-link" target="_blank" href="<%= obj.disurl %>"><%= obj.disurl %></a>
+                         <span class="tool"  ><%= obj.g %></span>
                  </div>
             </div> `;
 
@@ -430,9 +439,134 @@
                     //$('#filterDiv').show();
                     $('.facetsearch').on('show.bs.collapse', _handleCollapse);
                     $('.facetsearch').on('hide.bs.collapse', _handleExpand);
+
+                        $('.tool').on('render', rrtoolask );
+
+
+                        $( ".tool" ).trigger({
+    type:"render"
+});
                 }
             )
     });
+</script>
+
+<script>
+    async function rrtoolask(g) {
+        console.log(g);
+        var urn = g.target.innerText;
+
+
+            var url = new URL("https://graph.geodex.org/blazegraph/namespace/nabu/sparql"),
+
+                // var url = new URL("http://192.168.2.89:8080/blazegraph/sparql"),
+                // params = { query: "SELECT * { ?s ?p ?o  } LIMIT 11" }
+
+// 			params = {
+// 				query: `
+// 				PREFIX schema:  <https://schema.org/> \
+// 				PREFIX schemaold:  <http://schema.org/> \
+// ASK \
+// WHERE \
+// { \
+//   graph <${g}> { \
+//      \
+//    ?s   schema:encodingFormat|schemaold:encodingFormat ?type . \
+//     } \
+//       BIND (str(?type) as ?label) \
+//    SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> { \
+//        GRAPH <http://earthcube.org/gleaner-summoned>  \
+//        {                \
+// 		?rrs schemaold:supportingData|schemaold:encodingFormat  ?label . \
+// 		?rrs schemaold:name ?rrname. \
+// 		FILTER isURI(?rrs) . \
+//         } \
+//     }     \
+//  } \
+// ` }
+
+
+                params = {
+                    query: `PREFIX schema:  <https://schema.org/>
+	PREFIX schemaold:  <http://schema.org/>
+	ASK
+	WHERE                    {
+	  graph  <${urn}>
+		  {
+			{
+			  ?s schemaold:distribution|schema:distribution ?dist .
+			  ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .
+			}
+			UNION {
+			  VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }
+			  ?s a ?dataset .
+			  ?s  schemaold:encodingFormat|schema:encodingFormat ?type .
+			  }
+		 }
+		 BIND (str(?type) as ?label)
+		 SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> {
+		  GRAPH <http://earthcube.org/gleaner-summoned>
+		   {
+			  ?rrs schemaold:supportingData ?df.
+				  ?df schemaold:encodingFormat  ?label ;
+					  schemaold:position "input".
+				  ?rrs schemaold:name ?name.
+		   }
+	   }
+	}`
+                };
+
+
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+            const rawResponse = await fetch(url, {
+                method: 'GET',
+                //mode: 'no-cors', // no-cors, *cors, same-origin
+                // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                //credentials: 'omit', // include, *same-origin, omit
+                headers: {
+                    'Accept': 'application/sparql-results+json',
+                    'Content-Type': 'application/json'
+                } // ,
+                // body: JSON.stringify({ query: 'SELECT * { ?s ?p ?o  } LIMIT 1', format: 'json' })
+            });
+
+            const askresp = await rawResponse.json();
+
+            // TODO  try to return content here back to main
+            console.log("-- end of RR tool ask --");
+            console.log(askresp);
+
+            if (askresp.boolean) {
+                console.log(params["query"]);
+
+              //  const t = document.getElementById(g);
+                var t = g.target;
+                //render(rrshowresults(g), t);
+                var newHtml = rrshowresults(urn);
+                t.innerHTML = newHtml;
+            }
+
+            return askresp;
+
+
+    }
+
+    const rrshowresults = (content) => {
+        console.log("-----------------------------------------------");
+        console.log(content);
+
+        var gar = String(content).split(":");
+        console.log(gar);
+
+        var x = `https://dx.geodex.org/?o=/${gar[gar.length -2]}/${gar[gar.length -1]}.jsonld`;
+
+        var sptxt = _.template(
+            `<a  target="_blank" href="<%= x %>"> <span class="badge badge-info">Connected Tools</span></a>
+`);
+
+        return sptxt({x: x});
+    };
 </script>
 
 <script>
@@ -517,8 +651,10 @@
     }
 </script>
 </div>
+<!--
 <a href="http://github.com/eikes/facetedsearch"><img style="position: absolute; top: 0; right: 0; border: 0;"
                                                      src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
                                                      alt="Fork me on GitHub"></a>
+-->
 </body>
 </html>
