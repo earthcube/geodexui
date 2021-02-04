@@ -343,7 +343,7 @@
                 <div class="card-footer">
                      <span class="badge badge-secondary"><%= obj.resourceType %></span>
                         <a class="card-link" target="_blank" href="<%= obj.disurl %>"><%= obj.disurl %></a>
-                         <span class="tool"  ><%= obj.g %></span>
+                         <span class="tool " hidden="true"  ><%= obj.g %></span>
                  </div>
             </div> `;
 
@@ -545,6 +545,7 @@
                 //render(rrshowresults(g), t);
                 var newHtml = rrshowresults(urn);
                 t.innerHTML = newHtml;
+                t.hidden = false;
             }
 
             return askresp;
