@@ -102,7 +102,7 @@
         font-weight: bold;
     }
 </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
 
     <title>Earthcube</title>
@@ -237,25 +237,33 @@
                 query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                         prefix schema: <http://schema.org/>
+                        prefix sschema: <https://schema.org/>
                         SELECT distinct ?subj ?g ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
-        ?datep  (MIN(?url) as ?disurl) ?score  ?name ?description ?resourceType
+        ?datep  (MIN(?url) as ?disurl) ?score  ?name ?description ?resourceType ?urlContent ?dis
         WHERE {
             ?lit bds:search \"${q}\" .
             ?lit bds:matchAllTerms "false" .
             ?lit bds:relevance ?score .
             ?subj ?p ?lit .
-						optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
-            BIND ( IF ( exists { ?subj a schema:Dataset .}, "data", "tool")  AS ?resourceType ).
-            ?subj schema:name ?name .
-            graph ?g { ?subj schema:description ?description . }
+
+          BIND ( IF (exists{?subj a schema:Dataset .}||exists{?subj a sschema:Dataset .} , "data", "tool")  AS ?resourceType )
+
+            graph ?g { ?subj schema:description|sschema:description ?description . }
             filter( ?score > 0.04).
-            OPTIONAL {?subj schema:datePublished ?datep .}
-            OPTIONAL {?subj schema:publisher/schema:name ?pubname .}
-            OPTIONAL {?subj schema:spatialCoverage/schema:name ?placename .}
-            OPTIONAL {?subj schema:keywords ?kwu .}
+            OPTIONAL { ?subj schema:name ?name .
+                      ?subj schema:datePublished ?datep .
+                      ?subj schema:publisher/schema:name ?pubname .
+                    ?subj schema:spatialCoverage/schema:name ?placename .
+                    ?subj schema:keywords ?kwu .
+                 ?s schema:distribution|sschema:distribution ?dis .
+                ?dis schema:contentUrl |sschema:contentUrl  ?urlContent .
+                ?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .
+                  }
+
+
         }
-        GROUP BY ?subj ?g ?datep ?pubname ?name ?description ?url ?score ?resourceType
+        GROUP BY ?subj ?g ?datep ?pubname ?name ?description ?url ?score ?resourceType ?urlContent ?dis
         ORDER BY DESC(?score)
         LIMIT ${n}
         OFFSET ${o}`
