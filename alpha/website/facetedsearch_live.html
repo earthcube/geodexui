@@ -232,7 +232,7 @@
                 query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                         prefix schema: <http://schema.org/>
-                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
+                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR="; ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
         ?datep  (MIN(?url) as ?disurl) ?score  ?name ?description ?resourceType
         WHERE {
@@ -279,7 +279,10 @@
                 if (key === 'kw') {
                     var elements = value.value.split(',')
                     return elements;
-                } else {
+                } if (key === 'placenames') {
+                    var elements = value.value.split(';')
+                    return elements;
+								} else {
                     // if (_.isEmpty(value.value)) {
                     //     return null;
                     // }
