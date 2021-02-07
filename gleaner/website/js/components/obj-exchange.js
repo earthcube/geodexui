@@ -93,6 +93,11 @@ import './jsonld.js';
                     else detailsTemplate.push(html`<div><p> ${jp["https://schema.org/description"]} </p></div>`);
 
 
+                    if (jp["https://schema.org/description"] == undefined)
+                        detailsTemplate.push(html`<div>No object available</div>`);
+                    else detailsTemplate.push(html` <details> <summary>JSON-LD Object</summary><pre>${j}</pre></details>`);
+
+
                     this.attachShadow({ mode: 'open' });
                     render(detailsTemplate, this.shadowRoot);                // var h =  `<div>${itemTemplates}</div>`;
                     // this.shadowRoot.appendChild(this.cloneNode(h));

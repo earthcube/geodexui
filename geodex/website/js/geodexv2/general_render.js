@@ -38,7 +38,15 @@ export const showresults = (content) => {
 		}
 
 		if (getSafe(() => barval[i].g.value)) {
-			containerTemplate.push(html`<span>Graph: <a target="_blank" href="${barval[i].g.value}">${barval[i].g.value}</a> </span><br>`);
+
+			var gar = String(barval[i].g.value).split(":");
+			console.log(gar);
+		
+			var x = `https://dx.geodex.org/?o=/${gar[gar.length -2]}/${gar[gar.length -1]}.jsonld`;
+			
+			//var sptxt = (html`<a target="_blank" href=${x}><img width="30px" src="/img/discover.svg"></a>`);
+
+			containerTemplate.push(html`<span>Graph (dev):<a target="_blank" href=${x}>${barval[i].g.value}</a></span><br>`);
 		}
 
 		if (getSafe(() => barval[i].score.value)) {

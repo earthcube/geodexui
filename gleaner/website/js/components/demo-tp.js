@@ -30,14 +30,19 @@ import {
                 const detailsTemplate = [];
 
                 const data = jp.data;
-                detailsTemplate.push(html`<h4>There are ${data.length} ThroughPut annotations.  View them at X.. </h4>`);
+                detailsTemplate.push(html`<h4>There are ${data.length} ThroughPut annotations.  View all Throughput </h4>`);
 
                 // caution!!  no null traps here.   
                 // need something like if (item[X] == undefined)
+                var i = 0; // HACK to break out of loop
                 for (const item of data) {
+                    i = i + 1;
                     detailsTemplate.push(html`<div style="margin-top:5px;text-align:left;margin: 0 auto;">`);
                     detailsTemplate.push(html`<p style="text-align:left"><b>${item.author}:</b>${item.annotation}</p>`);
                     detailsTemplate.push(html`</div>`);
+                    if (i > 3) {
+                        break;
+                    }
                 }
 
                 this.attachShadow({ mode: 'open' });
