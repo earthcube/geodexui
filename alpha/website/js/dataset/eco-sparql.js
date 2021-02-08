@@ -56,7 +56,7 @@ import {
                     params = {
                         query: `PREFIX schema:  <https://schema.org/>    
                         PREFIX schemaold:  <http://schema.org/>       
-                        select DISTINCT ?rrs ?name ?curl
+                        select DISTINCT ?rrs ?name ?curl ?landingPage
                         WHERE                    {                    
                             graph <urn:gleaner:milled${op}> 
                               {
@@ -78,7 +78,8 @@ import {
                                   ?rrs schema:supportingData ?df.
                                       ?df schema:encodingFormat  ?label ;
                                           schema:position "input".	
-                                      ?rrs schema:name ?name.      
+                                      ?rrs schema:name ?name. 
+                                       ?rrs schema:subjectOf/schema:url ?landingPage     
                                }                 
                            }               
                         }`
@@ -110,7 +111,7 @@ import {
 
                 r.forEach(element => {
                     detailsTemplate.push(html`<div><p style="text-align:left">
-                    <a target="_blank" href="${element.rrs.value}"> ${element.name.value}</a></p> </div>`);
+                        <a target="_blank" href="${element.landingPage.value}"> ${element.name.value}</a>  <a   target="_blank" href="${element.rrs.value}"><span class="badge badge-info">JSON</span></a></p></div>`);
                 }
                 );
 
