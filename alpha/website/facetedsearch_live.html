@@ -353,9 +353,7 @@
         // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
         const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
                <div class="card" id='<%= id %>'>
-                    <!-- title -->
 
-                <!-- list -->
                 </div>
             </div>`;
         const facetTitleTemplate = `<div class="card-header" id="heading<%= id %>">
@@ -547,8 +545,9 @@
                 var t = g.target;
                 //render(rrshowresults(g), t);
                 var newHtml = rrshowresults(urn);
-                t.innerHTML = newHtml;
-                t.hidden = false;
+                $(newHtml).insertAfter(t);
+               // t.innerHtml = newHtml;
+                //t.hidden = false;
             }
 
             return askresp;
