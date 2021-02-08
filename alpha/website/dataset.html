@@ -19,8 +19,15 @@
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mocha/1.0.2/package/lib/browser/fs.js"></script>
-    <script src="js/facetedsearch.js"></script>
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/simple-grid.css">
+    <link rel="stylesheet" href="css/zc-grid.css">
+
+
+    <script type="module" src="./js/dataset/obj-exchange.js"></script>
+    <!-- <script type="module" src="/js/components/demo-tp.js"></script> -->
+    <script type="module" src="./js/dataset/eco-sparql.js"></script>
+    <script type="module" src="./js/dataset/eco-urltemplate.js"></script>
 </head>
 
 <body>
@@ -59,6 +66,61 @@
             <!-- <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span> -->
         </div>
     </nav>
+
+    <div class="body-content">
+        <div style="padding-top:0px;top:0px" class="container">
+
+            <div class="row">
+                <div class="col-2 hidden-sm"></div>
+                <div class="col-8">
+                    <h3 class="center m-bottom">Indexed Object Details</h3>
+                    <p>
+
+                        <obj-exchange></obj-exchange>
+
+                    </p>
+
+
+                </div>
+                <div class="col-2 hidden-sm"></div>
+            </div>
+
+
+            <div class="row">
+                <!-- <div class="col-4 center"> -->
+                <!-- <div class="img img-responsive center"></div> -->
+                <!-- <img src="./img/throughput.svg" style="height:75px"> -->
+                <!-- <h3>Throughput</h3> -->
+                <!-- <p> -->
+
+                <!-- <demo-tp></demo-tp> -->
+
+                <!-- </p> -->
+                <!-- </div> -->
+
+                <div class="col-4 center">
+                    <img src="./images/aggregate.svg" style="height:75px">
+                    <!-- <div class="img img-simple center"></div> -->
+                    <h3>Compatible tools</h3>
+                    <p>
+                        <eco-sparql></eco-sparql>
+                    </p>
+                </div>
+
+                <div class="col-4 center">
+                    <img src="./images/webapp.svg" style="height:75px">
+                    <!-- <div class="img img-simple center"></div> -->
+                    <h3>Web Apps</h3>
+                    <p>
+                        <eco-urltemplate></eco-urltemplate>
+                    </p>
+                </div>
+
+            </div>
+
+
+
+        </div>
 </div>
 
 </body>
