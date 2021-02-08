@@ -111,7 +111,7 @@ import {
 
                 r.forEach(element => {
                     detailsTemplate.push(html`<div><p style="text-align:left">
-                        <a target="_blank" href="${element.landingPage.value}"> ${element.name.value}</a>  <a   target="_blank" href="${element.rrs.value}"><span class="badge badge-info">JSON</span></a></p></div>`);
+                        <a target="_blank" href="${element.landingPage.value}"> ${element.name.value}</a>  <a   target="_blank" href="${element.rrs.value}"><span class="badge badge-info">Metadata</span></a></p></div>`);
                 }
                 );
 
