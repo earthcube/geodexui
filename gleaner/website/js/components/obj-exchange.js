@@ -16,7 +16,7 @@ import './jsonld.js';
 
             const urlParams = new URLSearchParams(queryString);
             const object = urlParams.get('o');
-            const fetchURL = `https://dx.geodex.org/id/summoned/${object}`
+            const fetchURL = `https://dx.geodex.org/id/summoned${object}`; // object starts with /
             console.log(fetchURL);
 
             (async () => {
