@@ -299,6 +299,7 @@
                 }
 
             })
+            flattened['s3endpoint'] = flattened['g'].replace('urn:gleaner:milled','').replaceAll(':','/')
             return flattened;
         })
         return items; //content.results.bindings;
@@ -346,6 +347,7 @@
                 <div class="card-footer">
                      <span class="badge badge-secondary"><%= obj.resourceType %></span>
                         <a class="card-link" target="_blank" href="<%= obj.disurl %>"><%= obj.disurl %></a>
+                        <a class="card-link "  href="dataset.html?o=<%=  obj.s3endpoint%>.jsonld" >Details</a>
                          <span class="tool " hidden="true"  ><%= obj.g %></span>
                  </div>
             </div> `;
