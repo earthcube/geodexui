@@ -27,6 +27,8 @@ import './jsonld.min.js';
 
                 const detailsTemplate = [];
 
+                // THIS IS NOT USED
+                
                 var url = new URL("https://graph.geodex.org/blazegraph/namespace/nabu/sparql"),
 
                     // var url = new URL("https://192.168.2.89:8080/blazegraph/sparql"),
@@ -35,7 +37,7 @@ import './jsonld.min.js';
                     params = {
                         query: `
  
-                        PREFIX sdo:  <http://schema.org/>
+                        PREFIX sdo:  <https://schema.org/>
  
                         ASK
                         WHERE
