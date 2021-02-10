@@ -7,3 +7,10 @@ card-overrides {
     overflow-y:scroll;
     max-height:20em;
 }
+.activeorderby,
+.activefacet {
+    font-weight: bold;
+}
+.facetitem  {
+    cursor: default;
+}
