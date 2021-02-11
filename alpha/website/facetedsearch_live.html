@@ -247,13 +247,13 @@
             BIND ( IF ( exists { ?subj a schema:Dataset .} ||exists{ ?subj a sschema:Dataset .}  , "data", "tool")  AS ?resourceType ).
 
             graph ?g { ?subj schema:description|sschema:description ?description . }
-            ?subj schema:name ?name .
-            ?subj schema:description ?description .
+            ?subj schema:name|sschema:name ?name .
+            ?subj schema:description|sschema:description ?description .
             filter( ?score > 0.04).
-            OPTIONAL {?subj schema:datePublished ?datep .}
-            OPTIONAL {?subj schema:publisher/schema:name ?pubname .}
-            OPTIONAL {?subj schema:spatialCoverage/schema:name ?placename .}
-            OPTIONAL {?subj schema:keywords ?kwu .}
+            OPTIONAL {?subj schema:datePublished|sschema:datePublished ?datep .}
+            OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pubname .}
+            OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name ?placename .}
+            OPTIONAL {?subj schema:keywords|sschema:keywords ?kwu .}
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
         ORDER BY DESC(?score)
