@@ -2,100 +2,7 @@
 <html>
 
 <head>
-    <!--    <style>-->
 
-    <!--      /* First come the styles which are used in the demo */-->
-
-    <!--      .facetsearch { -->
-    <!--        display: inline-block;-->
-    <!--        width: 200px;-->
-    <!--        vertical-align: top;-->
-    <!--      }-->
-    <!--      .activeorderby,-->
-    <!--      .activefacet {-->
-    <!--        color: red;-->
-    <!--      }-->
-    <!--      .bottomline {-->
-    <!--        padding: 10px 0 10px 0;-->
-    <!--        font-weight: bold;-->
-    <!--      }-->
-    <!--      .bottomline .orderby,-->
-    <!--      .bottomline .facettotalcount {-->
-    <!--        display: inline-block;-->
-    <!--      }-->
-    <!--      .bottomline .orderby ul,-->
-    <!--      .bottomline .orderby li {-->
-    <!--        display: inline;-->
-    <!--        padding: 0;-->
-    <!--      }-->
-    <!--      .bottomline .orderby-title {-->
-    <!--        margin: 0 0 0 10px;-->
-    <!--      }-->
-    <!--      .bottomline .deselectstartover {-->
-    <!--        float: right;-->
-    <!--      }-->
-    <!--      #language {-->
-    <!--        width: 400px;-->
-    <!--      }-->
-    <!--      #language .facetlist{-->
-    <!--        column-count: 2;-->
-    <!--        -webkit-column-count: 2;-->
-    <!--        -moz-column-count: 2;-->
-    <!--        -o-column-count: 2;-->
-    <!--      }-->
-    <!--      /*.item {*/-->
-    <!--      /*  width: 150px;*/-->
-    <!--      /*  height: 250px;*/-->
-    <!--      /*  margin: 0 10px 10px 0;*/-->
-    <!--      /*  display: inline-block;*/-->
-    <!--      /*  vertical-align: top;*/-->
-    <!--      /*}*/-->
-    <!--      /*.item h4 {*/-->
-    <!--      /*  font-size: 1.2em;*/-->
-    <!--      /*}*/-->
-    <!--      /*.item .tags {*/-->
-    <!--      /*  font-weight: bold;*/-->
-    <!--      /*  color: gray;*/-->
-    <!--      /*}*/-->
-    <!--      #showmorebutton {-->
-    <!--        border: 1px solid #AAA;-->
-    <!--        border-radius: 15px;-->
-    <!--        background-color: #DDD;-->
-    <!--        margin: 0 0 10px 0;-->
-    <!--        padding: 10px;-->
-    <!--        width: 100%;-->
-    <!--        display: block;-->
-    <!--        text-align: center;-->
-    <!--        cursor: pointer;-->
-    <!--      }-->
-
-    <!--      /* These styles are just general purpose styles to make the page look a little less aweful */-->
-
-    <!--      * {-->
-    <!--        margin: 0;-->
-    <!--        padding: 0;-->
-    <!--      }-->
-    <!--      body {-->
-    <!--        padding: 20px;-->
-    <!--        font-family: sans-serif;-->
-    <!--        font-size: 14px;-->
-    <!--      }-->
-    <!--      #wrapper, #documentation {-->
-    <!--        margin: 0 auto;-->
-    <!--        width: 800px;-->
-    <!--      }-->
-    <!--      p {-->
-    <!--        padding-bottom: 1em;-->
-    <!--        line-height: 1.3em;-->
-    <!--      }-->
-    <!--      h1, h2, h3{-->
-    <!--        margin: 0 0 1em 0;-->
-    <!--      }-->
-    <!--      tt {-->
-    <!--        background-color: #EEE;-->
-    <!--        border: 1px solid #CCC;-->
-    <!--      }-->
-    <!--    </style>-->
 <style>
 
 </style>
@@ -514,6 +421,7 @@
 			{
 			  ?s schemaold:distribution|schema:distribution ?dist .
 			  ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .
+              ?dist schemaold:contentUrl|schema:contentUrl|schema:url|schemaold:url ?curl
 			}
 			UNION {
 			  VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }

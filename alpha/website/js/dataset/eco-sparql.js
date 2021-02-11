@@ -63,7 +63,7 @@ import {
                                 {     
                                   ?s schemaold:distribution|schema:distribution ?dist .    
                                   ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .  
-                                  ?dist schemaold:contentUrl|schema:contentUrl ?curl 
+                                  ?dist schemaold:contentUrl|schema:contentUrl|schema:url|schemaold:url ?curl 
                                 } 
                                 UNION {
                                   VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }
