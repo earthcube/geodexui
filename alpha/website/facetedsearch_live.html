@@ -359,21 +359,30 @@
                         },
                         facetSortOption: {'continent': ["North America", "South America"]}
                     };
-
+                jQuery.facetUpdate = function() {
+                    filter();
+                    order();
+                    updateFacetUI();
+                    updateResults();
+                    updateTools();
+                }
                     $.facetelize($.facetsettings);
-                    //$('#filterDiv').show();
-                    $('.facetsearch').on('show.bs.collapse', _handleCollapse);
-                    $('.facetsearch').on('hide.bs.collapse', _handleExpand);
 
-                        $('.tool').on('render', rrtoolask );
-
-
-                        $( ".tool" ).trigger({
-    type:"render"
-});
+                $('.facetsearch').on('show.bs.collapse', _handleCollapse);
+                $('.facetsearch').on('hide.bs.collapse', _handleExpand);
+                //$('#filterDiv').show();
+                updateTools();
                 }
             )
     });
+    function updateTools(){
+        $('.tool').on('render', rrtoolask );
+
+
+        $( ".tool" ).trigger({
+            type:"render"
+        });
+    }
 </script>
 
 <script>

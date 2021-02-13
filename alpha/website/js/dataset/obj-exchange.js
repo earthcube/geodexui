@@ -91,6 +91,7 @@ import './jsonld.js';
                             <div> ${jp["http://schema.org/name"]}</div>`);
                     } else {
                         detailsTemplate.push(html`
+                            
                             <div>No name available</div>`);
                     };
 
