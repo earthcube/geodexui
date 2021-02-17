@@ -18,21 +18,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mocha/1.0.2/package/lib/browser/fs.js"></script>
+   <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mocha/1.0.2/package/lib/browser/fs.js"></script> -->
     <!-- <link rel="stylesheet" href="css/reset.css"> -->
-    <link rel="stylesheet" href="css/simple-grid.css">
-    <link rel="stylesheet" href="css/zc-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
-
-    <script type="module" src="./js/dataset/obj-exchange.js"></script>
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@next/webcomponents-loader.js"></script>
+    <script type="module" src="./js/dataset2/obj-exchange.js"></script>
     <!-- <script type="module" src="/js/components/demo-tp.js"></script> -->
-    <script type="module" src="./js/dataset/eco-sparql.js"></script>
-    <script type="module" src="./js/dataset/eco-urltemplate.js"></script>
+    <script type="module" src="./js/dataset2/eco-sparql.js"></script>
+    <script type="module" src="./js/dataset2/eco-urltemplate.js"></script>
+    <script type="application/javascript" src="./js/dataset2/map.js"></script>
+    <link rel="stylesheet" href="./css/main.css"/>
 </head>
 
-<body>
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<body class="container-fluid">
+<div class="col-10">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 ">
         <a class="navbar-brand" href="https://www.earthcube.org/">
             <img src="images/EarthCube-White-Long-Tagline.png" height="30"
                  class="d-inline-block align-top" alt="EarthCube" loading="lazy">
@@ -43,7 +45,7 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="input-group form-inline  w-50 ">
+        <form class="input-group form-inline   " hidden>
             <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <a href="#" class="btn btn-default" id="searchBtn">
@@ -67,24 +69,71 @@
         </div>
     </nav>
 
-    <div class="body-content">
-        <div style="padding-top:0px;top:0px" class="container">
-
-            <div class="row">
-                <div class="col-2 hidden-sm"></div>
-                <div class="col-8">
-                    <h3 class="center m-bottom">Indexed Object Details</h3>
-                    <p>
-
-                        <obj-exchange></obj-exchange>
-
-                    </p>
+    <div class="row col-12">
 
 
-                </div>
-                <div class="col-2 hidden-sm"></div>
-            </div>
+<!--            <div class="row">-->
+                <obj-exchange class="row" ></obj-exchange>
 
+<!--                <div class="col-8"> -->
+
+<!--                                      -->
+<!--                    <h1 class="row">-->
+<!--                        Species List, Species Abundance, and Sediment Geochemistry processed data acquired during Laurence M. Gould expedition LMG0802 (2008)                   </h1>-->
+<!--                    <div class="row">-->
+<!--                         <span class="btn btn-light">Website</span>-->
+<!--                        <span class="btn btn-light">Cite</span>-->
+<!--                        <span class="btn btn-light">Metadata</span>-->
+<!--                    </div>-->
+
+
+
+<!--                    <div class="row">-->
+
+<!--                            <span class="col-2 font-weight-bold">Type:</span>-->
+<!--                        <span class="col-8" >Data</span>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+
+<!--                            <span class="col-2 font-weight-bold">Abstract:</span>-->
+<!--                            <span class="col-8">Abstract: This data set was acquired with a Box Core Sediment Sampler, Digital Camera, and Sediment Core Sampler during Laurence M. Gould expedition LMG0802 conducted in 2008 (Chief Scientist: Dr. David DeMaster; Investigators: Dr. Craig Smith and Dr. David DeMaster). The data files are in Microsoft Excel format and include Species List, Species Abundance, and Sediment Geochemistry data that was processed after collection. Funding was provided by NSF grants: ANT06-36773 and ANT06-36806.</span></div>-->
+
+<!--                    <div class="row">-->
+
+<!--                            <span class="col-2 font-weight-bold">Creator:</span>-->
+<!--                            <span class="col-8">-->
+<!--Smith, Craig-->
+<!--DeMaster, David</span>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+
+<!--                            <span class="col-2 font-weight-bold">Publisher:</span>-->
+<!--                            <span class="col-8">-->
+<!--Marine Geoscience Data System (MGDS)</span>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+
+<!--                            <span class="col-2 font-weight-bold">Date:</span>-->
+<!--                            <span class="col-8">-->
+<!--                                2012-08-08</span>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+<!--                <div class="col-4 ">-->
+
+<!--                    <div class="row">-->
+<!--                        <img src="./images/map.jpg" />-->
+<!--                    </div>-->
+<!--                    <div class="row font-weight-bold">Downloads</div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="btn btn-primary w-75">Download Tiff</div>-->
+<!--                        <div class="btn btn-primary w-75">Download Tiff</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+</div>
 
             <div class="row">
                 <!-- <div class="col-4 center"> -->
@@ -97,30 +146,34 @@
 
                 <!-- </p> -->
                 <!-- </div> -->
-
-                <div class="col-4 center">
+<div class="col-6">
+    <h3>Related Data</h3>
+</div>
+                <div class="col-6 ">
                     <img src="./images/aggregate.svg" style="height:75px">
                     <!-- <div class="img img-simple center"></div> -->
                     <h3>Compatible tools</h3>
-                    <p>
+                    <div>
                         <eco-sparql></eco-sparql>
-                    </p>
-                </div>
 
-                <div class="col-4 center">
+                    </div>
+
+
+
                     <img src="./images/webapp.svg" style="height:75px">
                     <!-- <div class="img img-simple center"></div> -->
                     <h3>Web Apps</h3>
-                    <p>
-                        <eco-urltemplate></eco-urltemplate>
-                    </p>
+                    <div>
+                       <eco-urltemplate></eco-urltemplate>
+
+                    </div>
                 </div>
 
             </div>
 
 
+</div>
 
-        </div>
 </div>
 
 </body>
