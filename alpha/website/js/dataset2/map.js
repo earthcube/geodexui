@@ -1,6 +1,6 @@
 
 
-    function addMap () {
+    function addMap (e) {
     var mymap = L.map('mapid').setView([63.35, 9.55], 13);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -13,19 +13,14 @@
 }).addTo(mymap);
 
     L.marker([51.5, -0.09]).addTo(mymap)
-    .bindPopup("DEMO: Species List, Species Abundance, and Sediment Geochemistry processed data acquired during Laurence M. Gould expedition LMG0802 (2008)").openPopup();
+    .bindPopup(e.detail.name).openPopup();
 
-    L.circle([51.508, -0.11], 500, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle.");
 
-    L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-    ]).addTo(mymap).bindPopup("I am a polygon.");
+    // L.polygon([
+    // [51.509, -0.08],
+    // [51.503, -0.06],
+    // [51.51, -0.047]
+    // ]).addTo(mymap).bindPopup("I am a polygon.");
 
 
     var popup = L.popup();
