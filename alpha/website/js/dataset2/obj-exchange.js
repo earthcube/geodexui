@@ -122,9 +122,14 @@ class ObjExchange extends LitElement {
             } else detailsTemplate.push(html`
                 <div>No object available</div>`);
 
+
+            const event = new CustomEvent('addMap', { bubbles: false,
+                detail: { point: true, name: this.s_name,
+                    location: null }
+            });
+            this.updateComplete.then(() => { document.dispatchEvent(event) });
         })
-        const event = new Event('addMap');
-        this.updateComplete.then(() => { document.dispatchEvent(event) });
+
     }
 
     render() {
