@@ -27,6 +27,7 @@ class ObjExchange extends LitElement {
     }
 
     createRenderRoot() {
+
         return this;
     }
 
@@ -45,7 +46,7 @@ class ObjExchange extends LitElement {
             distType: "dist_type",
             contentUrl: "contentUrl",
             encodingFormat: "encodingFormat"
-    }]
+        }]
         this.s_identifier_doi = ""
 
 
@@ -105,9 +106,11 @@ class ObjExchange extends LitElement {
             var dist_type = s_distribution['@type'];
             var encodingFormat = schemaItem('encodingFormat', s_distribution);
             var contentUrl = schemaItem('contentUrl', s_distribution);
+            var distUrl = schemaItem('url', s_distribution);
+            let downloadsurl = contentUrl ? contentUrl : distUrl;
             this.s_downloads = [{
                 distType: dist_type,
-                contentUrl: contentUrl,
+                contentUrl: downloadsurl,
                 encodingFormat: encodingFormat
             }]
             //this.s_identifier_doi= ""
@@ -123,11 +126,16 @@ class ObjExchange extends LitElement {
                 <div>No object available</div>`);
 
 
-            const event = new CustomEvent('addMap', { bubbles: false,
-                detail: { point: true, name: this.s_name,
-                    location: null }
+            const event = new CustomEvent('addMap', {
+                bubbles: false,
+                detail: {
+                    point: true, name: this.s_name,
+                    location: null
+                }
             });
-            this.updateComplete.then(() => { document.dispatchEvent(event) });
+            this.updateComplete.then(() => {
+                document.dispatchEvent(event)
+            });
         })
 
     }
@@ -145,60 +153,94 @@ class ObjExchange extends LitElement {
 
 
         const template = html` <!--  <obj-exchange></obj-exchange> -->
-        
-            <div class="col-8">
-                <div class="row">
-                  <span class="font-weight-bold font-heavy">  ${s_name} </span> </div>
-                <div class="row">
-                    <a class="btn btn-light" href="${s_url}" target="_top">Website</a>
-                    <span class="btn btn-light">Cite</span>
-                    <span class="btn btn-light">Metadata</span>
-                </div>
 
+        <div class="col-8">
+            <div class="row">
+                <span class="font-weight-bold font-heavy">  ${s_name} </span>
+            </div>
+            <div class="row">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="md-tab" data-toggle="tab" href="#md" role="tab"
+                           aria-controls="md" aria-selected="true">Metadata</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="web-tab" data-toggle="tab" href="#web" role="tab"
+                           aria-controls="web" aria-selected="true">Website</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="citation-tab" data-toggle="tab" href="#cite" role="tab"
+                           aria-controls="cite" aria-selected="true">Citation</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="md" role="tabpanel" aria-labelledby="md-tab">
+                        <div class="row">
 
-                <div class="row">
+                            <span class="col-2 font-weight-bold">Type:</span>
+                            <span class="col-8">Data</span>
+                        </div>
+                        <div class="row">
 
-                    <span class="col-2 font-weight-bold">Type:</span>
-                    <span class="col-8">Data</span>
-                </div>
-                <div class="row">
-
-                    <span class="col-2 font-weight-bold">Abstract:</span>
-                    <span class="col-8">
+                            <span class="col-2 font-weight-bold">Abstract:</span>
+                            <span class="col-8">
                           ${s_description}</span></div>
 
-                <div class="row">
+                        <div class="row">
 
-                    <span class="col-2 font-weight-bold">Creator:</span>
-                    <span class="col-8">
+                            <span class="col-2 font-weight-bold">Creator:</span>
+                            <span class="col-8">
 ${s_contributor}</span>
-                </div>
-                <div class="row">
+                        </div>
+                        <div class="row">
 
-                    <span class="col-2 font-weight-bold">Publisher:</span>
-                    <span class="col-8">
+                            <span class="col-2 font-weight-bold">Publisher:</span>
+                            <span class="col-8">
 ${s_publisher}</span>
-                </div>
-                <div class="row">
+                        </div>
+                        <div class="row">
 
-                    <span class="col-2 font-weight-bold">Date:</span>
-                    <span class="col-8">
+                            <span class="col-2 font-weight-bold">Date:</span>
+                            <span class="col-8">
                                ${s_publishedDate}</span>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab">
+                        <div class="row">
+
+                            <span class="col-2 font-weight-bold">Website</span>
+                            <a class="col-8" href="${s_url}" target="_blank"> ${s_url}</a>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="cite" role="tabpanel" aria-labelledby="cite-tab">
+                        <div class="row">
+
+                            <span class="col-2 font-weight-bold">Citation</span>
+
+                            <a class="col-8" href="${s_citation}" target="_blank">${s_citation}</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-4 ">
+            </div>
+        </div>
+        <div class="col-4 ">
 
-                <div class="row">
-                    <div id="mapid" style="width: 600px; height: 400px;">
-                       
-                     </div>
+            <div class="row">
+                <div id="mapid" style="width: 600px; height: 400px;">
+
                 </div>
-                <div class="row font-weight-bold">Downloads</div>
-                <div class="row">
-                    ${this.s_downloads.map(i =>html`<a class="btn btn-primary w-75" href="${i.contentUrl}">${i.encodingFormat}</a>`)}
-                   
-                </div>
-          
+            </div>
+            <div class="row font-weight-bold">Downloads</div>
+            <div class="row">
+                ${this.s_downloads.map(i => html`<a class="btn btn-primary w-75" target="_blank" href="${i.contentUrl}">${i.encodingFormat}</a>`)}
+
+            </div>
+
 
         </div>
         `;
