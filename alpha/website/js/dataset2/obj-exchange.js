@@ -47,6 +47,8 @@ class ObjExchange extends LitElement {
             encodingFormat: "encodingFormat"
     }]
         this.s_identifier_doi = ""
+
+
     }
 
     schemaItem(name, json_compacted) {
@@ -121,6 +123,8 @@ class ObjExchange extends LitElement {
                 <div>No object available</div>`);
 
         })
+        const event = new Event('addMap');
+        this.updateComplete.then(() => { document.dispatchEvent(event) });
     }
 
     render() {
