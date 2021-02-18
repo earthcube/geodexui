@@ -1,11 +1,12 @@
 /*jshint esversion: 6 */
-import {
-    html,
-    LitElement
-} from '../components/lit-element.js';
+// import {
+//     html,
+//     LitElement
+// } from '../components/lit-element/lit-element.js';
 import './jsonld.js';
-//import {unsafeHTML} from '../components/lit-html/directives/unsafe-html.js';
-//import { unsafeHTML } from 'https://unpkg.com/lit-html/directives/unsafe-html?module';
+//import {unsafeHTML} from '../components/lit-html/directives/unsafe-
+import { html, LitElement } from 'https://unpkg.com/lit-element?module';
+import { unsafeHTML } from 'https://unpkg.com/lit-html/directives/unsafe-html?module';
 //curl https://dx.geodex.org/id/summoned/iris/107b0c662fa9051d3714b0e93fef981713d2ca48
 
 class ObjExchange extends LitElement {
@@ -142,7 +143,7 @@ class ObjExchange extends LitElement {
 
     render() {
         let s_name = this.s_name;
-        //let html_name = html`${unsafeHTML(this.s_name)}`
+        let html_name = html`${unsafeHTML(this.s_name)}`
         let s_url = this.s_url;
         let s_description = this.s_description;
         let s_contributor = this.s_contributor;
@@ -156,7 +157,7 @@ class ObjExchange extends LitElement {
 
         <div class="col-8">
             <div class="row">
-                <span class="font-weight-bold font-heavy">  ${s_name} </span>
+                <span class="font-weight-bold font-heavy">  ${html_name} </span>
             </div>
             <div class="row">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -210,7 +211,7 @@ ${s_publisher}</span>
                     <div class="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab">
                         <div class="row">
 
-                            <span class="col-2 font-weight-bold">Website</span>
+                            <span class="col-4 font-weight-bold">Website</span>
                             <a class="col-8" href="${s_url}" target="_blank"> ${s_url}</a>
                         </div>
                         
@@ -218,7 +219,7 @@ ${s_publisher}</span>
                     <div class="tab-pane fade" id="cite" role="tabpanel" aria-labelledby="cite-tab">
                         <div class="row">
 
-                            <span class="col-2 font-weight-bold">Citation</span>
+                            <span class="col-4 font-weight-bold">Citation</span>
 
                             <a class="col-8" href="${s_citation}" target="_blank">${s_citation}</a>
                         </div>
