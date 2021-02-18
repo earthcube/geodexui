@@ -22,7 +22,8 @@ class ObjExchange extends LitElement {
             s_keywords: {type: Array},
             s_landingpage: {type: String},
             s_downloads: {type: Array},
-            s_identifier_doi: {type: String}
+            s_identifier_doi: {type: String},
+            raw_json:{type:String}
             // place, temporal coverage
         };
     }
@@ -49,15 +50,12 @@ class ObjExchange extends LitElement {
             encodingFormat: "encodingFormat"
         }]
         this.s_identifier_doi = ""
+        this.raw_json=""
 
 
     }
 
-    schemaItem(name, json_compacted) {
-        const s_name = (json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] :
-            json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] : 'No ' + name + ' available')
-        return s_name;
-    }
+
 
     async firstUpdated(_changedProperties) {
         super.firstUpdated(_changedProperties);
@@ -91,7 +89,7 @@ class ObjExchange extends LitElement {
             var j = JSON.stringify(providers, null, 2);
             var jp = JSON.parse(j);
             console.log(j.toString());
-
+this.raw_json = j;
             const detailsTemplate = [];
             // detailsTemplate.push(html`<h3>Digital Document metadata</h3>`);
             this.s_name = schemaItem('name', jp);
@@ -151,6 +149,7 @@ class ObjExchange extends LitElement {
         let s_publisher = this.s_sdPublisher;
         let s_citation = this.s_citation;
         let s_downloads = this.s_downloads;
+        let raw_json = this.raw_json;
 
 
         const template = html` <!--  <obj-exchange></obj-exchange> -->
@@ -172,6 +171,10 @@ class ObjExchange extends LitElement {
                     <li class="nav-item">
                         <a class="nav-link " id="citation-tab" data-toggle="tab" href="#cite" role="tab"
                            aria-controls="cite" aria-selected="true">Citation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="json-tab" data-toggle="tab" href="#json" role="tab"
+                           aria-controls="json" aria-selected="true">Raw Metadata</a>
                     </li>
                 </ul>
             </div>
@@ -224,7 +227,14 @@ ${s_publisher}</span>
                             <a class="col-8" href="${s_citation}" target="_blank">${s_citation}</a>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="json" role="tabpanel" aria-labelledby="json-tab">
+                        <div class="row">
 
+                            <span class="col-4 font-weight-bold">JSON</span>
+
+                            <code>${raw_json}</code>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
