@@ -13,7 +13,8 @@
 }).addTo(mymap);
 
     //L.marker([51.5, -0.09]).addTo(mymap)
-    //.bindPopup(e.detail.name).openPopup();
+    L.marker([63.35, 9.55]).addTo(mymap)
+    .bindPopup(e.detail.name).openPopup();
 
 
     // L.polygon([ [51.509, -0.08], [51.503, -0.06], [51.51, -0.047]
