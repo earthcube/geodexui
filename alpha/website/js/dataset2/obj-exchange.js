@@ -232,7 +232,7 @@ ${s_publisher}</span>
 
                             <span class="col-4 font-weight-bold">JSON</span>
 
-                            <code>${raw_json}</code>
+                            <pre>${raw_json}</pre>
                         </div>
                     </div>
                 </div>
