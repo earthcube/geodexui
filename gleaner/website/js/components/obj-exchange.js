@@ -75,28 +75,39 @@ import './jsonld.js';
                 const compacted = jsonld.compact(content, context).then((providers) => {
                     var j = JSON.stringify(providers, null, 2);
                     var jp = JSON.parse(j);
-                    // console.log(jp);
+                    console.log(jp);
 
                     const detailsTemplate = [];
                     // detailsTemplate.push(html`<h3>Digital Document metadata</h3>`);
 
-                    if (jp["https://schema.org/name"] == undefined)
+                    if (jp["https://schema.org/name"] == undefined && jp["http://schema.org/name"] == undefined)
                         detailsTemplate.push(html`<div>No name available</div>`);
-                    else detailsTemplate.push(html`<div> ${jp["https://schema.org/name"]} </div>`);
+                    else {
+                        detailsTemplate.push(html`<div> ${jp["https://schema.org/name"]} </div>`);
+                        detailsTemplate.push(html`<div> ${jp["http://schema.org/name"]} </div>`);
 
-                    if (jp["https://schema.org/url"] == undefined)
+                    }
+
+                    if (jp["https://schema.org/url"] == undefined && jp["http://schema.org/url"] == undefined)
                         detailsTemplate.push(html`<div>No url available</div>`);
-                    else detailsTemplate.push(html`<div> <a href="${jp["https://schema.org/url"]}">${jp["https://schema.org/url"]}</a> </div>`);
+                    else {
+                        detailsTemplate.push(html`<div> <a href="${jp["https://schema.org/url"]}">${jp["https://schema.org/url"]}</a> </div>`);
+                        detailsTemplate.push(html`<div> <a href="${jp["http://schema.org/url"]}">${jp["http://schema.org/url"]}</a> </div>`);
+                    }
 
-                    if (jp["https://schema.org/description"] == undefined)
+                    if (jp["https://schema.org/description"] == undefined && jp["http://schema.org/description"] == undefined)
                         detailsTemplate.push(html`<div>No description available</div>`);
-                    else detailsTemplate.push(html`<div><p> ${jp["https://schema.org/description"]} </p></div>`);
+                    else{
+                        detailsTemplate.push(html`<div><p> ${jp["https://schema.org/description"]} </p></div>`);
+                        detailsTemplate.push(html`<div><p> ${jp["http://schema.org/description"]} </p></div>`);
+                    } 
 
 
-                    if (jp["https://schema.org/description"] == undefined)
+                    if (jp["https://schema.org/description"] == undefined && jp["http://schema.org/description"] == undefined)
                         detailsTemplate.push(html`<div>No object available</div>`);
-                    else detailsTemplate.push(html` <details> <summary>JSON-LD Object</summary><pre>${j}</pre></details>`);
-
+                    else {
+                        detailsTemplate.push(html` <details> <summary>JSON-LD Object</summary><pre>${j}</pre></details>`);
+                    }
 
                     this.attachShadow({ mode: 'open' });
                     render(detailsTemplate, this.shadowRoot);                // var h =  `<div>${itemTemplates}</div>`;
