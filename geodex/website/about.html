@@ -30,8 +30,8 @@
       <div class="row">
         <div class="col-12 center">
 						<!-- <img src="./img/location2.svg"> -->
-						<img src="../../alpha/website/images/EarthCube-White-Long-Tagline.png"  height="38">
-          <h3 style="margin:5px;color:white">GeoCODES</h3>
+            <img src="./img/location2.svg">
+            <h3 style="margin:5px;color:white">GeoCODES</h3>
           <h3 style="margin:5px;color:white" class="font-light">a schema.org/Dataset search</h3>
           <!-- 
           <div class="img img-logo center"></div>
@@ -69,32 +69,66 @@
           <h3 class="center m-bottom">About</h3>
 
           <p>
-            Documentation is in the works for this site. 
+            GeoDex is an implementation of the structured data on the web patterns.  
           </p>
 
-          <p>
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+            Overview
+          </h3>
+          <p class="text-gray-600 mb-8">
+            
+            The architecture defines a workflow for objects, a "digital object chain". Here, the digital object (DO) is
+            the data graph such as the JSON-LD package in a landing page.
+          </p>
+            <p class="text-gray-600 mb-8">
+            The chain is the life cycle connecting; authoring, publishing, aggregation, indexing and
+            searching/interfaces.
+
+          </p>
+
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+            Authoring & Publishing
+          </h3>
+          <p class="text-gray-600 mb-8">
+
+            
+
+            Schema alignment work aligns existing metadata formats to schema.org (plus other vocabulary/contexts)
+            serialized as JSON-LD. Publishers are engaged on approaches to using robots.txt, sitemap.xml and their
+            existing web stack to expose these resources. This same approach is also used by Google Dataset Search and
+            allows the resources to be leveraged by them and an emerging community of potential users and projects like
+            OIH.
+          </p>
+
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+            Aggregate, Index and Use
+          </h3>
+
+
+          <p class="text-gray-600 mb-8">* Data graphs are aggregated by Gleaner and formed into a RDF graph that is loaded
+              into a triplestore. Graphs can optionally be checked and validated.</p>
+              <p class="text-gray-600 mb-8">* The SPARQL endpoint can be open and/or exposed by Mercantile via GraphQL.</p>
+              <p class="text-gray-600 mb-8">* Web based user interfaces for this approach exist and are served along with access to the metadata
+              objects
+              via GROW. The approach is JAMSTACK based so many clients and client frameworks can leverage the exposed
+              APIs.</p>
+          
+
+          <p class="text-gray-600 mb-8">
+          This full stack is assembled into Docker/Open Container Initiative containers and can be deployed to
+          orchestration environments like Docker Swarm, commercial cloud environments or even single computers.
+
+          </p>
+
+
+          <div>
 
             <img style="width:600px" src="./img/geodexv2.png">
             <a href="./img/geodexv2.png">Image link</a>
-          </p>
+          </div>
 
 
-          <p> Exposed domains</p>
-          <pre>
-          main:
-          alpha.geodex.org
-          api.geodex.org
-          spatial.geodex.org (just a place holder for now)
-
-          support:
-          graph.geodex.org
-          oss.geodex.org
-
-          coming:
-          indexer.geodex.org
-          headless.geodex.org (not public facing in the end)
-          </pre>
-
+        
         </div>
         <div class="col-2 hidden-sm"></div>
       </div>

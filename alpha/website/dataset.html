@@ -3,8 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <title>Dataset:</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
+
+    <title>Earthcube</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mocha/1.0.2/package/lib/browser/fs.js"></script>
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+    <link rel="stylesheet" href="css/simple-grid.css">
+    <link rel="stylesheet" href="css/zc-grid.css">
+
+
+    <script type="module" src="./js/dataset/obj-exchange.js"></script>
+    <!-- <script type="module" src="/js/components/demo-tp.js"></script> -->
+    <script type="module" src="./js/dataset/eco-sparql.js"></script>
+    <script type="module" src="./js/dataset/eco-urltemplate.js"></script>
 </head>
+
 <body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="https://www.earthcube.org/">
+            <img src="images/EarthCube-White-Long-Tagline.png" height="30"
+                 class="d-inline-block align-top" alt="EarthCube" loading="lazy">
+
+        </a>
+        <!-- -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="input-group form-inline  w-50 ">
+            <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <a href="#" class="btn btn-default" id="searchBtn">
+                    <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
+                </a>
+            </div>
+            <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
+        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">Help</a>
+                </li>
+            </ul>
+
+
+
+            <!-- <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span> -->
+        </div>
+    </nav>
+
+    <div class="body-content">
+        <div style="padding-top:0px;top:0px" class="container">
+
+            <div class="row">
+                <div class="col-2 hidden-sm"></div>
+                <div class="col-8">
+                    <h3 class="center m-bottom">Indexed Object Details</h3>
+                    <p>
+
+                        <obj-exchange></obj-exchange>
+
+                    </p>
+
+
+                </div>
+                <div class="col-2 hidden-sm"></div>
+            </div>
+
+
+            <div class="row">
+                <!-- <div class="col-4 center"> -->
+                <!-- <div class="img img-responsive center"></div> -->
+                <!-- <img src="./img/throughput.svg" style="height:75px"> -->
+                <!-- <h3>Throughput</h3> -->
+                <!-- <p> -->
+
+                <!-- <demo-tp></demo-tp> -->
+
+                <!-- </p> -->
+                <!-- </div> -->
+
+                <div class="col-4 center">
+                    <img src="./images/aggregate.svg" style="height:75px">
+                    <!-- <div class="img img-simple center"></div> -->
+                    <h3>Compatible tools</h3>
+                    <p>
+                        <eco-sparql></eco-sparql>
+                    </p>
+                </div>
+
+                <div class="col-4 center">
+                    <img src="./images/webapp.svg" style="height:75px">
+                    <!-- <div class="img img-simple center"></div> -->
+                    <h3>Web Apps</h3>
+                    <p>
+                        <eco-urltemplate></eco-urltemplate>
+                    </p>
+                </div>
+
+            </div>
+
+
+
+        </div>
+</div>
 
 </body>
 </html>
