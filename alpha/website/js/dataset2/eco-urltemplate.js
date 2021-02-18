@@ -2,7 +2,7 @@
 import {
     html,
     render
-} from '../components/lit-html.js';
+} from  'https://unpkg.com/lit-html?module';
 
 (function () {
     class ECOSparql extends HTMLElement {
