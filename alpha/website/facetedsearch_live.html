@@ -366,15 +366,19 @@
                     updateResults();
                     updateTools();
                 }
+                $( $.facetsettings.resultSelector).on('facetedsearchresultupdate', updateTools);
+
                     $.facetelize($.facetsettings);
 
                 $('.facetsearch').on('show.bs.collapse', _handleCollapse);
                 $('.facetsearch').on('hide.bs.collapse', _handleExpand);
                 //$('#filterDiv').show();
-                updateTools();
+                //updateTools();
+
                 }
             )
     });
+
     function updateTools(){
         $('.tool').on('render', rrtoolask );
 
