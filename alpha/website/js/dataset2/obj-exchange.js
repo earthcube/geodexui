@@ -43,6 +43,7 @@ class ObjExchange extends LitElement {
         this.s_sdPublisher = ""
         this.s_citation = ""
         this.s_keywords = []
+        this.s_sc = schemaItem('spatialCoverage', jp);
         this.s_landingpage = ""
         this.s_downloads = [{
             distType: "dist_type",
@@ -129,6 +130,7 @@ this.raw_json = j;
                 bubbles: false,
                 detail: {
                     point: true, name: this.s_name,
+                           sc: this.s_sc,
                     location: null
                 }
             });

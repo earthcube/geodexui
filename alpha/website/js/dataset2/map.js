@@ -20,6 +20,7 @@
     // L.polygon([ [51.509, -0.08], [51.503, -0.06], [51.51, -0.047]
     // ]).addTo(mymap).bindPopup("I am a polygon.");
 
+    console.log(e.detail.sc);
 
     var popup = L.popup();
 
