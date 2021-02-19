@@ -11,17 +11,12 @@ import {
             super();
 
             const object = "r3d100011761";
-            const fetchURL = `https://throughputdb.com/api/db/annotations?id=${object}`
-
+            const fetchURL = `https://throughputdb.com/api/ccdrs/annotations` // `https://throughputdb.com/api/db/annotations?id=${object}`
             // const fetchURL = `https://dx.geodex.org/data/tpdata.json`;
 
-
+            var postdata = { "dbid": "r3d100012894 ", "additionalType": "http://linked.earth/ontology#Dataset", "id": "tmeZsxjY5oSP1dOcgrJW" }
             console.log(fetchURL);
-
-            (async () => {
-
-
-                data = {};
+            (async (postdata) => {
 
                 var url = new URL(fetchURL);
                 const rawResponse = await fetch(url, {
@@ -35,7 +30,9 @@ import {
                     },
                     redirect: 'follow', // manual, *follow, error
                     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                    body: JSON.stringify(data) // body data type must match "Content-Type" header
+                    body: JSON.stringify(postdata)
+                    //body: JSON.stringify({ "dbid": "r3d100012894 ", "additionalType": "http://linked.earth/ontology#Dataset", "id": "tmeZsxjY5oSP1dOcgrJW" })
+ // body data type must match "Content-Type" header
                 });
                 const content = await rawResponse.json();
 
@@ -46,9 +43,9 @@ import {
                 const detailsTemplate = [];
 
                 const data = jp.data;
-                detailsTemplate.push(html`<h4>There are ${data.length} ThroughPut annotations.  View all Throughput </h4>`);
+                detailsTemplate.push(html`<h4>${data.length} Throughput annotations.  View all at Throughput </h4>`);
 
-                // caution!!  no null traps here.   
+                // caution!!  no null traps here.
                 // need something like if (item[X] == undefined)
                 var i = 0; // HACK to break out of loop
                 for (const item of data) {
@@ -56,7 +53,7 @@ import {
                     detailsTemplate.push(html`<div style="margin-top:5px;text-align:left;margin: 0 auto;">`);
                     detailsTemplate.push(html`<p style="text-align:left"><b>${item.author}:</b>${item.annotation}</p>`);
                     detailsTemplate.push(html`</div>`);
-                    if (i > 3) {
+                    if (i > 9) {
                         break;
                     }
                 }
