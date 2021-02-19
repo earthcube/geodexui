@@ -32,9 +32,70 @@ import './jsonld.js';
                 //     "description": { "@id": "http://schema.org/description", "@type": "@id" }
                 // };
 
+                // const context = { "url": { "@id": "https://schema.org/url", "@type": "@id" }};
                 const context = {};
 
-                // const frame = {
+                // const compacted = jsonld.compact(obj, context).then(sC, fC);
+                const compacted = jsonld.compact(content, context).then((providers) => {
+                    var j = JSON.stringify(providers, null, 2);
+                    var jp = JSON.parse(j);
+                    console.log(jp);
+
+                    var c = JSON.stringify(content, null, 2);
+                    // var cp = JSON.parse(c);
+                    // console.log(cp);
+
+                    const detailsTemplate = [];
+                    // detailsTemplate.push(html`<h3>Digital Document metadata</h3>`);
+
+                    if (jp["https://schema.org/name"] == undefined && jp["http://schema.org/name"] == undefined)
+                        detailsTemplate.push(html`<div>No name available</div>`);
+                    else {
+                        detailsTemplate.push(html`<div> ${jp["https://schema.org/name"]} </div>`);
+                        detailsTemplate.push(html`<div> ${jp["http://schema.org/name"]} </div>`);
+
+                    }
+
+                    if (jp["https://schema.org/url"] == undefined)
+                        detailsTemplate.push(html`<div> </div>`);
+                    else {
+                        detailsTemplate.push(html`<div> <a href="${jp["https://schema.org/url"]}">${jp["https://schema.org/url"]}</a> </div>`);
+                    }
+
+                    if (jp["http://schema.org/url"] == undefined)
+                        detailsTemplate.push(html`<div> </div>`);
+                    else {
+                        detailsTemplate.push(html`<div> <a href="${jp["http://schema.org/url"]}">${jp["http://schema.org/url"]}</a> </div>`);
+                    }
+
+                    if (jp["https://schema.org/description"] == undefined && jp["http://schema.org/description"] == undefined)
+                        detailsTemplate.push(html`<div>No description available</div>`);
+                    else {
+                        detailsTemplate.push(html`<div><p> ${jp["https://schema.org/description"]} </p></div>`);
+                        detailsTemplate.push(html`<div><p> ${jp["http://schema.org/description"]} </p></div>`);
+                    }
+
+
+                    if (jp["https://schema.org/description"] == undefined && jp["http://schema.org/description"] == undefined)
+                        detailsTemplate.push(html`<div>No object available</div>`);
+                    else {
+                        detailsTemplate.push(html` <details> <summary>JSON-LD Object</summary><pre>${c}</pre></details>`);
+                    }
+
+                    this.attachShadow({ mode: 'open' });
+                    render(detailsTemplate, this.shadowRoot);                // var h =  `<div>${itemTemplates}</div>`;
+                    // this.shadowRoot.appendChild(this.cloneNode(h));
+
+                });
+
+            })();
+        }
+    }
+    window.customElements.define('obj-exchange', ObjExchange);
+})();
+
+
+ // const frame = {
                 //     "@context": "http://schema.org/",
                 //     "@type": "Dataset",
                 //     "@explicit": true,
@@ -70,55 +131,3 @@ import './jsonld.js';
                 //     // this.shadowRoot.appendChild(this.cloneNode(h));
 
                 // });
-
-                // const compacted = jsonld.compact(obj, context).then(sC, fC);
-                const compacted = jsonld.compact(content, context).then((providers) => {
-                    var j = JSON.stringify(providers, null, 2);
-                    var jp = JSON.parse(j);
-                    console.log(jp);
-
-                    const detailsTemplate = [];
-                    // detailsTemplate.push(html`<h3>Digital Document metadata</h3>`);
-
-                    if (jp["https://schema.org/name"] == undefined && jp["http://schema.org/name"] == undefined)
-                        detailsTemplate.push(html`<div>No name available</div>`);
-                    else {
-                        detailsTemplate.push(html`<div> ${jp["https://schema.org/name"]} </div>`);
-                        detailsTemplate.push(html`<div> ${jp["http://schema.org/name"]} </div>`);
-
-                    }
-
-                    if (jp["https://schema.org/url"] == undefined && jp["http://schema.org/url"] == undefined)
-                        detailsTemplate.push(html`<div>No url available</div>`);
-                    else {
-                        detailsTemplate.push(html`<div> <a href="${jp["https://schema.org/url"]}">${jp["https://schema.org/url"]}</a> </div>`);
-                        detailsTemplate.push(html`<div> <a href="${jp["http://schema.org/url"]}">${jp["http://schema.org/url"]}</a> </div>`);
-                    }
-
-                    if (jp["https://schema.org/description"] == undefined && jp["http://schema.org/description"] == undefined)
-                        detailsTemplate.push(html`<div>No description available</div>`);
-                    else{
-                        detailsTemplate.push(html`<div><p> ${jp["https://schema.org/description"]} </p></div>`);
-                        detailsTemplate.push(html`<div><p> ${jp["http://schema.org/description"]} </p></div>`);
-                    } 
-
-
-                    if (jp["https://schema.org/description"] == undefined && jp["http://schema.org/description"] == undefined)
-                        detailsTemplate.push(html`<div>No object available</div>`);
-                    else {
-                        detailsTemplate.push(html` <details> <summary>JSON-LD Object</summary><pre>${j}</pre></details>`);
-                    }
-
-                    this.attachShadow({ mode: 'open' });
-                    render(detailsTemplate, this.shadowRoot);                // var h =  `<div>${itemTemplates}</div>`;
-                    // this.shadowRoot.appendChild(this.cloneNode(h));
-
-                });
-
-            })();
-        }
-    }
-    window.customElements.define('obj-exchange', ObjExchange);
-})();
-
-
