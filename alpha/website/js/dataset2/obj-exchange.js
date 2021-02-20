@@ -141,16 +141,16 @@ class ObjExchange extends LitElement {
                     var lat = schemaItem('latitude', obj)
                     var lon = schemaItem('longitude', obj)
                     if (lat && lon) {
-                        return `[${lat} ${lon}]`
+                        return [lat, lon]
                     }
                 })
             }
             else {
                 if (geo['@type']=== 'https://schema.org/GeoCoordinates' || geo['@type'] === 'http://schema.org/GeoCoordinates') {
-                    var lat = schemaItem('latitude', obj)
-                    var lon = schemaItem('longitude', obj)
+                    var lat = schemaItem('latitude', geo)
+                    var lon = schemaItem('longitude', geo)
                     if (lat && lon) {
-                        coords = `[${lat} ${lon}]`
+                        coords = [[lat, lon]]
                     }
                 }
 
@@ -205,7 +205,7 @@ this.raw_json = j;
 
             let detail = {
                  name: this.s_name,
-                point: points,
+                points: points,
                 poly: poly,
                 box: box,
                 placename: placename
