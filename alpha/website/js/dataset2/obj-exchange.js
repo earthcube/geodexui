@@ -84,6 +84,79 @@ class ObjExchange extends LitElement {
                 json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] : 'No ' + name + ' available')
             return s_name;
         }
+        const hasSchemaProperty = function (name, jsonObj) {
+            if ( jsonObj.hasOwnProperty("https://schema.org/" +name) ||
+                jsonObj.hasOwnProperty("http://schema.org/" +name) )
+                return true;
+        }
+        const geoplacename = function(s_spatialCoverage){
+            if (Array.isArray(s_spatialCoverage)){
+                var s_place = s_spatialCoverage.find((obj) => hasSchemaProperty('name',obj) )
+                    var placename = schemaItem('name',s_place)
+            } else {
+                var placename = hasSchemaProperty('name',s_spatialCoverage) ? schemaItem('name',s_spatialCoverage) : null
+            }
+            return placename;
+        }
+        const getFirstGeoShape = function(s_spatialCoverage, shapetype){
+            let geo;
+// box, poly
+            if (Array.isArray(s_spatialCoverage)){
+                geo = s_spatialCoverage.find((obj) => hasSchemaProperty('geo',obj) );
+            } else {
+                geo = hasSchemaProperty('geo', s_spatialCoverage) ? schemaItem('geo', s_spatialCoverage) : null;
+            }
+            if (Array.isArray(geo)){
+                // get first match
+                geo = geo.find((obj) => obj['@type'].endsWith('GeoShape') && hasSchemaProperty(shapetype, obj) );;
+            }
+            if (geo){
+                //console.log(geo['@type'])
+                if (geo['@type'].endsWith('GeoShape') && hasSchemaProperty(shapetype, geo)){
+                    return schemaItem (shapetype, geo);
+                }
+            }
+            return null;
+        }
+
+        // "@type": "https://schema.org/GeoCoordinates",
+        //     "https://schema.org/latitude": 43.10841,
+        //     "https://schema.org/longitude": -118.25872000000001
+        const getGeoCoordinates = function(s_spatialCoverage, shapetype){
+            // box, poly
+            var geo =[]
+            var coords = null
+            if (Array.isArray(s_spatialCoverage)){
+                 geo = s_spatialCoverage.find((obj) => hasSchemaProperty('geo',obj) )
+            } else {
+                 if (hasSchemaProperty('geo',s_spatialCoverage) ) {
+                   geo = schemaItem('geo', s_spatialCoverage)
+                 }
+            }
+            // sometimes obj has no @type..
+            if (Array.isArray(geo)) {
+                geo = geo.filter((obj) => obj['@type'] === 'https://schema.org/GeoCoordinates' || obj['@type'] === 'http://schema.org/GeoCoordinates');
+
+                var coords = geo.map(function (obj) {
+                    var lat = schemaItem('latitude', obj)
+                    var lon = schemaItem('longitude', obj)
+                    if (lat && lon) {
+                        return [lat, lon]
+                    }
+                })
+            }
+            else {
+                if (geo['@type']=== 'https://schema.org/GeoCoordinates' || geo['@type'] === 'http://schema.org/GeoCoordinates') {
+                    var lat = schemaItem('latitude', geo)
+                    var lon = schemaItem('longitude', geo)
+                    if (lat && lon) {
+                        coords = [[lat, lon]]
+                    }
+                }
+
+            }
+            return coords;
+        }
         // const compacted = jsonld.compact(obj, context).then(sC, fC);
         const compacted = jsonld.compact(content, context).then((providers) => {
             var j = JSON.stringify(providers, null, 2);
@@ -112,6 +185,12 @@ this.raw_json = j;
                 contentUrl: downloadsurl,
                 encodingFormat: encodingFormat
             }]
+            let s_spatialCoverage = schemaItem('spatialCoverage', jp)
+            let placename = geoplacename(s_spatialCoverage)
+            let box = getFirstGeoShape(s_spatialCoverage, 'box')
+            let poly = getFirstGeoShape(s_spatialCoverage, 'polygon')
+            let points = getGeoCoordinates(s_spatialCoverage)
+            console.info(`placename:${placename} box:${box} poly:${poly} points:${points}`)
             //this.s_identifier_doi= ""
 
 
@@ -124,16 +203,19 @@ this.raw_json = j;
             } else detailsTemplate.push(html`
                 <div>No object available</div>`);
 
-
-            const event = new CustomEvent('addMap', {
+            let detail = {
+                 name: this.s_name,
+                points: points,
+                poly: poly,
+                box: box,
+                placename: placename
+            }
+            const addMapEvent = new CustomEvent('addMap', {
                 bubbles: false,
-                detail: {
-                    point: true, name: this.s_name,
-                    location: null
-                }
+                detail: detail
             });
             this.updateComplete.then(() => {
-                document.dispatchEvent(event)
+                document.dispatchEvent(addMapEvent)
             });
         })
 
