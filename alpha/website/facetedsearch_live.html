@@ -12,6 +12,7 @@
     <title>Earthcube</title>
 
     <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+<!--    <link rel="stylesheet" href="./css/bootstrap.css"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -278,13 +279,13 @@
             </div> `;
 
         // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
-        const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
-               <div class="card" id='<%= id %>'>
+        const facetContainer = `<div class="accordion col-12 border  p-0 mt-1" id="<%= id %>accordian">
+               <div class="card " id='<%= id %>'>
 
                 </div>
             </div>`;
         const facetTitleTemplate = `<div class="card-header" id="heading<%= id %>">
-            <h2 class="ml-6 ">
+            <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"
                         data-target="#collapse<%= id %>" aria-expanded="true" aria-controls="collapse<%= id %>">
                     <%= title %><i class="fa fa-plus  float-right"></i>
