@@ -40,7 +40,7 @@ class ObjExchange extends LitElement {
         this.s_url = ""
         this.s_contributor = ""
         this.s_datePublished = ""
-        this.s_sdPublisher = ""
+        this.publisher = ""
         this.s_citation = ""
         this.s_keywords = []
         this.s_landingpage = ""
@@ -79,9 +79,9 @@ class ObjExchange extends LitElement {
         const context = {};
 
 
-        const schemaItem = function (name, json_compacted) {
+        const schemaItem = function (name, json_compacted, noSchemaMessage="") {
             const s_name = (json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] :
-                json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] : 'No ' + name + ' available')
+                json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] : noSchemaMessage)
             return s_name;
         }
         const hasSchemaProperty = function (name, jsonObj) {
@@ -169,12 +169,41 @@ this.raw_json = j;
             this.s_url = schemaItem('url', jp);
             this.s_description = schemaItem('description', jp);
             this.s_contributor = schemaItem('contributor', jp);
-            this.s_datePublished = schemaItem('datePublished', jp);
-            this.s_sdPublisher = schemaItem('sdPublisher', jp);
+            var s_distribution = schemaItem('distribution', jp);
+
+            if (hasSchemaProperty('datePublished',jp)){
+                this.s_datePublished = schemaItem('datePublished', jp);
+            } else {
+                var datadist = schemaItem('datePublished', s_distribution);
+            }
+             if (hasSchemaProperty('publisher',jp) ) {
+                var p =  schemaItem('publisher', jp);
+                this.publisher = schemaItem('name', p);
+             }
+             else {
+                 this.publisher = schemaItem('sdPublisher', jp);
+             }
+            if (hasSchemaProperty('creator',jp) ) {
+                var p =  schemaItem('creator', jp);
+                if (Array.isArray(p)){
+                    this.s_contributor = p.map(function(obj){
+                        if (hasSchemaProperty('name',obj)){
+                            return schemaItem('name', obj) +", "
+                        }}
+                    )
+                    console.log('contributor'+this.s_contributor)
+
+                } else {
+                    this.s_contributor = schemaItem('name', p);
+                }
+
+            } else {
+                this.s_contributor = schemaItem('contributor', jp);
+            }
             this.s_citation = schemaItem('citation', jp);
             this.s_keywords = schemaItem('keywords', jp);
             this.s_landingpage = schemaItem('description', jp);
-            var s_distribution = schemaItem('distribution', jp);
+            //var s_distribution = schemaItem('distribution', jp); // moved up
             var dist_type = s_distribution['@type'];
             var encodingFormat = schemaItem('encodingFormat', s_distribution);
             var contentUrl = schemaItem('contentUrl', s_distribution);
@@ -228,7 +257,7 @@ this.raw_json = j;
         let s_description = this.s_description;
         let s_contributor = this.s_contributor;
         let s_publishedDate = this.s_datePublished;
-        let s_publisher = this.s_sdPublisher;
+        let s_publisher = this.publisher;
         let s_citation = this.s_citation;
         let s_downloads = this.s_downloads;
         let raw_json = this.raw_json;
