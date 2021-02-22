@@ -150,13 +150,12 @@
             ?lit bds:matchAllTerms "false" .
             ?lit bds:relevance ?score .
             ?subj ?p ?lit .
-            optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
-            BIND ( IF ( exists { ?subj a schema:Dataset .} ||exists{ ?subj a sschema:Dataset .}  , "data", "tool")  AS ?resourceType ).
-
-            graph ?g { ?subj schema:description|sschema:description ?description . }
-            ?subj schema:name|sschema:name ?name .
-            ?subj schema:description|sschema:description ?description .
+            BIND (IF (exists {?subj a schema:Dataset .} ||exists{?subj a sschema:Dataset .} , "data", "tool") AS ?resourceType).
             filter( ?score > 0.04).
+						Minus {?subj a sschema:ResearchProject } .
+            graph ?g { ?subj schema:name|sschema:name ?name .
+										?subj schema:description|sschema:description ?description . }
+            optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             OPTIONAL {?subj schema:datePublished|sschema:datePublished ?date_p .}
             OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pub_name .}
             OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name ?place_name .}
