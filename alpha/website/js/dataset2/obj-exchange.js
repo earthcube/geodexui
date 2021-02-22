@@ -47,7 +47,8 @@ class ObjExchange extends LitElement {
         this.s_downloads = [{
             distType: "dist_type",
             contentUrl: "contentUrl",
-            encodingFormat: "encodingFormat"
+            encodingFormat: "encodingFormat",
+            name:""
         }]
         this.s_identifier_doi = ""
         this.raw_json=""
@@ -157,6 +158,45 @@ class ObjExchange extends LitElement {
             }
             return coords;
         }
+
+        function getDistributions(s_distribution, s_url) {
+            var downloads = []
+            if (! s_distribution &&  ! s_url) return [];
+            if (Array.isArray(s_distribution)){
+                downloads = s_distribution.map((obj) => makeLinkObj(obj))
+            }
+            else {
+                downloads.push (makeLinkObj(s_distribution))
+            }
+            if (s_url) {
+               var link =  {
+                    distType: "URL",
+                        contentUrl: s_url,
+                    encodingFormat: "encodingFormat",
+                    name: "url"
+                }
+                downloads.push(link)
+            }
+            return downloads
+        }
+        function makeLinkObj(obj_dist){
+            let url = ""
+            let name =""
+            let encodingFormat = ""
+           if (hasSchemaProperty('url', obj_dist)) {
+               url = schemaItem('url', obj_dist);
+           } else if ( hasSchemaProperty('contentUrl',obj_dist) ) {
+                url = schemaItem('contentUrl', obj_dist)
+            }
+            name = schemaItem('name', obj_dist)
+            encodingFormat = schemaItem('encodingFormat', obj_dist)
+            return {
+                distType: name,
+                contentUrl: url,
+                encodingFormat: encodingFormat,
+                name: name
+            }
+        }
         // const compacted = jsonld.compact(obj, context).then(sC, fC);
         const compacted = jsonld.compact(content, context).then((providers) => {
             var j = JSON.stringify(providers, null, 2);
@@ -208,12 +248,13 @@ this.raw_json = j;
             var encodingFormat = schemaItem('encodingFormat', s_distribution);
             var contentUrl = schemaItem('contentUrl', s_distribution);
             var distUrl = schemaItem('url', s_distribution);
-            let downloadsurl = contentUrl ? contentUrl : distUrl;
-            this.s_downloads = [{
-                distType: dist_type,
-                contentUrl: downloadsurl,
-                encodingFormat: encodingFormat
-            }]
+            this.s_downloads = getDistributions(s_distribution, this.s_url)
+            // let downloadsurl = contentUrl ? contentUrl : distUrl;
+            // this.s_downloads = [{
+            //     distType: dist_type,
+            //     contentUrl: downloadsurl,
+            //     encodingFormat: encodingFormat
+            // }]
             let s_spatialCoverage = schemaItem('spatialCoverage', jp)
             let placename = geoplacename(s_spatialCoverage)
             let box = getFirstGeoShape(s_spatialCoverage, 'box')
@@ -326,9 +367,17 @@ ${s_publisher}</span>
                         <div class="row">
 
                             <span class="col-4 font-weight-bold">Website</span>
-                            <a class="col-8" href="${s_url}" target="_blank"> ${s_url}</a>
+                            <a class="col-8" href="${s_url}" target="_blank"> ${s_url} </a>
+          
                         </div>
                         
+                        ${this.s_downloads.map(i => html`
+                          <div class="row">
+                              <span class=" font-weight-bold">${i.encodingFormat}</span>
+                              <a class="ml-auto" target="_blank" href="${i.contentUrl}">${i.name}</a>
+                          </div> `)}
+
+
                     </div>
                     <div class="tab-pane fade" id="cite" role="tabpanel" aria-labelledby="cite-tab">
                         <div class="row">

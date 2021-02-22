@@ -1,13 +1,16 @@
 
 
     function addMap (e) {
+
     var centerpoint = [46.8832566, -114.0870563]; // original centerpoint hell, montanta
-    if (!(e.detail.box || e.detail.points) ) return;
+    if (!(e.detail.box || e.detail.points || e.detail.poly) ) {
+        return;
+    }
     if (e.detail.points && e.detail.points.length >0){
 
         var centerpoint = e.detail.points[0] // first one
         console.log(`firstpoint ${centerpoint}`)
-    } else {
+    } else  if (e.detail.box) {
         // calc centerpoint of box
         var points = e.detail.box.split(" ")
 
@@ -15,7 +18,10 @@
         var e = (parseFloat(points[1])  + parseFloat(points[3]))/2
         console.log(`box ${n} ${e}`)
         centerpoint = [n,e]
+    } else {
+        // do polygon here
     }
+
     var mymap = L.map('mapid').setView(centerpoint, 13);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
