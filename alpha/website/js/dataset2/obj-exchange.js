@@ -172,8 +172,8 @@ class ObjExchange extends LitElement {
                var link =  {
                     distType: "URL",
                         contentUrl: s_url,
-                    encodingFormat: "encodingFormat",
-                    name: "url"
+                    encodingFormat: "",
+                    name: "Document URL"
                 }
                 downloads.push(link)
             }
@@ -296,6 +296,7 @@ this.raw_json = j;
         let html_name = html`${unsafeHTML(this.s_name)}`
         let s_url = this.s_url;
         let s_description = this.s_description;
+        let description =html`${unsafeHTML(this.s_description)}`
         let s_contributor = this.s_contributor;
         let s_publishedDate = this.s_datePublished;
         let s_publisher = this.publisher;
@@ -318,7 +319,7 @@ this.raw_json = j;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " id="web-tab" data-toggle="tab" href="#web" role="tab"
-                           aria-controls="web" aria-selected="true">Website</a>
+                           aria-controls="web" aria-selected="true">Web Links</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " id="citation-tab" data-toggle="tab" href="#cite" role="tab"
@@ -342,7 +343,7 @@ this.raw_json = j;
 
                             <span class="col-2 font-weight-bold">Abstract:</span>
                             <span class="col-8">
-                          ${s_description}</span></div>
+                          ${description}</span></div>
 
                         <div class="row">
 
