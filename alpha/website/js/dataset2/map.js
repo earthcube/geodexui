@@ -37,6 +37,22 @@
     L.marker(centerpoint).addTo(mymap)
     .bindPopup(e.detail.name).openPopup();
 
+    // have the first one, what about the rest
+        if (e.detail.points && e.detail.points.length >1) {
+
+          for (var p =1 ; p < e.detail.points.length; p++) {
+              L.marker(e.detail.points[p]).addTo(mymap)
+          }
+        }
+        if (e.detail.poly ) {
+
+       //     L.polygon(e.detail.poly).addTo(mymap)
+            }
+
+    if (e.detail.box ) {
+
+  //      L.rectangle(e.detail.box).addTo(mymap)
+    }
 
     // L.polygon([ [51.509, -0.08], [51.503, -0.06], [51.51, -0.047]
     // ]).addTo(mymap).bindPopup("I am a polygon.");

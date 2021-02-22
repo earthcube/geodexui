@@ -114,7 +114,14 @@ class ObjExchange extends LitElement {
             if (geo){
                 //console.log(geo['@type'])
                 if (geo['@type'].endsWith('GeoShape') && hasSchemaProperty(shapetype, geo)){
-                    return schemaItem (shapetype, geo);
+                    var g = schemaItem (shapetype, geo);
+                    var coords = g.split(' ')
+                    var forLeaflet = ''
+                    for (var i = 0; i < coords.length ; i= i+2){
+                        if (i > 1) forLeaflet += ','
+                        forLeaflet += ' ['+coords[i]+', '+ coords[i+1] + ']'
+                    }
+                    return '['+forLeaflet +']'
                 }
             }
             return null;
@@ -172,7 +179,7 @@ class ObjExchange extends LitElement {
                var link =  {
                     distType: "URL",
                         contentUrl: s_url,
-                    encodingFormat: "",
+                    encodingFormat: "Website",
                     name: "Document URL"
                 }
                 downloads.push(link)
