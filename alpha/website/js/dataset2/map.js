@@ -14,10 +14,10 @@
         // calc centerpoint of box
         //var points = e.detail.box.split(" ")
         let box = e.detail.box
-        var n = (box[0][0] + box[1][0])/2
-        var e = (box[0][1] + box[1][1])/2
-        console.log(`box ${n} ${e}`)
-        centerpoint = [n,e]
+        var northing = (box[0][0] + box[1][0])/2
+        var easting = (box[0][1] + box[1][1])/2
+        console.log(`box ${northing} ${easting}`)
+        centerpoint = [northing,easting]
     } else {
         // do polygon here
     }
@@ -34,8 +34,13 @@
 }).addTo(mymap);
 
     //L.marker([51.5, -0.09]).addTo(mymap)
-    L.marker(centerpoint).addTo(mymap)
-    .bindPopup(e.detail.name).openPopup();
+        if (e.detail.name){
+            L.marker(centerpoint).addTo(mymap)
+                .bindPopup(e.detail.name).openPopup();
+        } else {
+            L.marker(centerpoint).addTo(mymap)
+        }
+
 
     // have the first one, what about the rest
         if (e.detail.points && e.detail.points.length >1) {

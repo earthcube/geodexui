@@ -117,7 +117,8 @@ class ObjExchange extends LitElement {
                 //console.log(geo['@type'])
                 if (geo['@type'].endsWith('GeoShape') && hasSchemaProperty(shapetype, geo)){
                     var g = schemaItem (shapetype, geo);
-                    var coords = g.split(' ')
+                    var coords = g.replaceAll(',',' ' ).split(' ')
+
                     var forLeaflet = []
                     for (var i = 0; i < coords.length ; i= i+2){
 
@@ -251,21 +252,45 @@ this.raw_json = j;
             this.s_name = schemaItem('name', jp);
             this.s_url = schemaItem('url', jp);
             this.s_description = schemaItem('description', jp);
-            this.s_contributor = schemaItem('contributor', jp);
+
             var s_distribution = schemaItem('distribution', jp);
 
             if (hasSchemaProperty('datePublished',jp)){
                 this.s_datePublished = schemaItem('datePublished', jp);
-            } else {
-                var datadist = schemaItem('datePublished', s_distribution);
+            } else if (hasSchemaProperty('datePublished',s_distribution)) { // in distribution
+                var s_datePublished = schemaItem('datePublished', s_distribution);
+            }  else if (hasSchemaProperty('dateCreated',jp)) {
+                this.s_datePublished = schemaItem('dateCreated', jp);
             }
              if (hasSchemaProperty('publisher',jp) ) {
-                var p =  schemaItem('publisher', jp);
-                this.publisher = schemaItem('name', p);
+                 var p = schemaItem('publisher', jp);
+                 if (hasSchemaProperty('name',p)) {
+                     this.publisher = schemaItem('name', p);
+                 } else  if (hasSchemaProperty('legalName',p)){
+                     this.publisher = schemaItem('legalName', p);
+                 } else {
+                     this.publisher ='Publsher Quirkiness. Please alert us'
+                 }
              }
              else {
                  this.publisher = schemaItem('sdPublisher', jp);
              }
+            //this.s_contributor = schemaItem('contributor', jp);
+            if (hasSchemaProperty('contributor',jp) ) {
+                var p = schemaItem('contributor', jp);
+                if (Array.isArray(p)) {
+                    this.s_contributor = p.map(function (obj) {
+                            if (hasSchemaProperty('name', obj)) {
+                                return schemaItem('name', obj) + ", "
+                            }
+                        }
+                    )
+                    console.log('contributor ' + this.s_contributor)
+
+                } else {
+                    this.s_contributor = schemaItem('name', p);
+                }
+            }
             if (hasSchemaProperty('creator',jp) ) {
                 var p =  schemaItem('creator', jp);
                 if (Array.isArray(p)){
@@ -280,9 +305,10 @@ this.raw_json = j;
                     this.s_contributor = schemaItem('name', p);
                 }
 
-            } else {
-                this.s_contributor = schemaItem('contributor', jp);
             }
+            // else {
+            //     this.s_contributor = schemaItem('contributor', jp);
+            // }
 
             if (hasSchemaProperty('citation', jp)){
                 this.s_citation = schemaItem('citation', jp);
