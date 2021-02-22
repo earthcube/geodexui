@@ -19,6 +19,7 @@ class ObjExchange extends LitElement {
             s_datePublished: {type: String},
             s_sdPublisher: {type: String},
             s_citation: {type: String},
+            has_citation: {type:Boolean},
             s_keywords: {type: Array},
             s_landingpage: {type: String},
             s_downloads: {type: Array},
@@ -42,6 +43,7 @@ class ObjExchange extends LitElement {
         this.s_datePublished = ""
         this.publisher = ""
         this.s_citation = ""
+        this.hide_citation_tab = true
         this.s_keywords = []
         this.s_landingpage = ""
         this.s_downloads = [{
@@ -116,12 +118,12 @@ class ObjExchange extends LitElement {
                 if (geo['@type'].endsWith('GeoShape') && hasSchemaProperty(shapetype, geo)){
                     var g = schemaItem (shapetype, geo);
                     var coords = g.split(' ')
-                    var forLeaflet = ''
+                    var forLeaflet = []
                     for (var i = 0; i < coords.length ; i= i+2){
-                        if (i > 1) forLeaflet += ','
-                        forLeaflet += ' ['+coords[i]+', '+ coords[i+1] + ']'
+
+                        forLeaflet.push([ parseFloat(coords[i] ),  parseFloat(coords[i+1]) ])
                     }
-                    return '['+forLeaflet +']'
+                    return forLeaflet
                 }
             }
             return null;
@@ -149,7 +151,7 @@ class ObjExchange extends LitElement {
                     var lat = schemaItem('latitude', obj)
                     var lon = schemaItem('longitude', obj)
                     if (lat && lon) {
-                        return [lat, lon]
+                        return [parseFloat(lat), parseFloat(lon)]
                     }
                 })
             }
@@ -158,7 +160,7 @@ class ObjExchange extends LitElement {
                     var lat = schemaItem('latitude', geo)
                     var lon = schemaItem('longitude', geo)
                     if (lat && lon) {
-                        coords = [[lat, lon]]
+                        coords = [[parseFloat(lat), parseFloat(lon)]]
                     }
                 }
 
@@ -168,41 +170,75 @@ class ObjExchange extends LitElement {
 
         function getDistributions(s_distribution, s_url) {
             var downloads = []
-            if (! s_distribution &&  ! s_url) return [];
+            //if (! s_distribution &&  ! s_url) return [];
+            if (! s_distribution ) return [];
             if (Array.isArray(s_distribution)){
-                downloads = s_distribution.map((obj) => makeLinkObj(obj))
+
+                s_distribution.map((obj) => downloads= downloads.concat (makeLinkObj(obj)))
             }
             else {
-                downloads.push (makeLinkObj(s_distribution))
+
+               downloads= downloads.concat (makeLinkObj(s_distribution))
             }
-            if (s_url) {
-               var link =  {
-                    distType: "URL",
-                        contentUrl: s_url,
-                    encodingFormat: "Website",
-                    name: "Document URL"
-                }
-                downloads.push(link)
-            }
+            // if (s_url) {
+            //    var link =  {
+            //         distType: "URL",
+            //             contentUrl: s_url,
+            //         encodingFormat: "Website",
+            //         name: "Document URL"
+            //     }
+            //     downloads.push(link)
+            // }
             return downloads
         }
+
         function makeLinkObj(obj_dist){
+            var downloads = []
             let url = ""
             let name =""
-            let encodingFormat = ""
+            let encodingFormats = ""
            if (hasSchemaProperty('url', obj_dist)) {
                url = schemaItem('url', obj_dist);
            } else if ( hasSchemaProperty('contentUrl',obj_dist) ) {
                 url = schemaItem('contentUrl', obj_dist)
             }
-            name = schemaItem('name', obj_dist)
-            encodingFormat = schemaItem('encodingFormat', obj_dist)
-            return {
-                distType: name,
-                contentUrl: url,
-                encodingFormat: encodingFormat,
-                name: name
+            encodingFormats = schemaItem('encodingFormat', obj_dist)
+
+           // if (hasSchemaProperty('name',obj_dist)){
+           //     name = schemaItem('name', obj_dist)
+           // } else {
+           //     if (encodingFormats && Array.isArray(encodingFormats))
+           //     {
+           //          name = encodingFormats[0]
+           //     } else {
+           //         name = 'None Provided'
+           //     }
+           // }
+            // there can be multiple encoding formats.
+            // cant send back an array, or could but would require some
+            // handling in way response is handled
+            if (Array.isArray(encodingFormats)) {
+                for (let e=0 ; e < encodingFormats.length; e++ )
+                {
+                   name = hasSchemaProperty('name',obj_dist)? schemaItem('name', obj_dist): encodingFormats[e];
+                   downloads.push ({
+                       distType: name,
+                       contentUrl: url,
+                       encodingFormat: encodingFormats[e],
+                       name: name
+                   }
+                )
+                }
+            } else {
+                name = hasSchemaProperty('name',obj_dist)? schemaItem('name', obj_dist): encodingFormats;
+                downloads.push ({
+                    distType: name,
+                    contentUrl: url,
+                    encodingFormat: encodingFormats,
+                    name: name
+                })
             }
+            return downloads
         }
         // const compacted = jsonld.compact(obj, context).then(sC, fC);
         const compacted = jsonld.compact(content, context).then((providers) => {
@@ -247,7 +283,11 @@ this.raw_json = j;
             } else {
                 this.s_contributor = schemaItem('contributor', jp);
             }
-            this.s_citation = schemaItem('citation', jp);
+
+            if (hasSchemaProperty('citation', jp)){
+                this.s_citation = schemaItem('citation', jp);
+                this.hide_citation_tab = false;
+            }
             this.s_keywords = schemaItem('keywords', jp);
             this.s_landingpage = schemaItem('description', jp);
             //var s_distribution = schemaItem('distribution', jp); // moved up
@@ -302,12 +342,14 @@ this.raw_json = j;
         let s_name = this.s_name;
         let html_name = html`${unsafeHTML(this.s_name)}`
         let s_url = this.s_url;
+        let has_s_url = ! _.isEmpty(s_url)
         let s_description = this.s_description;
         let description =html`${unsafeHTML(this.s_description)}`
         let s_contributor = this.s_contributor;
         let s_publishedDate = this.s_datePublished;
         let s_publisher = this.publisher;
         let s_citation = this.s_citation;
+        let hide_citation_tab = this.hide_citation_tab;
         let s_downloads = this.s_downloads;
         let raw_json = this.raw_json;
 
@@ -330,7 +372,8 @@ this.raw_json = j;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " id="citation-tab" data-toggle="tab" href="#cite" role="tab"
-                           aria-controls="cite" aria-selected="true">Citation</a>
+                           aria-controls="cite" aria-selected="true" 
+                            ?hidden="${hide_citation_tab}">Citation</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " id="json-tab" data-toggle="tab" href="#json" role="tab"
@@ -374,15 +417,21 @@ ${s_publisher}</span>
                     <div class="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab">
                         <div class="row">
 
-                            <span class="col-4 font-weight-bold">Website</span>
-                            <a class="col-8" href="${s_url}" target="_blank"> ${s_url} </a>
-          
+                            <span class="col-4 font-weight-bold">Name</span>
+                            <span class="col-8 font-weight-bold">link </span>
+
                         </div>
+                        ${ has_s_url ? html`<div class="row" >
+
+                            <span class="col-4">Object URL</span>
+                            <a class="col-8" href="${s_url}" target="_blank"> ${s_url} </a>
+
+                        </div>` : "" }
                         
                         ${this.s_downloads.map(i => html`
                           <div class="row">
-                              <span class=" font-weight-bold">${i.encodingFormat}</span>
-                              <a class="ml-auto" target="_blank" href="${i.contentUrl}">${i.name}</a>
+                              <span class="col-4 ">${i.name}</span>
+                              <a class="col-8" target="_blank" href="${i.contentUrl}">${i.contentUrl}</a>
                           </div> `)}
 
 

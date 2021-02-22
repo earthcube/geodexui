@@ -12,10 +12,10 @@
         console.log(`firstpoint ${centerpoint}`)
     } else  if (e.detail.box) {
         // calc centerpoint of box
-        var points = e.detail.box.split(" ")
-
-        var n = (parseFloat(points[0])+parseFloat(points[2]))/2
-        var e = (parseFloat(points[1])  + parseFloat(points[3]))/2
+        //var points = e.detail.box.split(" ")
+        let box = e.detail.box
+        var n = (box[0][0] + box[1][0])/2
+        var e = (box[0][1] + box[1][1])/2
         console.log(`box ${n} ${e}`)
         centerpoint = [n,e]
     } else {
