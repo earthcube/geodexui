@@ -32,9 +32,9 @@
     <link rel="stylesheet" href="./css/main.css"/>
 </head>
 
-<body class="container-fluid">
-<div class="col-10">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 ">
+<body class="container-fluid ml-1">
+<div class="col-10 pl-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12">
         <a class="navbar-brand" href="https://www.earthcube.org/">
             <img src="images/EarthCube-White-Long-Tagline.png" height="30"
                  class="d-inline-block align-top" alt="EarthCube" loading="lazy">
@@ -74,68 +74,8 @@
 
     <div class="row col-12">
 
+                <obj-exchange class="row ml-2 mr-1" ></obj-exchange>
 
-<!--            <div class="row">-->
-                <obj-exchange class="row" ></obj-exchange>
-
-<!--                <div class="col-8"> -->
-
-<!--                                      -->
-<!--                    <h1 class="row">-->
-<!--                        Species List, Species Abundance, and Sediment Geochemistry processed data acquired during Laurence M. Gould expedition LMG0802 (2008)                   </h1>-->
-<!--                    <div class="row">-->
-<!--                         <span class="btn btn-light">Website</span>-->
-<!--                        <span class="btn btn-light">Cite</span>-->
-<!--                        <span class="btn btn-light">Metadata</span>-->
-<!--                    </div>-->
-
-
-
-<!--                    <div class="row">-->
-
-<!--                            <span class="col-2 font-weight-bold">Type:</span>-->
-<!--                        <span class="col-8" >Data</span>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-
-<!--                            <span class="col-2 font-weight-bold">Abstract:</span>-->
-<!--                            <span class="col-8">Abstract: This data set was acquired with a Box Core Sediment Sampler, Digital Camera, and Sediment Core Sampler during Laurence M. Gould expedition LMG0802 conducted in 2008 (Chief Scientist: Dr. David DeMaster; Investigators: Dr. Craig Smith and Dr. David DeMaster). The data files are in Microsoft Excel format and include Species List, Species Abundance, and Sediment Geochemistry data that was processed after collection. Funding was provided by NSF grants: ANT06-36773 and ANT06-36806.</span></div>-->
-
-<!--                    <div class="row">-->
-
-<!--                            <span class="col-2 font-weight-bold">Creator:</span>-->
-<!--                            <span class="col-8">-->
-<!--Smith, Craig-->
-<!--DeMaster, David</span>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-
-<!--                            <span class="col-2 font-weight-bold">Publisher:</span>-->
-<!--                            <span class="col-8">-->
-<!--Marine Geoscience Data System (MGDS)</span>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-
-<!--                            <span class="col-2 font-weight-bold">Date:</span>-->
-<!--                            <span class="col-8">-->
-<!--                                2012-08-08</span>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-
-<!--                <div class="col-4 ">-->
-
-<!--                    <div class="row">-->
-<!--                        <img src="./images/map.jpg" />-->
-<!--                    </div>-->
-<!--                    <div class="row font-weight-bold">Downloads</div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="btn btn-primary w-75">Download Tiff</div>-->
-<!--                        <div class="btn btn-primary w-75">Download Tiff</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--            </div>-->
 </div>
 
             <div class="row">
@@ -149,28 +89,22 @@
 
                 <!-- </p> -->
                 <!-- </div> -->
-<div class="col-6">
-		<!-- <h3>Related Data</h3> -->
-</div>
+<!--<div class="col-6">-->
+<!--		&lt;!&ndash; <h3>Related Data</h3> &ndash;&gt;-->
+<!--</div>-->
                 <div class="col-6 ">
                     <h3>Compatible tools</h3>
+                    <div class="row border rounded my-1">
+                        <span class="col-4">web apps:</span>
 
-										<!-- <img src="./images/webapp.svg" style="height:25px"> -->
-                    <!-- <div class="img img-simple center"></div> -->
-										<!-- <h3>Web Apps</h3> -->
-										<h5>web apps:</h5>
-                    <div>
-                       <eco-urltemplate></eco-urltemplate> 
+                       <eco-urltemplate ></eco-urltemplate>
                     </div>
+                    <div class="row border rounded my-1">
+						<span  class="col-4">downloadable tools:</span>
 
-										<!-- <img src="./images/aggregate.svg" style="height:25px"> -->
-                    <!-- <div class="img img-simple center"></div> -->
-										<!-- <h3>Compatible tools</h3> -->
-										<h5>downloadable tools:</h5>
 
-                    <div>
-                        <eco-sparql></eco-sparql> 
-                    </div> 
+                        <eco-sparql ></eco-sparql>
+                    </div>
 
                 </div>
 
