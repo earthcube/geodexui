@@ -102,10 +102,17 @@ class ObjExchange extends LitElement {
             return placename;
         }
         const getFirstGeoShape = function(s_spatialCoverage, shapetype){
+
             let geo;
 // box, poly
             if (Array.isArray(s_spatialCoverage)){
-                geo = s_spatialCoverage.find((obj) => hasSchemaProperty('geo',obj) );
+                //geo = s_spatialCoverage.find((obj) => hasSchemaProperty('geo',obj) );
+                let spatialC = s_spatialCoverage.filter((obj) => hasSchemaProperty('geo',obj) )
+                let spatialCofType = spatialC.find(function(obj){
+                    let geoInternal = schemaItem('geo', obj)
+                    return hasSchemaProperty(shapetype, geoInternal)
+                })
+                if (spatialCofType) geo = schemaItem('geo', spatialCofType)
             } else {
                 geo = hasSchemaProperty('geo', s_spatialCoverage) ? schemaItem('geo', s_spatialCoverage) : null;
             }
@@ -117,7 +124,7 @@ class ObjExchange extends LitElement {
                 //console.log(geo['@type'])
                 if (geo['@type'].endsWith('GeoShape') && hasSchemaProperty(shapetype, geo)){
                     var g = schemaItem (shapetype, geo);
-                    var coords = g.replaceAll(',',' ' ).split(' ')
+                    var coords = g.replaceAll(',',' ' ).split(' ').filter( e => e.trim().length > 0)
 
                     var forLeaflet = []
                     for (var i = 0; i < coords.length ; i= i+2){
@@ -138,7 +145,19 @@ class ObjExchange extends LitElement {
             var geo =[]
             var coords = null
             if (Array.isArray(s_spatialCoverage)){
-                 geo = s_spatialCoverage.find((obj) => hasSchemaProperty('geo',obj) )
+                // geo = s_spatialCoverage.find((obj) => hasSchemaProperty('geo',obj) )
+                let spatialC = s_spatialCoverage.filter((obj) => hasSchemaProperty('geo',obj) )
+                let spatialCofType = spatialC.filter(function(obj){
+                    let geoInternal = schemaItem('geo', obj)
+                    return geoInternal['@type'].endsWith("GeoCoordinates")
+                })
+                if (spatialCofType) {spatialCofType = spatialCofType.map(function(obj){
+                    let geoInternal = schemaItem('geo', obj)
+                     if ( geoInternal['@type'].endsWith("GeoCoordinates") ){
+                         return geoInternal
+                     }
+                })}
+                if (spatialCofType) geo = spatialCofType
             } else {
                  if (hasSchemaProperty('geo',s_spatialCoverage) ) {
                    geo = schemaItem('geo', s_spatialCoverage)
