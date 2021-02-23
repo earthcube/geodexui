@@ -250,7 +250,12 @@
         const item_template = `<div class="item card rounded mt-2 w-100">
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
-                  <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
+
+                    <% if (obj.pubname.startsWith('no') ) {  %>
+                        <div class="card-subtitle mb-2 text-muted visible='false'"><%= obj.pubname %></div>
+                          <% }  else { %>
+                             <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
+                              <% } %>
                 </div>
                 <div class="tags card-body overflow-auto">
                     <div class="card-text">
