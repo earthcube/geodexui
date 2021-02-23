@@ -136,7 +136,6 @@
 // LIMIT ${n}
 // OFFSET ${o}
 // ` }
- //use this again soon           BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
 //const sparqlqueryData=
             params = {
                 query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -162,7 +161,7 @@
             OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name ?place_name .}
             OPTIONAL {?subj schema:keywords|sschema:keywords ?kwu .}
 				    BIND ( IF ( BOUND(?date_p), ?date_p, "no:datePublished") as ?datep ) .
-            BIND ( IF ( BOUND(?pub_name), ?pub_name, "    ") as ?pubname ) .
+            BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
             BIND ( IF ( BOUND(?place_name), ?place_name, "no:spatialCoverage.name") as ?placename ) .
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
