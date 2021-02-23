@@ -2,100 +2,7 @@
 <html>
 
 <head>
-    <!--    <style>-->
 
-    <!--      /* First come the styles which are used in the demo */-->
-
-    <!--      .facetsearch { -->
-    <!--        display: inline-block;-->
-    <!--        width: 200px;-->
-    <!--        vertical-align: top;-->
-    <!--      }-->
-    <!--      .activeorderby,-->
-    <!--      .activefacet {-->
-    <!--        color: red;-->
-    <!--      }-->
-    <!--      .bottomline {-->
-    <!--        padding: 10px 0 10px 0;-->
-    <!--        font-weight: bold;-->
-    <!--      }-->
-    <!--      .bottomline .orderby,-->
-    <!--      .bottomline .facettotalcount {-->
-    <!--        display: inline-block;-->
-    <!--      }-->
-    <!--      .bottomline .orderby ul,-->
-    <!--      .bottomline .orderby li {-->
-    <!--        display: inline;-->
-    <!--        padding: 0;-->
-    <!--      }-->
-    <!--      .bottomline .orderby-title {-->
-    <!--        margin: 0 0 0 10px;-->
-    <!--      }-->
-    <!--      .bottomline .deselectstartover {-->
-    <!--        float: right;-->
-    <!--      }-->
-    <!--      #language {-->
-    <!--        width: 400px;-->
-    <!--      }-->
-    <!--      #language .facetlist{-->
-    <!--        column-count: 2;-->
-    <!--        -webkit-column-count: 2;-->
-    <!--        -moz-column-count: 2;-->
-    <!--        -o-column-count: 2;-->
-    <!--      }-->
-    <!--      /*.item {*/-->
-    <!--      /*  width: 150px;*/-->
-    <!--      /*  height: 250px;*/-->
-    <!--      /*  margin: 0 10px 10px 0;*/-->
-    <!--      /*  display: inline-block;*/-->
-    <!--      /*  vertical-align: top;*/-->
-    <!--      /*}*/-->
-    <!--      /*.item h4 {*/-->
-    <!--      /*  font-size: 1.2em;*/-->
-    <!--      /*}*/-->
-    <!--      /*.item .tags {*/-->
-    <!--      /*  font-weight: bold;*/-->
-    <!--      /*  color: gray;*/-->
-    <!--      /*}*/-->
-    <!--      #showmorebutton {-->
-    <!--        border: 1px solid #AAA;-->
-    <!--        border-radius: 15px;-->
-    <!--        background-color: #DDD;-->
-    <!--        margin: 0 0 10px 0;-->
-    <!--        padding: 10px;-->
-    <!--        width: 100%;-->
-    <!--        display: block;-->
-    <!--        text-align: center;-->
-    <!--        cursor: pointer;-->
-    <!--      }-->
-
-    <!--      /* These styles are just general purpose styles to make the page look a little less aweful */-->
-
-    <!--      * {-->
-    <!--        margin: 0;-->
-    <!--        padding: 0;-->
-    <!--      }-->
-    <!--      body {-->
-    <!--        padding: 20px;-->
-    <!--        font-family: sans-serif;-->
-    <!--        font-size: 14px;-->
-    <!--      }-->
-    <!--      #wrapper, #documentation {-->
-    <!--        margin: 0 auto;-->
-    <!--        width: 800px;-->
-    <!--      }-->
-    <!--      p {-->
-    <!--        padding-bottom: 1em;-->
-    <!--        line-height: 1.3em;-->
-    <!--      }-->
-    <!--      h1, h2, h3{-->
-    <!--        margin: 0 0 1em 0;-->
-    <!--      }-->
-    <!--      tt {-->
-    <!--        background-color: #EEE;-->
-    <!--        border: 1px solid #CCC;-->
-    <!--      }-->
-    <!--    </style>-->
 <style>
 
 </style>
@@ -105,6 +12,7 @@
     <title>Earthcube</title>
 
     <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+<!--    <link rel="stylesheet" href="./css/bootstrap.css"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -158,14 +66,14 @@
     </nav>
 
 
-    <div id="wrapper row">
-        <div id="description">
-            <h6>Faceted Search of EarthCube resources</h6>
+<!--    <div id="wrapper row">-->
+<!--        <div id="description">-->
+<!--            <h6>Faceted Search of EarthCube resources</h6>-->
 
-        </div>
-    </div>
+<!--        </div>-->
+<!--    </div>-->
     <!-- Here comes the demo, if you want to copy and paste, start here -->
-    <div class="row col-12" id="filterDiv"> <!-- filters -->
+    <div class="row col-12 mt-3 pt-2" id="filterDiv"> <!-- filters -->
         <div class="row col-3 align-items-start">
             <div id="facets" class="row col-12">
 
@@ -243,17 +151,19 @@
             ?lit bds:matchAllTerms "false" .
             ?lit bds:relevance ?score .
             ?subj ?p ?lit .
-            optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
-            BIND ( IF ( exists { ?subj a schema:Dataset .} ||exists{ ?subj a sschema:Dataset .}  , "data", "tool")  AS ?resourceType ).
-
-            graph ?g { ?subj schema:description|sschema:description ?description . }
-            ?subj schema:name|sschema:name ?name .
-            ?subj schema:description|sschema:description ?description .
+            BIND (IF (exists {?subj a schema:Dataset .} ||exists{?subj a sschema:Dataset .} , "data", "tool") AS ?resourceType).
             filter( ?score > 0.04).
-            OPTIONAL {?subj schema:datePublished|sschema:datePublished ?datep .}
-            OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pubname .}
-            OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name ?placename .}
+						Minus {?subj a sschema:ResearchProject } .
+            graph ?g { ?subj schema:name|sschema:name ?name .
+										?subj schema:description|sschema:description ?description . }
+            optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
+            OPTIONAL {?subj schema:datePublished|sschema:datePublished ?date_p .}
+            OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pub_name .}
+            OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name ?place_name .}
             OPTIONAL {?subj schema:keywords|sschema:keywords ?kwu .}
+				    BIND ( IF ( BOUND(?date_p), ?date_p, "no:datePublished") as ?datep ) .
+            BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
+            BIND ( IF ( BOUND(?place_name), ?place_name, "no:spatialCoverage.name") as ?placename ) .
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
         ORDER BY DESC(?score)
@@ -352,7 +262,11 @@
                 <div class="card-footer">
                 <div class="row">
                 <span class="col-auto mr-auto">
-                     <span class="badge badge-secondary"><%= obj.resourceType %></span>
+                <% if (obj.resourceType ==='data') {  %>
+                <span class="badge badge-secondary"><%= obj.resourceType %></span>
+                  <% }  else { %>
+                     <span class="badge badge-warning"><%= obj.resourceType %></span>
+                      <% } %>
                      <span class="tool " hidden="true"  ><%= obj.g %></span>
                   </span>
                   <span class="col-auto ">
@@ -368,13 +282,13 @@
             </div> `;
 
         // const facetContainer = `<div class=facetsearch id=<%= id %> ></div>`
-        const facetContainer = `<div class="accordion col-12  rounded" id="<%= id %>accordian">
-               <div class="card" id='<%= id %>'>
+        const facetContainer = `<div class="accordion col-12 border  p-0 mt-1" id="<%= id %>accordian">
+               <div class="card " id='<%= id %>'>
 
                 </div>
             </div>`;
         const facetTitleTemplate = `<div class="card-header" id="heading<%= id %>">
-            <h2 class="ml-6 ">
+            <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"
                         data-target="#collapse<%= id %>" aria-expanded="true" aria-controls="collapse<%= id %>">
                     <%= title %><i class="fa fa-plus  float-right"></i>
@@ -416,11 +330,12 @@
                         facets: {
                             // 'subj': 'Science Domain',
                             'resourceType': 'Resource Type',
-                            'kw': 'Science Domain',
+                            //'kw': 'Science Domain',
+                            'kw': 'Keywords',
                             // 'name': 'Place',
                             'placenames': 'Place',
                             'pubname': 'Publisher/Repo',
-                            'datep': 'Year Pulished'
+                            'datep': 'Year Published'
                         },
                         resultSelector: '#results',
                         facetSelector: '#facets',
@@ -452,21 +367,34 @@
                         },
                         facetSortOption: {'continent': ["North America", "South America"]}
                     };
+                jQuery.facetUpdate = function() {
+                    filter();
+                    order();
+                    updateFacetUI();
+                    updateResults();
+                    updateTools();
+                }
+                $( $.facetsettings.resultSelector).on('facetedsearchresultupdate', updateTools);
 
                     $.facetelize($.facetsettings);
-                    //$('#filterDiv').show();
-                    $('.facetsearch').on('show.bs.collapse', _handleCollapse);
-                    $('.facetsearch').on('hide.bs.collapse', _handleExpand);
 
-                        $('.tool').on('render', rrtoolask );
+                $('.facetsearch').on('show.bs.collapse', _handleCollapse);
+                $('.facetsearch').on('hide.bs.collapse', _handleExpand);
+                //$('#filterDiv').show();
+                //updateTools();
 
-
-                        $( ".tool" ).trigger({
-    type:"render"
-});
                 }
             )
     });
+
+    function updateTools(){
+        $('.tool').on('render', rrtoolask );
+
+
+        $( ".tool" ).trigger({
+            type:"render"
+        });
+    }
 </script>
 
 <script>
@@ -514,6 +442,7 @@
 			{
 			  ?s schemaold:distribution|schema:distribution ?dist .
 			  ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .
+              ?dist schemaold:contentUrl|schema:contentUrl|schema:url|schemaold:url ?curl
 			}
 			UNION {
 			  VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }

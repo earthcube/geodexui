@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GeoCODES: About</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <!--
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/simple-grid.css">
+  <link rel="stylesheet" href="css/zc-grid.css">
+    -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="./css/spacelab/bootstrap.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <script> function myFunction() {
+        var search = document.getElementById("searchtext").value;
+        var str = '/newsite/search.html?q=' + search;
+        alert(str);
+        window.location.assign(str);
+    }
+    </script>
+
+
+<style>
+body { margin-left: 80px; margin-right: 80px; }
+table, th, td {
+  border: 30px  solid white;
+  padding: 5px;
+}
+table {
+  border-spacing: 15px;
+}
+
+		h5 {text-align: center;}
+</style>
+
+
+</head>
+
+<body>
+<!-- <div class="jumbotron" style="background-image: linear-gradient(#7391ff, #625354);"> -->
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="https://www.earthcube.org/">
+            <img src="images/EarthCube-White-Long-Tagline.png" height="30"
+                 class="d-inline-block align-top" alt="EarthCube" loading="lazy">
+
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto  mt-2 mt-lg-0 ">
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="landing.html">Search</a>
+                </li>
+
+                <li class="nav-item active ">
+                    <a class="nav-link" href="about.html">Help</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+        </div>
+    </nav>
+
+
+				<p>
+
+        <div class="col-2 hidden-sm"></div>
+        <div class="col-8">
+						<center>
+				<p>
+						 <h4 class="center m-bottom" class="font_7" style="font-size:26px">
+								 <p id="tools">Infrastructure Documentation<br><small>is in the works for this site</small>  </p>
+						 </h4>
+            <p>
+
+          <p>
+            GeoDex is an implementation of the structured data on the web patterns.  
+          </p>
+
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+            Overview
+          </h3>
+          <p class="text-gray-600 mb-8">
+            
+            The architecture defines a workflow for objects, a "digital object chain". Here, the digital object (DO) is
+            the data graph such as the JSON-LD package in a landing page.
+          </p>
+            <p class="text-gray-600 mb-8">
+            The chain is the life cycle connecting; authoring, publishing, aggregation, indexing and
+            searching/interfaces.
+
+          </p>
+
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+            Authoring & Publishing
+          </h3>
+          <p class="text-gray-600 mb-8">
+
+            
+
+            Schema alignment work aligns existing metadata formats to schema.org (plus other vocabulary/contexts)
+            serialized as JSON-LD. Publishers are engaged on approaches to using robots.txt, sitemap.xml and their
+            existing web stack to expose these resources. This same approach is also used by Google Dataset Search and
+            allows the resources to be leveraged by them and an emerging community of potential users and projects like
+            OIH.
+          </p>
+
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+            Aggregate, Index and Use
+          </h3>
+
+
+          <p class="text-gray-600 mb-8">* Data graphs are aggregated by Gleaner and formed into a RDF graph that is loaded
+              into a triplestore. Graphs can optionally be checked and validated.</p>
+              <p class="text-gray-600 mb-8">* The SPARQL endpoint can be open and/or exposed by Mercantile via GraphQL.</p>
+              <p class="text-gray-600 mb-8">* Web based user interfaces for this approach exist and are served along with access to the metadata
+              objects
+              via GROW. The approach is JAMSTACK based so many clients and client frameworks can leverage the exposed
+              APIs.</p>
+          
+
+          <p class="text-gray-600 mb-8">
+          This full stack is assembled into Docker/Open Container Initiative containers and can be deployed to
+          orchestration environments like Docker Swarm, commercial cloud environments or even single computers.
+
+          </p>
+            <p>
+                <a href="./images/geodexv2.png"><img style="width:600px"
+                                                  src="./images/geodexv2.png"></a>
+            </p>
+        </div>
+        <div class="row">
+            <div class="row">&emsp; &emsp; Exposed domains</div>
+            <pre class="row">
+          main:
+          alpha.geodex.org
+          api.geodex.org
+          spatial.geodex.org (just a place holder for now)
+
+          support:
+          graph.geodex.org
+          oss.geodex.org
+
+          coming:
+          indexer.geodex.org
+          headless.geodex.org (not public facing in the end)
+          </pre>
+
+        </div>
+    </div>
+
+						</center>
+
+</div>
+
+
+</div>
+<!-- <footer style="padding-bottom:5px;background-image: linear-gradient(#7391ff, #625354);"> -->
+<footer style="padding-bottom:5px;background-color: rgba(66,109,148,0.8)">
+    <!-- <div class="container"> -->
+
+    <div class="row">
+        <div class="col-12">
+						<h6 style="color:white">&emsp; &emsp; Work on this site is supported by NSF EarthCube <img src=https://www.nsf.gov/images/logos/NSF_4-Color_bitmap_Logo.png width=38> NSF award #1928208</h6>
+            <!-- <h6 style="color:grey">Simple Grid by <a style="color:grey" href="http://zcole.me" target="_blank">Zach Cole</a> -->
+						&emsp; &emsp; <a style="color:blue" href="https://github.com/earthcube" target="_blank">Open source</a> <a style="color:blue" href="https://opensource.org/licenses/MIT" target="_blank">under the MIT License</a>
+            </h6>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

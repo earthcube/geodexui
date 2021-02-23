@@ -2,7 +2,7 @@
 import {
     html,
     render
-} from '../components/lit-html.js';
+} from  'https://unpkg.com/lit-html?module';
 
 (function () {
     class ECOSparql extends HTMLElement {
@@ -49,40 +49,37 @@ import {
                     //     }\
                     //     ` }
 
-
-
-
-
                     params = {
-                        query: `PREFIX schema:  <https://schema.org/>    
-                        PREFIX schemaold:  <http://schema.org/>       
-                        select DISTINCT ?rrs ?name ?curl ?landingPage
-                        WHERE                    {                    
-                            graph <urn:gleaner:milled${op}> 
-                              {
-                                {     
-                                  ?s schemaold:distribution|schema:distribution ?dist .    
-                                  ?dist  schemaold:encodingFormat|schema:encodingFormat ?type .  
-                                  ?dist schemaold:contentUrl|schema:contentUrl|schema:url|schemaold:url ?curl 
-                                } 
-                                UNION {
-                                  VALUES (?dataset) { ( schema:Dataset ) ( schemaold:Dataset ) }
-                                  ?s a ?dataset .  
-                                  ?s  schemaold:encodingFormat|schema:encodingFormat ?type . 
-                                  }
-                             }
-                             BIND (str(?type) as ?label)                                                                                                        
-                             SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> {     
-                              GRAPH <http://earthcube.org/gleaner-summoned>             
-                               {   
-                                  ?rrs schema:supportingData ?df.
-                                      ?df schema:encodingFormat  ?label ;
-                                          schema:position "input".	
-                                      ?rrs schema:name ?name. 
-                                       ?rrs schema:subjectOf/schema:url ?landingPage     
-                               }                 
-                           }               
-                        }`
+                        query: `prefix sdos: <https://schema.org/>
+                               PREFIX schemaold: <http://schema.org/>
+                               select DISTINCT ?dataname ?appname   ?durl  ?turl ?frss
+                               WHERE
+                               {
+                                   graph <urn:gleaner:milled${op}> {
+                                   ?s schemaold:distribution|sdos:distribution ?dist ;
+                                        schemaold:name|sdos:name ?dataname  .
+                                   ?dist  schemaold:encodingFormat|sdos:encodingFormat ?type .
+                                         OPTIONAL {?dist sdos:contentUrl ?durl }.
+                                 }
+                                 BIND (str(?type) as ?label)
+                                SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> {
+                                  GRAPH <http://earthcube.org/gleaner-summoned>
+
+                                        {
+
+                                          ?rrs a sdos:SoftwareApplication ;
+                                               sdos:name ?appname ;
+                                               sdos:supportingData ?df.
+                               			?df sdos:encodingFormat ?label ;
+                                               sdos:position "input".
+                                          ?rrs sdos:potentialAction ?act.
+                                          ?act sdos:target ?tar.
+                                          ?tar a sdos:EntryPoint ;
+                                           sdos:urlTemplate ?turl.
+                                          filter contains(?turl,"{contentURL}")
+                                   }
+                                }
+                               }`
                     };
 
 
@@ -109,9 +106,20 @@ import {
                 console.log(r);
 
 
+
+
                 r.forEach(element => {
+                    console.log(element.turl.value);
+                    console.log(element.durl.value);
+
+                    // replace {contentURL}  element.turl.value  https://lipd.net/playground&source={contentURL}
+                    // with element.durl.value http://lipdverse.org/Temp12k/1_0_2/Haugtjern.Eide.2009.lpd
+
+                    var turl =  element.turl.value
+                    var eu = turl.replace("{contentURL}", element.durl.value);
+
                     detailsTemplate.push(html`<div><p style="text-align:left">
-                        <a target="_blank" href="${element.landingPage.value}"> ${element.name.value}</a>  <a   target="_blank" href="${element.rrs.value}"><span class="badge badge-info">Metadata</span></a></p></div>`);
+                    <a target="_blank" href="${eu}">LiPD Playground</a></p> </div>`);
                 }
                 );
 
@@ -136,7 +144,7 @@ import {
 
         }
     }
-    window.customElements.define('eco-sparql', ECOSparql);
+    window.customElements.define('eco-urltemplate', ECOSparql);
 })();
 
 
