@@ -55,7 +55,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Help</a>
+                    <a class="nav-link" href="about.html"  target="_blank">Help</a>
                 </li>
             </ul>
 
@@ -137,7 +137,6 @@
 // LIMIT ${n}
 // OFFSET ${o}
 // ` }
-		//use this again soon           BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
 //const sparqlqueryData=
             params = {
                 query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -163,7 +162,7 @@
             OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name|sschema:sdPublisher ?place_name .}
             OPTIONAL {?subj schema:keywords|sschema:keywords ?kwu .}
 				    BIND ( IF ( BOUND(?date_p), ?date_p, "no:datePublished") as ?datep ) .
-            BIND ( IF ( BOUND(?pub_name), ?pub_name, "    ") as ?pubname ) .
+		        BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
             BIND ( IF ( BOUND(?place_name), ?place_name, "no:spatialCoverage.name") as ?placename ) .
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
@@ -251,8 +250,8 @@
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
 
-                    <% if (obj.pubname.startsWith('no') ) {  %>
-                        <div class="card-subtitle mb-2 text-muted visible='false'"><%= obj.pubname %></div>
+                    <% if (obj.pubname.startsWith('no:') ) {  %>
+                        <div class="card-subtitle mb-2 text-muted visible='false'">  </div>
                           <% }  else { %>
                              <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
                               <% } %>
