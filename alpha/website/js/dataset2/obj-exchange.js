@@ -510,7 +510,7 @@ ${s_publisher}</span>
             </div>
             <div class="row font-weight-bold">Downloads</div>
             <div class="row">
-                ${this.s_downloads.map(i => html`<a class="btn btn-primary w-75" target="_blank" href="${i.contentUrl}">${i.encodingFormat}</a>`)}
+                ${this.s_downloads.map(i => html`<a class="btn btn-primary w-150" target="_blank" href="${i.contentUrl}">${i.encodingFormat}</a>`)}
 
             </div>
 
