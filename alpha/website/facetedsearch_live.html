@@ -262,7 +262,11 @@
                 <div class="card-footer">
                 <div class="row">
                 <span class="col-auto mr-auto">
-                     <span class="badge badge-secondary"><%= obj.resourceType %></span>
+                <% if (obj.resourceType ==='data') {  %>
+                <span class="badge badge-secondary"><%= obj.resourceType %></span>
+                  <% }  else { %>
+                     <span class="badge badge-warning"><%= obj.resourceType %></span>
+                      <% } %>
                      <span class="tool " hidden="true"  ><%= obj.g %></span>
                   </span>
                   <span class="col-auto ">
