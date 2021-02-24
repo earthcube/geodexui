@@ -153,7 +153,10 @@
             ?subj ?p ?lit .
             BIND (IF (exists {?subj a schema:Dataset .} ||exists{?subj a sschema:Dataset .} , "data", "tool") AS ?resourceType).
             filter( ?score > 0.04).
-						Minus {?subj a sschema:ResearchProject } .
+					Minus {?subj a sschema:ResearchProject } .
+                     Minus {?subj a schema:ResearchProject } .
+                     Minus {?subj a schema:Person } .
+                     Minus {?subj a sschema:Person } .
             graph ?g { ?subj schema:name|sschema:name ?name .
 										?subj schema:description|sschema:description ?description . }
             optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
