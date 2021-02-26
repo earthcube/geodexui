@@ -1,0 +1,142 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [  <!ENTITY quot "&#34;">  <!ENTITY amp "&#38;">  <!ENTITY apos "&#39;">  <!ENTITY lt "&#60;">  <!ENTITY gt "&#62;">  <!ENTITY nbsp "&#160;">  <!ENTITY iexcl "&#161;">  <!ENTITY cent "&#162;">  <!ENTITY pound "&#163;">  <!ENTITY curren "&#164;">  <!ENTITY yen "&#165;">  <!ENTITY brvbar "&#166;">  <!ENTITY sect "&#167;">  <!ENTITY uml "&#168;">  <!ENTITY copy "&#169;">  <!ENTITY ordf "&#170;">  <!ENTITY laquo "&#171;">  <!ENTITY not "&#172;">  <!ENTITY shy "&#173;">  <!ENTITY reg "&#174;">  <!ENTITY macr "&#175;">  <!ENTITY deg "&#176;">  <!ENTITY plusmn "&#177;">  <!ENTITY sup2 "&#178;">  <!ENTITY sup3 "&#179;">  <!ENTITY acute "&#180;">  <!ENTITY micro "&#181;">  <!ENTITY para "&#182;">  <!ENTITY middot "&#183;">  <!ENTITY cedil "&#184;">  <!ENTITY sup1 "&#185;">  <!ENTITY ordm "&#186;">  <!ENTITY raquo "&#187;">  <!ENTITY frac14 "&#188;">  <!ENTITY frac12 "&#189;">  <!ENTITY frac34 "&#190;">  <!ENTITY iquest "&#191;">  <!ENTITY Agrave "&#192;">  <!ENTITY Aacute "&#193;">  <!ENTITY Acirc "&#194;">  <!ENTITY Atilde "&#195;">  <!ENTITY Auml "&#196;">  <!ENTITY Aring "&#197;">  <!ENTITY AElig "&#198;">  <!ENTITY Ccedil "&#199;">  <!ENTITY Egrave "&#200;">  <!ENTITY Eacute "&#201;">  <!ENTITY Ecirc "&#202;">  <!ENTITY Euml "&#203;">  <!ENTITY Igrave "&#204;">  <!ENTITY Iacute "&#205;">  <!ENTITY Icirc "&#206;">  <!ENTITY Iuml "&#207;">  <!ENTITY ETH "&#208;">  <!ENTITY Ntilde "&#209;">  <!ENTITY Ograve "&#210;">  <!ENTITY Oacute "&#211;">  <!ENTITY Ocirc "&#212;">  <!ENTITY Otilde "&#213;">  <!ENTITY Ouml "&#214;">  <!ENTITY times "&#215;">  <!ENTITY Oslash "&#216;">  <!ENTITY Ugrave "&#217;">  <!ENTITY Uacute "&#218;">  <!ENTITY Ucirc "&#219;">  <!ENTITY Uuml "&#220;">  <!ENTITY Yacute "&#221;">  <!ENTITY THORN "&#222;">  <!ENTITY szlig "&#223;">  <!ENTITY agrave "&#224;">  <!ENTITY aacute "&#225;">  <!ENTITY acirc "&#226;">  <!ENTITY atilde "&#227;">  <!ENTITY auml "&#228;">  <!ENTITY aring "&#229;">  <!ENTITY aelig "&#230;">  <!ENTITY ccedil "&#231;">  <!ENTITY egrave "&#232;">  <!ENTITY eacute "&#233;">  <!ENTITY ecirc "&#234;">  <!ENTITY euml "&#235;">  <!ENTITY igrave "&#236;">  <!ENTITY iacute "&#237;">  <!ENTITY icirc "&#238;">  <!ENTITY iuml "&#239;">  <!ENTITY eth "&#240;">  <!ENTITY ntilde "&#241;">  <!ENTITY ograve "&#242;">  <!ENTITY oacute "&#243;">  <!ENTITY ocirc "&#244;">  <!ENTITY otilde "&#245;">  <!ENTITY ouml "&#246;">  <!ENTITY divide "&#247;">  <!ENTITY oslash "&#248;">  <!ENTITY ugrave "&#249;">  <!ENTITY uacute "&#250;">  <!ENTITY ucirc "&#251;">  <!ENTITY uuml "&#252;">  <!ENTITY yacute "&#253;">  <!ENTITY thorn "&#254;">  <!ENTITY yuml "&#255;">  <!ENTITY OElig "&#338;">  <!ENTITY oelig "&#339;">  <!ENTITY Scaron "&#352;">  <!ENTITY scaron "&#353;">  <!ENTITY Yuml "&#376;">  <!ENTITY fnof "&#402;">  <!ENTITY circ "&#710;">  <!ENTITY tilde "&#732;">  <!ENTITY Alpha "&#913;">  <!ENTITY Beta "&#914;">  <!ENTITY Gamma "&#915;">  <!ENTITY Delta "&#916;">  <!ENTITY Epsilon "&#917;">  <!ENTITY Zeta "&#918;">  <!ENTITY Eta "&#919;">  <!ENTITY Theta "&#920;">  <!ENTITY Iota "&#921;">  <!ENTITY Kappa "&#922;">  <!ENTITY Lambda "&#923;">  <!ENTITY Mu "&#924;">  <!ENTITY Nu "&#925;">  <!ENTITY Xi "&#926;">  <!ENTITY Omicron "&#927;">  <!ENTITY Pi "&#928;">  <!ENTITY Rho "&#929;">  <!ENTITY Sigma "&#931;">  <!ENTITY Tau "&#932;">  <!ENTITY Upsilon "&#933;">  <!ENTITY Phi "&#934;">  <!ENTITY Chi "&#935;">  <!ENTITY Psi "&#936;">  <!ENTITY Omega "&#937;">  <!ENTITY alpha "&#945;">  <!ENTITY beta "&#946;">  <!ENTITY gamma "&#947;">  <!ENTITY delta "&#948;">  <!ENTITY epsilon "&#949;">  <!ENTITY zeta "&#950;">  <!ENTITY eta "&#951;">  <!ENTITY theta "&#952;">  <!ENTITY iota "&#953;">  <!ENTITY kappa "&#954;">  <!ENTITY lambda "&#955;">  <!ENTITY mu "&#956;">  <!ENTITY nu "&#957;">  <!ENTITY xi "&#958;">  <!ENTITY omicron "&#959;">  <!ENTITY pi "&#960;">  <!ENTITY rho "&#961;">  <!ENTITY sigmaf "&#962;">  <!ENTITY sigma "&#963;">  <!ENTITY tau "&#964;">  <!ENTITY upsilon "&#965;">  <!ENTITY phi "&#966;">  <!ENTITY chi "&#967;">  <!ENTITY psi "&#968;">  <!ENTITY omega "&#969;">  <!ENTITY thetasym "&#977;">  <!ENTITY upsih "&#978;">  <!ENTITY piv "&#982;">  <!ENTITY ensp "&#8194;">  <!ENTITY emsp "&#8195;">  <!ENTITY thinsp "&#8201;">  <!ENTITY zwnj "&#8204;">  <!ENTITY zwj "&#8205;">  <!ENTITY lrm "&#8206;">  <!ENTITY rlm "&#8207;">  <!ENTITY ndash "&#8211;">  <!ENTITY mdash "&#8212;">  <!ENTITY lsquo "&#8216;">  <!ENTITY rsquo "&#8217;">  <!ENTITY sbquo "&#8218;">  <!ENTITY ldquo "&#8220;">  <!ENTITY rdquo "&#8221;">  <!ENTITY bdquo "&#8222;">  <!ENTITY dagger "&#8224;">  <!ENTITY Dagger "&#8225;">  <!ENTITY bull "&#8226;">  <!ENTITY hellip "&#8230;">  <!ENTITY permil "&#8240;">  <!ENTITY prime "&#8242;">  <!ENTITY Prime "&#8243;">  <!ENTITY lsaquo "&#8249;">  <!ENTITY rsaquo "&#8250;">  <!ENTITY oline "&#8254;">  <!ENTITY frasl "&#8260;">  <!ENTITY euro "&#8364;">  <!ENTITY image "&#8465;">  <!ENTITY weierp "&#8472;">  <!ENTITY real "&#8476;">  <!ENTITY trade "&#8482;">  <!ENTITY alefsym "&#8501;">  <!ENTITY larr "&#8592;">  <!ENTITY uarr "&#8593;">  <!ENTITY rarr "&#8594;">  <!ENTITY darr "&#8595;">  <!ENTITY harr "&#8596;">  <!ENTITY crarr "&#8629;">  <!ENTITY lArr "&#8656;">  <!ENTITY uArr "&#8657;">  <!ENTITY rArr "&#8658;">  <!ENTITY dArr "&#8659;">  <!ENTITY hArr "&#8660;">  <!ENTITY forall "&#8704;">  <!ENTITY part "&#8706;">  <!ENTITY exist "&#8707;">  <!ENTITY empty "&#8709;">  <!ENTITY nabla "&#8711;">  <!ENTITY isin "&#8712;">  <!ENTITY notin "&#8713;">  <!ENTITY ni "&#8715;">  <!ENTITY prod "&#8719;">  <!ENTITY sum "&#8721;">  <!ENTITY minus "&#8722;">  <!ENTITY lowast "&#8727;">  <!ENTITY radic "&#8730;">  <!ENTITY prop "&#8733;">  <!ENTITY infin "&#8734;">  <!ENTITY ang "&#8736;">  <!ENTITY and "&#8743;">  <!ENTITY or "&#8744;">  <!ENTITY cap "&#8745;">  <!ENTITY cup "&#8746;">  <!ENTITY int "&#8747;">  <!ENTITY there4 "&#8756;">  <!ENTITY sim "&#8764;">  <!ENTITY cong "&#8773;">  <!ENTITY asymp "&#8776;">  <!ENTITY ne "&#8800;">  <!ENTITY equiv "&#8801;">  <!ENTITY le "&#8804;">  <!ENTITY ge "&#8805;">  <!ENTITY sub "&#8834;">  <!ENTITY sup "&#8835;">  <!ENTITY nsub "&#8836;">  <!ENTITY sube "&#8838;">  <!ENTITY supe "&#8839;">  <!ENTITY oplus "&#8853;">  <!ENTITY otimes "&#8855;">  <!ENTITY perp "&#8869;">  <!ENTITY sdot "&#8901;">  <!ENTITY lceil "&#8968;">  <!ENTITY rceil "&#8969;">  <!ENTITY lfloor "&#8970;">  <!ENTITY rfloor "&#8971;">  <!ENTITY lang "&#9001;">  <!ENTITY rang "&#9002;">  <!ENTITY loz "&#9674;">  <!ENTITY spades "&#9824;">  <!ENTITY clubs "&#9827;">  <!ENTITY hearts "&#9829;">  <!ENTITY diams "&#9830;"> ]><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1038pt" height="402pt" viewBox="0.00 0.00 1038 401.6">
+<g id="graph0" class="graph" transform="translate(4,397.6000061035156) scale(1)" data-name="G">
+
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-397.6 1034,-397.6 1034,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster0</title>
+<polygon fill="none" stroke="#0000ff" points="8,-153.8 8,-230.6 350,-230.6 350,-153.8 8,-153.8"></polygon>
+<text text-anchor="middle" x="179" y="-214" font-family="Times,serif" font-size="14.00" fill="#000000">Dataset Metadata</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster1</title>
+<polygon fill="none" stroke="#0000ff" points="358,-153.8 358,-230.6 1022,-230.6 1022,-153.8 358,-153.8"></polygon>
+<text text-anchor="middle" x="690" y="-214" font-family="Times,serif" font-size="14.00" fill="#000000">Software Metadata</text>
+</g>
+
+<g id="node1" class="node" data-name="DDC">
+
+<polygon fill="#d3d3d3" stroke="#000000" points="342.2219,-197.8 15.7781,-197.8 15.7781,-161.8 342.2219,-161.8 342.2219,-197.8"></polygon>
+<text text-anchor="middle" x="179" y="-175.6" font-family="Times,serif" font-size="14.00" fill="#000000">Data -&gt; Distribution -&gt; contentURL-&gt; encodingFormat</text>
+</g>
+
+<g id="node2" class="node" data-name="SS">
+
+<polygon fill="#d3d3d3" stroke="#000000" points="652.0502,-197.8 365.9498,-197.8 365.9498,-161.8 652.0502,-161.8 652.0502,-197.8"></polygon>
+<text text-anchor="middle" x="509" y="-175.6" font-family="Times,serif" font-size="14.00" fill="#000000">Software -&gt; SupportingData -&gt; encodingFormat</text>
+</g>
+
+<!-- Person --><g id="node3" class="node" data-name="SPEU" data-comment="Person">
+
+<polygon fill="#d3d3d3" stroke="#000000" points="1013.7275,-197.8 670.2725,-197.8 670.2725,-161.8 1013.7275,-161.8 1013.7275,-197.8"></polygon>
+<text text-anchor="middle" x="842" y="-175.6" font-family="Times,serif" font-size="14.00" fill="#000000">Software -&gt; PotentialAtion -&gt; EntryPoint -&gt; URLtemplate</text>
+</g><g id="edge4" class="edge" data-name="DDC->ToolMatch" data-comment="Person">
+
+<path fill="none" stroke="#000000" d="M228.8444,-157.6132C250.5729,-147.9413 275.8808,-136.6762 297.1382,-127.2141"></path>
+<polygon fill="#000000" stroke="#000000" points="227.2518,-154.4909 219.5393,-161.7551 230.0985,-160.886 227.2518,-154.4909"></polygon>
+<polygon fill="#000000" stroke="#000000" points="298.572,-130.407 306.2845,-123.1429 295.7254,-124.0119 298.572,-130.407"></polygon>
+</g>
+
+<!-- Organization --><g id="edge1" class="edge" data-name="interchangeformat->DDC" data-comment="Organization">
+
+<path fill="none" stroke="#000000" d="M449.2395,-273.483C390.2111,-253.0199 300.3419,-221.8652 240.6618,-201.1761"></path>
+<polygon fill="#000000" stroke="#000000" points="241.5807,-197.7903 230.9859,-197.8218 239.2878,-204.4042 241.5807,-197.7903"></polygon>
+<text text-anchor="middle" x="412.0249" y="-242.8" font-family="Times,serif" font-size="14.00" fill="#000000">used in</text>
+</g>
+
+<!-- Person&#45;&gt;Organization --><g id="edge2" class="edge" data-name="interchangeformat->SS" data-comment="Person->Organization">
+
+<path fill="none" stroke="#000000" d="M509,-273.483C509,-255.2535 509,-228.5392 509,-208.2977"></path>
+<polygon fill="#000000" stroke="#000000" points="512.5001,-208.098 509,-198.0981 505.5001,-208.0981 512.5001,-208.098"></polygon>
+<text text-anchor="middle" x="529.0249" y="-242.8" font-family="Times,serif" font-size="14.00" fill="#000000">used in</text>
+</g><g id="edge5" class="edge" data-name="SS->ToolMatch" data-comment="Person->Organization">
+
+<path fill="none" stroke="#000000" d="M458.5132,-157.598C436.4373,-147.8899 410.7166,-136.579 389.1569,-127.0979"></path>
+<polygon fill="#000000" stroke="#000000" points="457.4034,-160.9333 467.9663,-161.7551 460.2213,-154.5256 457.4034,-160.9333"></polygon>
+<polygon fill="#000000" stroke="#000000" points="390.4472,-123.8419 379.8843,-123.0202 387.6293,-130.2497 390.4472,-123.8419"></polygon>
+</g><g id="edge7" class="edge" data-name="DDC->AppMatch" data-comment="Person->Organization">
+
+<path fill="none" stroke="#000000" d="M309.7816,-160.2512C324.6922,-158.0575 339.674,-155.8691 354,-153.8 440.9404,-141.243 540.6457,-127.315 608.5214,-117.9047"></path>
+<polygon fill="#000000" stroke="#000000" points="308.8621,-156.8488 299.4791,-161.7693 309.8826,-163.774 308.8621,-156.8488"></polygon>
+<polygon fill="#000000" stroke="#000000" points="609.2919,-121.3314 618.7168,-116.4919 608.3311,-114.3977 609.2919,-121.3314"></polygon>
+</g>
+
+<!-- Service -->
+
+<!-- Place -->
+
+<!-- subjectOf -->
+<!-- GeoSPARQL --><!-- GeoBlob --><!-- end -->
+<g id="node4" class="node" data-name="interchangeformat" data-comment="end">
+
+<polygon fill="none" stroke="#000000" points="572.278,-314.8019 445.722,-314.8019 445.722,-273.5981 572.278,-273.5981 572.278,-314.8019"></polygon>
+<text text-anchor="middle" x="509" y="-298.4" font-family="Times,serif" font-size="14.00" fill="#000000">Interchange format:</text>
+<text text-anchor="middle" x="509" y="-281.6" font-family="Times,serif" font-size="14.00" fill="#000000">Identifier</text>
+</g><g id="edge8" class="edge" data-name="SPEU->AppMatch" data-comment="end">
+
+<path fill="none" stroke="#000000" d="M794.9169,-157.3355C775.1039,-147.8823 752.1853,-136.9472 732.7454,-127.672"></path>
+<polygon fill="#000000" stroke="#000000" points="793.6472,-160.6077 804.1798,-161.7551 796.6616,-154.2899 793.6472,-160.6077"></polygon>
+<polygon fill="#000000" stroke="#000000" points="734.0431,-124.4132 723.5106,-123.2658 731.0287,-130.7309 734.0431,-124.4132"></polygon>
+</g>
+<!-- start -->
+<g id="node9" class="node" data-name="start">
+
+<polygon fill="none" stroke="#000000" points="563.4138,-393.4019 454.5862,-393.4019 454.5862,-352.1981 563.4138,-352.1981 563.4138,-393.4019"></polygon>
+<text text-anchor="middle" x="509" y="-377" font-family="Times,serif" font-size="14.00" fill="#000000">Register formats</text>
+<text text-anchor="middle" x="509" y="-360.2" font-family="Times,serif" font-size="14.00" fill="#000000"> in ECRR</text>
+</g><g id="node7" class="node" data-name="WebApp" data-comment="start">
+
+<ellipse fill="none" stroke="#000000" cx="689" cy="-18" rx="98.9801" ry="18"></ellipse>
+<text text-anchor="middle" x="689" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Web based application</text>
+</g>
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<!-- start&#45;&gt;interchangeformat -->
+<g id="edge10" class="edge" data-name="start->interchangeformat">
+
+<path fill="none" stroke="#000000" d="M509,-352.1488C509,-343.9105 509,-334.2489 509,-325.202"></path>
+<polygon fill="#000000" stroke="#000000" points="512.5001,-324.9862 509,-314.9862 505.5001,-324.9862 512.5001,-324.9862"></polygon>
+</g>
+<g id="node5" class="node" data-name="ToolConnection" data-comment="start->interchangeformat">
+
+<ellipse fill="none" stroke="#000000" cx="343" cy="-18" rx="76.4289" ry="18"></ellipse>
+<text text-anchor="middle" x="343" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Tool Connection</text>
+</g>
+<g id="node6" class="node" data-name="ToolMatch" data-comment="start->interchangeformat">
+
+<ellipse fill="none" stroke="#000000" cx="343" cy="-106.8" rx="84.5131" ry="18"></ellipse>
+<text text-anchor="middle" x="343" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">Graph Tool Search</text>
+</g><g id="edge6" class="edge" data-name="ToolMatch->ToolConnection" data-comment="start->interchangeformat">
+
+<path fill="none" stroke="#000000" d="M343,-88.4006C343,-76.2949 343,-60.2076 343,-46.4674"></path>
+<polygon fill="#000000" stroke="#000000" points="346.5001,-46.072 343,-36.072 339.5001,-46.0721 346.5001,-46.072"></polygon>
+<text text-anchor="middle" x="388.1003" y="-58.2" font-family="Times,serif" font-size="14.00" fill="#000000">Match results in</text>
+</g><g id="edge3" class="edge" data-name="interchangeformat->SPEU" data-comment="start->interchangeformat">
+
+<path fill="none" stroke="#000000" d="M569.3038,-273.483C628.8688,-253.0199 719.555,-221.8652 779.7776,-201.1761"></path>
+<polygon fill="#000000" stroke="#000000" points="781.2212,-204.381 789.5415,-197.8218 778.9469,-197.7608 781.2212,-204.381"></polygon>
+<text text-anchor="middle" x="685.0249" y="-242.8" font-family="Times,serif" font-size="14.00" fill="#000000">used in</text>
+</g>
+<g id="node8" class="node" data-name="AppMatch" data-comment="start->interchangeformat">
+
+<ellipse fill="none" stroke="#000000" cx="689" cy="-106.8" rx="82.7897" ry="18"></ellipse>
+<text text-anchor="middle" x="689" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">Graph App Search</text>
+</g>
+
+<g id="edge9" class="edge" data-name="AppMatch->WebApp" data-comment="start->interchangeformat">
+
+<path fill="none" stroke="#000000" d="M689,-88.4006C689,-76.2949 689,-60.2076 689,-46.4674"></path>
+<polygon fill="#000000" stroke="#000000" points="692.5001,-46.072 689,-36.072 685.5001,-46.0721 692.5001,-46.072"></polygon>
+<text text-anchor="middle" x="734.1003" y="-58.2" font-family="Times,serif" font-size="14.00" fill="#000000">Match results in</text>
+</g>
+
+
+
+</g>
+</svg>

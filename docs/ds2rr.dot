@@ -1,0 +1,46 @@
+digraph G {
+
+
+subgraph cluster0 {
+node [style=filled];
+DDC [label="Data -> Distribution -> contentURL-> encodingFormat", shape="rectangle"];
+label = "Dataset Metadata";
+color = blue;
+}
+
+
+subgraph cluster1 {
+node [style=filled];
+SS [label="Software -> SupportingData -> encodingFormat", shape="rectangle"];
+SPEU [label="Software -> PotentialAtion -> EntryPoint -> URLtemplate", shape="rectangle"];
+
+label = "Software Metadata";
+color=blue
+}
+
+interchangeformat -> DDC  [label="used in"];
+interchangeformat -> SS  [label="used in"];
+interchangeformat -> SPEU  [label="used in"];
+
+
+
+# represent a tool match
+ToolConnection [label="Tool Connection"]
+ToolMatch [label="Graph Tool Search"]
+DDC -> ToolMatch [dir="both"]
+SS -> ToolMatch [dir="both"]
+ToolMatch -> ToolConnection  [label="Match results in"]
+
+# represent a web app match
+WebApp [label="Web based application"]
+AppMatch [label="Graph App Search"]
+DDC -> AppMatch [dir="both"]
+SPEU ->  AppMatch [dir="both"]
+AppMatch -> WebApp  [label="Match results in"]
+
+start [label="Register formats\n in ECRR",shape=rectangle];
+start -> interchangeformat
+
+interchangeformat [label="Interchange format:\nIdentifier",shape=rectangle];
+
+}

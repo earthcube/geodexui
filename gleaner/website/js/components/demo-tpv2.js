@@ -10,11 +10,11 @@ import {
         constructor() {
             super();
 
-            const object = "r3d100011761";
+            // const object = "r3d100011761";
             const fetchURL = `https://throughputdb.com/api/ccdrs/annotations` // `https://throughputdb.com/api/db/annotations?id=${object}`
             // const fetchURL = `https://dx.geodex.org/data/tpdata.json`;
 
-            var postdata = { "dbid": "r3d100012894 ", "additionalType": "http://linked.earth/ontology#Dataset", "id": "tmeZsxjY5oSP1dOcgrJW" }
+            var postdata = { "dbid": "r3d100012894 ", "additionalType": "site", "id": "tmeZsxjY5oSP1dOcgrJW" }
             console.log(fetchURL);
             (async (postdata) => {
 
@@ -43,15 +43,15 @@ import {
                 const detailsTemplate = [];
 
                 const data = jp.data;
-                detailsTemplate.push(html`<h4>${data.length} Throughput annotations.  View all at Throughput </h4>`);
+                detailsTemplate.push(html`<h4>${data.length} annotations. <br> <span style="font-size:small"> View all at Throughput </span> </h4>`);
 
                 // caution!!  no null traps here.
                 // need something like if (item[X] == undefined)
                 var i = 0; // HACK to break out of loop
                 for (const item of data) {
                     i = i + 1;
-                    detailsTemplate.push(html`<div style="margin-top:5px;text-align:left;margin: 0 auto;">`);
-                    detailsTemplate.push(html`<p style="text-align:left"><b>${item.author}:</b>${item.annotation}</p>`);
+                    detailsTemplate.push(html`<div style="margin-top:5px;margin-bottom:10;text-align:left;margin: 0 auto;">`);
+                    detailsTemplate.push(html`<p style="font-size:small;text-align:left">ORCID: ${item.orcid}:<br> <b>${item.annotation}</b></p>`);
                     detailsTemplate.push(html`</div>`);
                     if (i > 9) {
                         break;
