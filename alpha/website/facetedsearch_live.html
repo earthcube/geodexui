@@ -375,13 +375,7 @@
                         },
                         facetSortOption: {'continent': ["North America", "South America"]}
                     };
-                jQuery.facetUpdate = function() {
-                    filter();
-                    order();
-                    updateFacetUI();
-                    updateResults();
-                    updateTools();
-                }
+
                 $( $.facetsettings.resultSelector).on('facetedsearchresultupdate', updateTools);
 
                     $.facetelize($.facetsettings);
