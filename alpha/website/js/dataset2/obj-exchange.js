@@ -83,8 +83,8 @@ class ObjExchange extends LitElement {
 
 
         const schemaItem = function (name, json_compacted, noSchemaMessage="") {
-            const s_name = (json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] :
-                json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] : noSchemaMessage)
+            let s_name = json_compacted["https://schema.org/" + name] ? json_compacted["https://schema.org/" + name] :
+                 json_compacted["http://schema.org/" + name] ? json_compacted["http://schema.org/" + name] : noSchemaMessage
             return s_name;
         }
         const hasSchemaProperty = function (name, jsonObj) {
