@@ -83,7 +83,6 @@ import {
                     };
 
 
-
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
                 console.log(params["query"]);
@@ -106,21 +105,20 @@ import {
                 console.log(r);
 
 
-
-
                 r.forEach(element => {
-                    console.log(element.turl.value);
-                    console.log(element.durl.value);
+                        console.log(element.turl.value);
+                        console.log(element.durl.value);
 
-                    // replace {contentURL}  element.turl.value  https://lipd.net/playground&source={contentURL}
-                    // with element.durl.value http://lipdverse.org/Temp12k/1_0_2/Haugtjern.Eide.2009.lpd
+                        // replace {contentURL}  element.turl.value  https://lipd.net/playground&source={contentURL}
+                        // with element.durl.value http://lipdverse.org/Temp12k/1_0_2/Haugtjern.Eide.2009.lpd
 
-                    var turl =  element.turl.value
-                    var eu = turl.replace("{contentURL}", element.durl.value);
+                        var turl = element.turl.value
+                        var eu = turl.replace("{contentURL}", element.durl.value);
 
-                    detailsTemplate.push(html`<div><p style="text-align:left">
-                    <a target="_blank" href="${eu}">LiPD Playground</a></p> </div>`);
-                }
+                        detailsTemplate.push(html`
+                            <div><p style="text-align:left">
+                                <a target="_blank" href="${eu}">LiPD Playground</a></p></div>`);
+                    }
                 );
 
 
@@ -135,10 +133,20 @@ import {
                 // );
 
 
+                if (detailsTemplate.length > 0) {
 
+                this.attachShadow({mode: 'open'});
+                //render(detailsTemplate, this.shadowRoot);
+                var h = html`
+                    <span class="col-4">web apps:</span>
+                    <div class="col-6">
+                        ${detailsTemplate}
+                    </div>
+                `;
+                render(h, this.shadowRoot);
+                //return h;
+            }
 
-                this.attachShadow({ mode: 'open' });
-                render(detailsTemplate, this.shadowRoot);
 
             })();
 

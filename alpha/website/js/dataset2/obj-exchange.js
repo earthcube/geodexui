@@ -245,17 +245,24 @@ class ObjExchange extends LitElement {
                        distType: name,
                        contentUrl: url,
                        encodingFormat: encodingFormats[e],
-                       name: name
+                       name: name,
+                       linkName:encodingFormats[e]
                    }
                 )
                 }
             } else {
                 name = hasSchemaProperty('name',obj_dist)? schemaItem('name', obj_dist): encodingFormats;
+                if (_.isEmpty(encodingFormats)) {
+                    var linkName= name
+                } else {
+                    var linkName= encodingFormats
+                }
                 downloads.push ({
                     distType: name,
                     contentUrl: url,
                     encodingFormat: encodingFormats,
-                    name: name
+                    name: name,
+                    linkName:linkName
                 })
             }
             return downloads
@@ -510,7 +517,7 @@ ${s_publisher}</span>
             </div>
             <div class="row font-weight-bold">Downloads</div>
             <div class="row">
-                ${this.s_downloads.map(i => html`<a class="btn btn-primary w-150" target="_blank" href="${i.contentUrl}">${i.encodingFormat}</a>`)}
+                ${this.s_downloads.map(i => html`<a class="btn btn-primary w-150" target="_blank" href="${i.contentUrl}">${i.linkName}</a>`)}
 
             </div>
 
