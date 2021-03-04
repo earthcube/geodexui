@@ -403,7 +403,7 @@ this.raw_json = j;
 
         <div class="col-8">
             <div class="row">
-                <span class="font-weight-bold font-heavy"><br><h6>  ${html_name} </h6></span>
+                <span class="font-weight-bold font-heavy"><br><h6>  ${html_name} </h6><br></span>
             </div>
             <div class="row">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
