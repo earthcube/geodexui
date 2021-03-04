@@ -156,20 +156,22 @@
             ?subj ?p ?lit .
             BIND (IF (exists {?subj a schema:Dataset .} ||exists{?subj a sschema:Dataset .} , "data", "tool") AS ?resourceType).
             filter( ?score > 0.04).
-					Minus {?subj a sschema:ResearchProject } .
-                     Minus {?subj a schema:ResearchProject } .
-                     Minus {?subj a schema:Person } .
-                     Minus {?subj a sschema:Person } .
+						Minus {?subj a sschema:ResearchProject } .
+						Minus {?subj a schema:ResearchProject } .
+						Minus {?subj a sschema:PropertyValue } .
+						Minus {?subj a schema:PropertyValue } .
+						Minus {?subj a schema:Person } .
+						Minus {?subj a sschema:Person } .
             graph ?g { ?subj schema:name|sschema:name ?name .
-										?subj schema:description|sschema:description ?description . }
+			                 ?subj schema:description|sschema:description ?description . }
             optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             OPTIONAL {?subj schema:datePublished|sschema:datePublished ?date_p .}
             OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pub_name .}
             OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name|sschema:sdPublisher ?place_name .}
             OPTIONAL {?subj schema:keywords|sschema:keywords ?kwu .}
-				    BIND ( IF ( BOUND(?date_p), ?date_p, "no:datePublished") as ?datep ) .
-		        BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
-            BIND ( IF ( BOUND(?place_name), ?place_name, "no:spatialCoverage.name") as ?placename ) .
+				    BIND ( IF ( BOUND(?date_p), ?date_p, "No datePublished") as ?datep ) .
+		        BIND ( IF ( BOUND(?pub_name), ?pub_name, "No Publisher") as ?pubname ) .
+            BIND ( IF ( BOUND(?place_name), ?place_name, "No spatialCoverage") as ?placename ) .
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
         ORDER BY DESC(?score)
@@ -256,7 +258,7 @@
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
 
-                    <% if (obj.pubname.startsWith('no:') ) {  %>
+                    <% if (obj.pubname.startsWith('No ') ) {  %>
                         <div class="card-subtitle mb-2 text-muted visible='false'">  </div>
                           <% }  else { %>
                              <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
