@@ -105,8 +105,7 @@ import {
                 var r = content.results.bindings;
                 console.log(r);
 
-
-
+               //if(r.length >0) {          detailsTemplate.push(html`<h5>web apps:</h5>`);  }
 
                 r.forEach(element => {
                     console.log(element.turl.value);
