@@ -410,7 +410,7 @@ this.raw_json = j;
 
         <div class="col-8">
             <div class="row">
-                <span class="font-weight-bold font-heavy" mt-2 mb-2><br><h6>  ${html_name} </h6></span>
+                <span class="font-weight-bold font-heavy my-4">  ${html_name} </span>
             </div>
             <div class="row">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -510,8 +510,7 @@ ${s_publisher}</span>
         </div>
         <div class="col-4 ">
 
-            <div class="row">
-            <div><br></div>
+            <div class="row mt-4">
                 <div id="mapid" style="width: 600px; height: 400px;">
 
                 </div>

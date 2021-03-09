@@ -109,11 +109,11 @@ import {
                 console.log(r);
                 console.log(r.length);
 
-                if(r.length >0) {           detailsTemplate.push(html`<h4>downloadable:</h4>`); }
+              //  if(r.length >0) {           detailsTemplate.push(html`<h4>downloadable:</h4>`); }
 
                 r.forEach(element => {
-                    detailsTemplate.push(html`<div><p style="text-align:left">
-                        <a target="_blank" href="${element.landingPage.value}"> ${element.name.value}</a>  <a   target="_blank" href="${element.rrs.value}"><span class="badge badge-info">Metadata</span></a></p></div>`);
+                    detailsTemplate.push(html`<div class="row">
+                        <a target="_blank" href="${element.landingPage.value}"> ${element.name.value}</a>  <a   target="_blank" href="${element.rrs.value}"><span class="badge badge-info">Metadata</span></a></div>`);
                 }
                 );
 
@@ -133,12 +133,14 @@ import {
                 if (detailsTemplate.length > 0) {
                     this.attachShadow({mode: 'open'});
                     //render(detailsTemplate, this.shadowRoot);
+                    // shadow root needs a container
                     var h = html`
-                        <span class="col-4">downloadable:</span>
-                        <div class="col-6">
-                            ${detailsTemplate}
-                        </div>
-                    `
+                        <div class="container">
+                            <div class="row">downloadable:</div>
+                            <div class="row">
+                                ${detailsTemplate}
+                            </div>
+                        </div>`
                     render(h, this.shadowRoot);
                     //return h;
                 }

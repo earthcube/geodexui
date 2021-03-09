@@ -201,15 +201,16 @@
         var items = _.map(content.results.bindings, function (item) {
 
             var flattened = _.mapObject(item, function (value, key) {
+                var regex = /,(?![^(]*\)) /
                 if (key === 'kw') {
-                    var elements = value.value.split(',')
+                    var elements = value.value.split(regex)
                     // if elements is zero, what happens if I return null?
                     if (elements.length == 1  ){ if (elements[0].trim() === ''){
                         elements = null;
                     }}
                     return elements;
                 } if (key === 'placenames') {
-                    var elements = value.value.split(',')
+                    var elements = value.value.split(regex)
                     return elements;
                 } else {
                     // if (_.isEmpty(value.value)) {
