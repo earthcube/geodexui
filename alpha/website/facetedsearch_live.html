@@ -41,7 +41,7 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="input-group form-inline  w-50 ">
+        <form class="input-group form-inline  w-50 " >
             <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <a href="#" class="btn btn-default" id="searchBtn">
@@ -50,11 +50,13 @@
             </div>
             <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
         </form>
+        <div class="navbar-text font-weight-bold">
+            GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul class="navbar-nav mr-auto">
-
-								<li class="nav-item">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
                     <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
                 </li>
                 <li class="nav-item">
@@ -64,7 +66,7 @@
 
 
 
-				<!-- <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span> -->
+
         </div>
     </nav>
 

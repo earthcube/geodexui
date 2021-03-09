@@ -20,20 +20,30 @@
 <div class="container-fluid" >
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="https://www.earthcube.org/">
-            <img src="images/EarthCube-White-Long-Tagline.png"  height="38"
-                 class="d-inline-block align-top" alt="" loading="lazy">
+            <img src="images/EarthCube-White-Long-Tagline.png" height="30"
+                 class="d-inline-block align-top" alt="EarthCube" loading="lazy">
+
         </a>
         <!-- -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <form class="input-group form-inline  w-50 invisible" >
+            <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <a href="#" class="btn btn-default" id="searchBtn">
+                    <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
+                </a>
+            </div>
+            <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
+        </form>
+        <div class="navbar-text font-weight-bold">
+            GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <!--                <li class="nav-item active">-->
-                <!--                    <a class="nav-link" href="#">EarthCube <span class="sr-only">(current)</span></a>-->
-                <!--                </li>-->
+
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
                 </li>
@@ -41,12 +51,10 @@
                     <a class="nav-link" href="about.html"  target="_blank">Help</a>
                 </li>
             </ul>
-            <!--            <form class="form-inline my-2 my-lg-0">-->
-            <!--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-            <!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-            <!--            </form>-->
-        </div>
-        <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+
+
+
+
         </div>
     </nav>
 
