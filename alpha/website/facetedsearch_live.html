@@ -41,7 +41,7 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="input-group form-inline  w-50 ">
+        <form class="input-group form-inline  w-50 " >
             <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <a href="#" class="btn btn-default" id="searchBtn">
@@ -50,18 +50,23 @@
             </div>
             <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
         </form>
+        <div class="navbar-text font-weight-bold">
+            GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul class="navbar-nav mr-auto">
-
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Help</a>
+                    <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html"  target="_blank">Help</a>
                 </li>
             </ul>
 
 
 
-				<!-- <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span> -->
+
         </div>
     </nav>
 
@@ -153,16 +158,19 @@
             ?subj ?p ?lit .
             BIND (IF (exists {?subj a schema:Dataset .} ||exists{?subj a sschema:Dataset .} , "data", "tool") AS ?resourceType).
             filter( ?score > 0.04).
-						Minus {?subj a sschema:ResearchProject } .
+					Minus {?subj a sschema:ResearchProject } .
+                     Minus {?subj a schema:ResearchProject } .
+                     Minus {?subj a schema:Person } .
+                     Minus {?subj a sschema:Person } .
             graph ?g { ?subj schema:name|sschema:name ?name .
 										?subj schema:description|sschema:description ?description . }
             optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             OPTIONAL {?subj schema:datePublished|sschema:datePublished ?date_p .}
             OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pub_name .}
-            OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name ?place_name .}
+            OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name|sschema:sdPublisher ?place_name .}
             OPTIONAL {?subj schema:keywords|sschema:keywords ?kwu .}
 				    BIND ( IF ( BOUND(?date_p), ?date_p, "no:datePublished") as ?datep ) .
-            BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
+		        BIND ( IF ( BOUND(?pub_name), ?pub_name, "no:publisher.name") as ?pubname ) .
             BIND ( IF ( BOUND(?place_name), ?place_name, "no:spatialCoverage.name") as ?placename ) .
         }
         GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
@@ -249,7 +257,12 @@
         const item_template = `<div class="item card rounded mt-2 w-100">
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
-                  <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
+
+                    <% if (obj.pubname.startsWith('no:') ) {  %>
+                        <div class="card-subtitle mb-2 text-muted visible='false'">  </div>
+                          <% }  else { %>
+                             <div class="card-subtitle mb-2 text-muted"><%= obj.pubname %></div>
+                              <% } %>
                 </div>
                 <div class="tags card-body overflow-auto">
                     <div class="card-text">
@@ -367,13 +380,7 @@
                         },
                         facetSortOption: {'continent': ["North America", "South America"]}
                     };
-                jQuery.facetUpdate = function() {
-                    filter();
-                    order();
-                    updateFacetUI();
-                    updateResults();
-                    updateTools();
-                }
+
                 $( $.facetsettings.resultSelector).on('facetedsearchresultupdate', updateTools);
 
                     $.facetelize($.facetsettings);

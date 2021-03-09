@@ -128,10 +128,18 @@ import {
 
 
 
-
-                this.attachShadow({ mode: 'open' });
-                render(detailsTemplate, this.shadowRoot);
-
+                if (detailsTemplate.length > 0) {
+                    this.attachShadow({mode: 'open'});
+                    //render(detailsTemplate, this.shadowRoot);
+                    var h = html`
+                        <span class="col-4">downloadable:</span>
+                        <div class="col-6">
+                            ${detailsTemplate}
+                        </div>
+                    `
+                    render(h, this.shadowRoot);
+                    //return h;
+                }
             })();
 
         }
