@@ -107,7 +107,9 @@ import {
 
                 var r = content.results.bindings;
                 console.log(r);
+                console.log(r.length);
 
+                if(r.length >0) {           detailsTemplate.push(html`<h4>downloadable:</h4>`); }
 
                 r.forEach(element => {
                     detailsTemplate.push(html`<div><p style="text-align:left">

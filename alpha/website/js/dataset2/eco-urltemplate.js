@@ -103,6 +103,8 @@ import {
 
                 var r = content.results.bindings;
                 console.log(r);
+                console.log(r.length);
+
 
 
                 r.forEach(element => {

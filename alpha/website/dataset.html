@@ -26,8 +26,8 @@
     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@next/webcomponents-loader.js"></script>
     <script type="module" src="./js/dataset2/obj-exchange.js"></script>
     <!-- <script type="module" src="/js/components/demo-tp.js"></script> -->
-    <script type="module" src="./js/dataset2/eco-sparql.js"></script>
-    <script type="module" src="./js/dataset2/eco-urltemplate.js"></script>
+    <script type="module" src="./js/dataset2/eco-sparql.js?v=123"></script>
+    <script type="module" src="./js/dataset2/eco-urltemplate.js?v=123"></script>
     <script type="application/javascript" src="./js/dataset2/map.js"></script>
     <link rel="stylesheet" href="./css/main.css"/>
 </head>
@@ -59,6 +59,7 @@
 </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
@@ -68,6 +69,17 @@
             </li>
         </ul>
 
+
+                <li class="nav-item">
+										<a class="nav-link" href="landing.html" target="_blank">Search</a>
+                </li>
+								<li class="nav-item">
+                    <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html" target="_blank">Help</a>
+                </li>
+            </ul>
 
 
 
@@ -97,13 +109,19 @@
 <!--</div>-->
 
                 <div class="col-8 p-0">
-                    <h3 >Compatible tools</h3>
+										<br><h3 >Compatible tools</h3>
 										<!-- <div class="row border rounded my-1 ml-6 color:white"> -->
+
+
+												<!-- <span class="col-4">web apps:</span> -->
 
 
                        <eco-urltemplate class="row  m-1 my-1 ml-6 " ></eco-urltemplate>
 
 										<!-- <div class="row border rounded my-1  ml-6 color:white"> -->
+
+												<!-- <span  class="col-4">downloadable tools:</span> -->
+												<!-- <span  class="col-4">downloadable:</span> -->
 
                         <eco-sparql class="row  m-1 my-1 ml-6 "></eco-sparql>
 
