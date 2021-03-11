@@ -10,7 +10,7 @@ jobs:
   deploy_gecodes_alpha:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2 
+    - uses: actions/checkout@v2
     - uses: jakejarvis/s3-sync-action@master
       with:
         args: --acl public-read --follow-symlinks --delete
@@ -21,11 +21,11 @@ jobs:
         AWS_REGION: 'us-west-1'   # optional: defaults to us-east-1
         AWS_S3_ENDPOINT: ${{ secrets.S3_GEOCODES_ENDPOINT }}
         SOURCE_DIR: 'alpha/website'      # optional: defaults to entire repository
-        DEST_DIR: 'alpha/website'
+        DEST_DIR: 'beta/website'
   deploy_geodex_to_geocodes:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2 
+    - uses: actions/checkout@v2
     - uses: jakejarvis/s3-sync-action@master
       with:
         args: --acl public-read --follow-symlinks --delete
