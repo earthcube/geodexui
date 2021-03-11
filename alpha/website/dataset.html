@@ -33,44 +33,46 @@
 </head>
 
 <body class="container-fluid ml-1">
-<div class="col-10 pl-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 ml-6">
-        <a class="navbar-brand" href="https://www.earthcube.org/">
-            <img src="images/EarthCube-White-Long-Tagline.png" height="30"
-                 class="d-inline-block align-top" alt="EarthCube" loading="lazy">
 
-        </a>
-        <!-- -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <form class="input-group form-inline  invisible" >
-            <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <a href="#" class="btn btn-default" id="searchBtn">
-                    <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
-                </a>
-            </div>
-            <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
-        </form>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="https://www.earthcube.org/">
+        <img src="images/EarthCube-White-Long-Tagline.png" height="30"
+             class="d-inline-block align-top" alt="EarthCube" loading="lazy">
 
-            <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item">
-										<a class="nav-link" href="landing.html">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">Help</a>
-                </li>
-            </ul>
-
-
-
-            <!-- <div class="navbar-text font-weight-bold">GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span> -->
+    </a>
+    <!-- -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <form class="input-group form-inline  w-50 invisible" >
+        <input id="q" class="form-control w-25 ml-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+            <a href="#" class="btn btn-default" id="searchBtn">
+                <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
+            </a>
         </div>
-    </nav>
+        <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
+    </form>
+    <div class="navbar-text font-weight-bold">
+    GeoCODES <span class="font-weight-normal font-italic"> a schema.org/Dataset search</span>
+</div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html"  target="_blank">Help</a>
+            </li>
+        </ul>
+
+
+
+
+    </div>
+</nav>
 
 
 
@@ -78,7 +80,8 @@
 
 
 
-            <div class="row">
+            <div class="row ml-4 mr-1">
+
                 <!-- <div class="col-4 center"> -->
                 <!-- <div class="img img-responsive center"></div> -->
                 <!-- <img src="./img/throughput.svg" style="height:75px"> -->
@@ -92,23 +95,18 @@
 <!--<div class="col-6">-->
 <!--		&lt;!&ndash; <h3>Related Data</h3> &ndash;&gt;-->
 <!--</div>-->
-                <div class="col-1" ></div>
-                <div class="col-6 ">
-                    <h3>Compatible tools</h3>
+
+                <div class="col-8 p-0">
+                    <h3 >Compatible tools</h3>
 										<!-- <div class="row border rounded my-1 ml-6 color:white"> -->
-                    <div class="row  m-1 my-1 ml-6 ">
-                        <span class="col-4">web apps:</span>
 
-                       <eco-urltemplate ></eco-urltemplate>
-                    </div>
+
+                       <eco-urltemplate class="row  m-1 my-1 ml-6 " ></eco-urltemplate>
+
 										<!-- <div class="row border rounded my-1  ml-6 color:white"> -->
-                    <div class="row  m-1 my-1  ml-6 ">
-												<!-- <span  class="col-4">downloadable tools:</span> -->
-						<span  class="col-4">downloadable:</span>
 
+                        <eco-sparql class="row  m-1 my-1 ml-6 "></eco-sparql>
 
-                        <eco-sparql ></eco-sparql>
-                    </div>
 
                 </div>
 
@@ -117,7 +115,7 @@
 
 </div>
 
-</div>
+
 
 </body>
 </html>
