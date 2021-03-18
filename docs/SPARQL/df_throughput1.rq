@@ -1,5 +1,7 @@
- PREFIX schema:  <https://schema.org/>
+PREFIX schema:  <https://schema.org/>
 PREFIX schemaold:  <http://schema.org/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
 select DISTINCT ?s ?idvalue ?atype ?stype ?rrs ?name ?curl ?type  ?weburl ?pid
 WHERE
 {
