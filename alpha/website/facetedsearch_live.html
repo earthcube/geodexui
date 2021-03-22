@@ -228,6 +228,9 @@
             //  if g is http://www.bigdata.com/rdf#nullGraph then empty value, use empty value if empty, don't show
             return flattened;
         })
+        items = _.uniq(items, false, function(item, key, subj){
+            return item.subj
+        })
         return items; //content.results.bindings;
         // const el = document.querySelector('#resultsRecords');
         // const s1 = document.querySelector('#filters');
