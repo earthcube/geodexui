@@ -49,6 +49,7 @@
                     <img src="./images/icons/search.svg" alt="" width="32" height="32" title="Search">
                 </a>
             </div>
+            <input style="visibility: hidden" id="resourceType"  value=""/>
             <input style="visibility: hidden" id="nn" type="number" min="5" max="200" step="5" value="20"/>
         </form>
         <div class="navbar-text font-weight-bold">
@@ -259,8 +260,16 @@
                 queryTextBox.val(q);
             }
         }
-
-
+//resourceType
+        let resourceTypeInput = $('#resourceType');
+        let resourceType = resourceTypeInput.val();
+        let resTypeurl = $.urlParam('resourceType');
+        if (resourceType === "") {
+            if (resTypeurl !== null) {
+                resourceType = resTypeurl;
+                resourceTypeInput.val(resourceType);
+            }
+        }
         const item_template = `<div class="item card rounded mt-2 w-100">
                 <div class="card-header">
                   <div class="card-title" ><%= obj.name %></div>
@@ -345,6 +354,22 @@
 
         getItemsFromSparql(q)
             .then(function (results) {
+                // first run
+                var state =  {
+                    orderBy : false,
+                    filters : filters
+                }
+                var restype = $('#resourceType').val();
+                if (restype !== 'all' || restype !==''){
+                     var filters = { 'resourceType': [restype]}
+                      state = {
+                         orderBy : false,
+                         filters : filters
+                     }
+                    } else {
+                    filters
+                }
+
                     $.facetsettings = {
                         items: results,
                         facets: {
@@ -369,6 +394,7 @@
                         orderByTemplate: orderByTemplate,
                         countTemplate: countTemplate,
                         paginationCount: 50,
+                         state: state,
                         orderByOptions: {
                             'name': 'Name',
                             'pubname': 'Publisher',
@@ -387,6 +413,7 @@
                         },
                         facetSortOption: {'continent': ["North America", "South America"]}
                     };
+
 
                 $( $.facetsettings.resultSelector).on('facetedsearchresultupdate', updateTools);
 
@@ -566,6 +593,16 @@
 
                     getItemsFromSparql(q).then(function (results) {
                         $.facetsettings.items = results;
+                        var restype = $('#resourceType').val();
+                        if (restype !== 'all' || restype !==''){
+                          if ( $.facetsettings.state.filters.resourceType ){
+                              $.facetsettings.state.filters.resourceType = [ restype] // hack single type
+                          } else {
+                              $.facetsettings.state.filters['resourceType'] =[restype]
+                          }
+
+                        }
+                        //$.facetsettings.state.filters =
                         //$.facetUpdate();
                         $.facetelize($.facetsettings);
                     });
@@ -596,7 +633,7 @@
 
         let params = new URLSearchParams(location.search.slice(1));
         params.set('q', q);
-        params.set('searchTypes', s);
+        params.set('resourceType', s);
 
 
         // Issues with current browsers and titles
