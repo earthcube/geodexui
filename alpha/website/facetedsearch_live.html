@@ -364,7 +364,7 @@
                      var filters = { 'resourceType': [restype]}
                       state = {
                          orderBy : false,
-                         filters : filters
+													filters : {}
                      }
                 }
 
@@ -592,7 +592,7 @@
                     getItemsFromSparql(q).then(function (results) {
                         $.facetsettings.items = results;
                         var restype = $('#resourceType').val();
-                        if (restype !== 'all' || restype !==''){
+                        if (restype !== 'all' && restype !==''){
                           if ( $.facetsettings.state.filters.resourceType ){
                               $.facetsettings.state.filters.resourceType = [ restype] // hack single type
                           } else {
