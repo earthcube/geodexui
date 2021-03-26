@@ -357,17 +357,15 @@
                 // first run
                 var state =  {
                     orderBy : false,
-                    filters : filters
+                    filters : {}
                 }
                 var restype = $('#resourceType').val();
-                if (restype !== 'all' || restype !==''){
+                if (restype !== 'all' && restype !==''){
                      var filters = { 'resourceType': [restype]}
                       state = {
                          orderBy : false,
                          filters : filters
                      }
-                    } else {
-                    filters
                 }
 
                     $.facetsettings = {
