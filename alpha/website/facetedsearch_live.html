@@ -214,7 +214,17 @@
                 } if (key === 'placenames') {
                     var elements = value.value.split(regex)
                     return elements;
-                } else {
+                } if (key === 'description')
+                {
+                    let maxlen = 500
+                    let d = value.value;
+                    if (d.length > maxlen)  {
+                        let spaceAt = d.indexOf(" ", maxlen) ? d.indexOf(" ", maxlen) : maxlen
+                            d = d.substring(0, spaceAt) + " ...";
+                    }
+                    return d;
+                }
+                else {
                     // if (_.isEmpty(value.value)) {
                     //     return null;
                     // }
@@ -341,7 +351,7 @@
                     </div>`;
 
         const listItemTemplateSimple = `<div class="facetitem " id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
-        const countTemplate = `<div class="facettotalcount col order-12"><%= count %> Results</div>`;
+        const countTemplate = `<div class="facettotalcount col order-12"><%= count %> selected of <%= totalcount  %> Results</div>`;
         const deselectTemplate = `<div class='btn btn-sm btn-info col order-6'>Clear all filters</div>`;
 
         const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-sm btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
