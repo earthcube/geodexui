@@ -147,27 +147,29 @@
 //const sparqlqueryData=
             params = {
                 query: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                        prefix schema: <http://schema.org/>
-                        prefix sschema: <https://schema.org/>
-                        SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix schema: <http://schema.org/>
+prefix sschema: <https://schema.org/>
+SELECT distinct ?subj ?g ?resourceType ?name ?description  ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
-				?datep  (GROUP_CONCAT(DISTINCT ?url; SEPARATOR=", ") AS ?disurl) (MAX(?score1) as ?score)   ?name ?description ?resourceType ?g
+        ?datep  (GROUP_CONCAT(DISTINCT ?url; SEPARATOR=", ") AS ?disurl) (MAX(?score1) as ?score)
+
         WHERE {
-            ?lit bds:search \"${q}\" .
-            ?lit bds:matchAllTerms "false" .
+            ?lit bds:search "${q}" .
+            ?lit bds:matchAllTerms false .
             ?lit bds:relevance ?score1 .
             ?subj ?p ?lit .
             BIND (IF (exists {?subj a schema:Dataset .} ||exists{?subj a sschema:Dataset .} , "data", "tool") AS ?resourceType).
             filter( ?score1 > 0.04).
+          graph ?g {
             Minus {?subj a sschema:ResearchProject } .
             Minus {?subj a schema:ResearchProject } .
-            Minus {?subj a sschema:PropertyValue } .
-            Minus {?subj a schema:PropertyValue } .
+
             Minus {?subj a schema:Person } .
             Minus {?subj a sschema:Person } .
-            graph ?g { ?subj schema:name|sschema:name ?name .
-                       ?subj schema:description|sschema:description ?description . }
+             ?subj schema:name|sschema:name ?name .
+                       ?subj schema:description|sschema:description ?description .
+             }
             optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
             OPTIONAL {?subj schema:datePublished|sschema:datePublished ?date_p .}
             OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name|sschema:sdPublisher|schema:provider/schema:name ?pub_name .}
@@ -179,8 +181,8 @@
         }
         GROUP BY ?subj ?pubname ?placenames ?kw ?datep ?disurl ?score ?name ?description  ?resourceType ?g
         ORDER BY DESC(?score)
-        LIMIT ${n}
-        OFFSET ${o}`
+LIMIT ${ n }
+OFFSET ${ o }`
             }
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
@@ -214,7 +216,17 @@
                 } if (key === 'placenames') {
                     var elements = value.value.split(regex)
                     return elements;
-                } else {
+                } if (key === 'description')
+                {
+                    let maxlen = 500
+                    let d = value.value;
+                    if (d.length > maxlen)  {
+                        let spaceAt = d.indexOf(" ", maxlen) ? d.indexOf(" ", maxlen) : maxlen
+                            d = d.substring(0, spaceAt) + " ...";
+                    }
+                    return d;
+                }
+                else {
                     // if (_.isEmpty(value.value)) {
                     //     return null;
                     // }
@@ -341,7 +353,7 @@
                     </div>`;
 
         const listItemTemplateSimple = `<div class="facetitem " id="<%= id %>"><%= name %> <span class="facetitemcount badge badge-light float-right">(<%= count %>)</span></div>`;
-        const countTemplate = `<div class="facettotalcount col order-12"><%= count %> Results</div>`;
+        const countTemplate = `<div class="facettotalcount col order-12"><%= count %> selected of <%= totalcount  %> Results</div>`;
         const deselectTemplate = `<div class='btn btn-sm btn-info col order-6'>Clear all filters</div>`;
 
         const orderByTemplate = `<div class="dropdown col order-1"><button class=' btn btn-sm btn-info dropdown-toggle' id="orderbyMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

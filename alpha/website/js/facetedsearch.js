@@ -260,7 +260,7 @@ function createFacetUI() {
   //countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
   //$(bottom).append(countHtml);
   countHtml = _.template(settings.countTemplate);
-  $(bottom).append(countHtml({count: settings.currentResults.length}));
+  $(bottom).append(countHtml({count: settings.currentResults.length, totalcount: settings.items.length}));
 
   // generate the "order by" options:
   var ordertemplate = _.template(settings.orderByTemplate);
@@ -326,7 +326,10 @@ function updateFacetUI() {
     });
   });
   countHtml = _.template(settings.countTemplate );
-  $(settings.facetSelector + ' .facettotalcount').replaceWith(countHtml({count: settings.currentResults.length}));
+  $(settings.facetHeading + ' .facettotalcount').replaceWith(countHtml(
+      {count: settings.currentResults.length, totalcount: settings.items.length}
+      )
+  );
 }
 
 /**
