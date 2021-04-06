@@ -312,7 +312,9 @@ OFFSET ${ o }`
                   </span>
                   <span class="col-auto ">
                        <% if (obj.disurl) {  %>
-                        <a class="card-link " target="_blank" href="<%= obj.disurl %>"><%= obj.disurl %></a>
+                      <% _.each(obj.disurl.split(','), function(value, key) { %>
+                        <a class="card-link " target="_blank" href="<%= value %>"><%= value %></a>
+                        <% }); %>
                         <% } %>
 <span class="col-auto">
                         <% if (obj.s3endpoint) {  %>
