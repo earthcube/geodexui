@@ -1,0 +1,38 @@
+<html>
+		<head>
+				<p><a href=https://triply.cc/docs/yasgui#table>yasgui</a>:
+  <link href="https://unpkg.com/@triply/yasgui/build/yasgui.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/@triply/yasgui/build/yasgui.min.js"></script>
+</head>
+<body>
+  <div id="yasgui"></div>
+  <script>
+			const yasgui = new Yasgui(document.getElementById("yasgui"), {
+					requestConfig: { endpoint: "https://graph.geodex.org/blazegraph/namespace/nabu/sparql" },
+					copyEndpointOnNewTab: false, });
+  </script>
+	<style>
+  .yasgui .autocompleteWrapper {
+    display: none !important;
+  }
+</style>
+
+<br>
+		<script type="text/javascript" src="https://w3.scripts.mit.edu/tabulator/js/mashup/mashlib.js"></script>
+		<script type="text/javascript" src="js/jquery-1.6.2.js"></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript" src="js/sgvizler.min.js"></script>
+		<!-- <div id="id1" data-sgvizler-endpoint="http://dbpedia.org/sparql" </div> -->
+		<div id="id1" data-sgvizler-endpoint="https://graph.geodex.org/blazegraph/namespace/cdf/sparql" </div>
+		<div id="myExample"
+     data-sgvizler-endpoint="http://sws.ifi.uio.no/sparql/npd"
+     data-sgvizler-query="SELECT ?class (count(?instance) AS ?noOfInstances)
+                          WHERE{ ?instance a ?class }
+                          GROUP BY ?class
+                          ORDER BY ?class"
+     data-sgvizler-chart="google.visualization.PieChart"
+     data-sgvizler-chart-options="is3D=true|title=Number of instances"
+     style="width:800px; height:400px;"></div>
+</body>
+</body>
+</html>
