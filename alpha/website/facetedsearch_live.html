@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./css/bootstrap.css"/>
 <!--    <link rel="stylesheet" href="./css/bootstrap.css"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		  <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/a8b87d_e49be51963cb4e7eb47641ec7eee5f2d%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/a8b87d_e49be51963cb4e7eb47641ec7eee5f2d%7Emv2.png">
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -27,7 +29,7 @@
     <script src="js/facetedsearch.js"></script>
     <link rel="stylesheet" href="css/main.css"/>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPGL40HD5M"></script>
+		<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPGL40HD5M"></script> -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -66,15 +68,31 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+						<!-- <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a> -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://graph.geodex.org/blazegraph/#query"  target="_blank">SPARQL Endpoint</a>
+<a class="nav-link"  id="sparql-link"
+		href="http://mbobak-ofc.ncsa.illinois.edu/nabu.htm#query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0Aprefix%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0Aprefix%20sschema%3A%20%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX%20bds%3A%20%3Chttp%3A%2F%2Fwww.bigdata.com%2Frdf%2Fsearch%23%3E%0ASELECT%20distinct%20%3Fsubj%20%3Fpubname%20%20%20%3Fdatep%20%20%20%3Fscore%20%20%3Fname%20%3Fdescription%20%3FresourceType%20%20%0A%20%20%20%20%20%20%20%20WHERE%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3Asearch%20%22norway%22%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3AmatchAllTerms%20%22false%22%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3Arelevance%20%3Fscore%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20%3Fp%20%3Flit%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(IF%20(exists%20%7B%3Fsubj%20a%20schema%3ADataset%20.%7D%20%7C%7Cexists%7B%3Fsubj%20a%20sschema%3ADataset%20.%7D%20%2C%20%22data%22%2C%20%22tool%22)%20AS%20%3FresourceType).%0A%20%20%20%20%20%20%20%20%20%20%20%20filter(%20%3Fscore%20%3E%200.04).%0A%20%20%20%20%20%20%20%20%20%20%20%20FILTER%20(%20!%20isBlank(%3Fsubj)%20)%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20schema%3Aname%7Csschema%3Aname%20%3Fname%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20schema%3Adescription%7Csschema%3Adescription%20%3Fdescription%20.%20%0A%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%3Fsubj%20schema%3AdatePublished%7Csschema%3AdatePublished%20%3Fdate_p%20.%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%3Fsubj%20schema%3Apublisher%2Fschema%3Aname%7Csschema%3Apublisher%2Fsschema%3Aname%20%3Fpub_name%20.%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fdate_p)%2C%20%3Fdate_p%2C%20%22no%3AdatePublished%22)%20as%20%3Fdatep%20)%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fpub_name)%2C%20%3Fpub_name%2C%20%22no%3Apublisher.name%22)%20as%20%3Fpubname%20)%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fplace_name)%2C%20%3Fplace_name%2C%20%22no%3AspatialCoverage.name%22)%20as%20%3Fplacename%20)%20.%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20GROUP%20BY%20%3Fsubj%20%3Fdatep%20%3Fpubname%20%3Fname%20%3Fdescription%20%3Fscore%20%3FresourceType%20%0A%20%20%20%20%20%20%20%20ORDER%20BY%20DESC(%3Fscore)&endpoint=https%3A%2F%2Fgraph.geodex.org%2Fblazegraph%2Fnamespace%2Fnabu%2Fsparql&requestMethod=POST&tabTitle=Query&headers=%7B%7D&contentTypeConstruct=application%2Fn-triples%2C*%2F*%3Bq%3D0.9&contentTypeSelect=application%2Fsparql-results%2Bjson%2C*%2F*%3Bq%3D0.9&outputFormat=table"
+                                                                                               target="_blank">SPARQL Endpoint</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html"  target="_blank">Help</a>
                 </li>
             </ul>
 
+<script type="text/javascript">
+		//need to re-eval when searchBtn hit, too
+		const queryString = window.location.search;
+		console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+		console.log(urlParams);
+    const q = urlParams.get('q')
+		console.log(q);
+
+		var url = "http://141.142.218.86/nabu.htm#query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0Aprefix%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0Aprefix%20sschema%3A%20%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX%20bds%3A%20%3Chttp%3A%2F%2Fwww.bigdata.com%2Frdf%2Fsearch%23%3E%0ASELECT%20distinct%20%3Fsubj%20%3Fpubname%20%20%20%3Fdatep%20%20%20%3Fscore%20%20%3Fname%20%3Fdescription%20%3FresourceType%20%20%0A%20%20%20%20%20%20%20%20WHERE%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3Asearch%20%22" + q + "%22%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3AmatchAllTerms%20%22false%22%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3Arelevance%20%3Fscore%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20%3Fp%20%3Flit%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(IF%20(exists%20%7B%3Fsubj%20a%20schema%3ADataset%20.%7D%20%7C%7Cexists%7B%3Fsubj%20a%20sschema%3ADataset%20.%7D%20%2C%20%22data%22%2C%20%22tool%22)%20AS%20%3FresourceType).%0A%20%20%20%20%20%20%20%20%20%20%20%20filter(%20%3Fscore%20%3E%200.04).%0A%20%20%20%20%20%20%20%20%20%20%20%20FILTER%20(%20!%20isBlank(%3Fsubj)%20)%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20schema%3Aname%7Csschema%3Aname%20%3Fname%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20schema%3Adescription%7Csschema%3Adescription%20%3Fdescription%20.%20%0A%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%3Fsubj%20schema%3AdatePublished%7Csschema%3AdatePublished%20%3Fdate_p%20.%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%3Fsubj%20schema%3Apublisher%2Fschema%3Aname%7Csschema%3Apublisher%2Fsschema%3Aname%20%3Fpub_name%20.%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fdate_p)%2C%20%3Fdate_p%2C%20%22no%3AdatePublished%22)%20as%20%3Fdatep%20)%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fpub_name)%2C%20%3Fpub_name%2C%20%22no%3Apublisher.name%22)%20as%20%3Fpubname%20)%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fplace_name)%2C%20%3Fplace_name%2C%20%22no%3AspatialCoverage.name%22)%20as%20%3Fplacename%20)%20.%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20GROUP%20BY%20%3Fsubj%20%3Fdatep%20%3Fpubname%20%3Fname%20%3Fdescription%20%3Fscore%20%3FresourceType%20%0A%20%20%20%20%20%20%20%20ORDER%20BY%20DESC(%3Fscore)&endpoint=https%3A%2F%2Fgraph.geodex.org%2Fblazegraph%2Fnamespace%2Fnabu%2Fsparql&requestMethod=POST&tabTitle=Query&headers=%7B%7D&contentTypeConstruct=application%2Fn-triples%2C*%2F*%3Bq%3D0.9&contentTypeSelect=application%2Fsparql-results%2Bjson%2C*%2F*%3Bq%3D0.9&outputFormat=table"
+		document.getElementById("sparql-link").href = url;
+		console.log(url);
+</script>
 
 
 
@@ -611,6 +629,11 @@ OFFSET ${ o }`
                 function search(e) {
                     // (async () => {
                     let q = $('#q').val();
+
+										//update sparql-query link w/new search-txt
+		var url = "http://141.142.218.86/nabu.htm#query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0Aprefix%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0Aprefix%20sschema%3A%20%3Chttps%3A%2F%2Fschema.org%2F%3E%0APREFIX%20bds%3A%20%3Chttp%3A%2F%2Fwww.bigdata.com%2Frdf%2Fsearch%23%3E%0ASELECT%20distinct%20%3Fsubj%20%3Fpubname%20%20%20%3Fdatep%20%20%20%3Fscore%20%20%3Fname%20%3Fdescription%20%3FresourceType%20%20%0A%20%20%20%20%20%20%20%20WHERE%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3Asearch%20%22" + q + "%22%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3AmatchAllTerms%20%22false%22%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Flit%20bds%3Arelevance%20%3Fscore%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20%3Fp%20%3Flit%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(IF%20(exists%20%7B%3Fsubj%20a%20schema%3ADataset%20.%7D%20%7C%7Cexists%7B%3Fsubj%20a%20sschema%3ADataset%20.%7D%20%2C%20%22data%22%2C%20%22tool%22)%20AS%20%3FresourceType).%0A%20%20%20%20%20%20%20%20%20%20%20%20filter(%20%3Fscore%20%3E%200.04).%0A%20%20%20%20%20%20%20%20%20%20%20%20FILTER%20(%20!%20isBlank(%3Fsubj)%20)%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20schema%3Aname%7Csschema%3Aname%20%3Fname%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Fsubj%20schema%3Adescription%7Csschema%3Adescription%20%3Fdescription%20.%20%0A%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%3Fsubj%20schema%3AdatePublished%7Csschema%3AdatePublished%20%3Fdate_p%20.%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%3Fsubj%20schema%3Apublisher%2Fschema%3Aname%7Csschema%3Apublisher%2Fsschema%3Aname%20%3Fpub_name%20.%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fdate_p)%2C%20%3Fdate_p%2C%20%22no%3AdatePublished%22)%20as%20%3Fdatep%20)%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fpub_name)%2C%20%3Fpub_name%2C%20%22no%3Apublisher.name%22)%20as%20%3Fpubname%20)%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20BIND%20(%20IF%20(%20BOUND(%3Fplace_name)%2C%20%3Fplace_name%2C%20%22no%3AspatialCoverage.name%22)%20as%20%3Fplacename%20)%20.%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20GROUP%20BY%20%3Fsubj%20%3Fdatep%20%3Fpubname%20%3Fname%20%3Fdescription%20%3Fscore%20%3FresourceType%20%0A%20%20%20%20%20%20%20%20ORDER%20BY%20DESC(%3Fscore)&endpoint=https%3A%2F%2Fgraph.geodex.org%2Fblazegraph%2Fnamespace%2Fnabu%2Fsparql&requestMethod=POST&tabTitle=Query&headers=%7B%7D&contentTypeConstruct=application%2Fn-triples%2C*%2F*%3Bq%3D0.9&contentTypeSelect=application%2Fsparql-results%2Bjson%2C*%2F*%3Bq%3D0.9&outputFormat=table"
+		document.getElementById("sparql-link").href = url;
+		console.log(url);
 
                     getItemsFromSparql(q).then(function (results) {
                         $.facetsettings.items = results;
