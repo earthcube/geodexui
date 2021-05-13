@@ -21,4 +21,4 @@ browser level for testing.
 
 The alpha site is just a place holder for now until we get the style assets. 
 
-
+this repo supports https://beta.geocodes.earthcube.org/
